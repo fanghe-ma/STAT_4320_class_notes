@@ -1,0 +1,150 @@
+\chapter{Class 9} 
+
+\section{Fisher Information and asymptotic properties of the MLE estimator}
+
+\begin{framed}
+    \textbf{Definition} (Score Function): The score function is defined as 
+    \[
+        s \left( \theta \right)  =  \frac{d}{d \theta} \log f_{ \theta} (X)
+    \]
+\end{framed} 
+
+\begin{framed}
+    \textbf{Definition} (Fisher Information): The Fisher Information is defined as 
+    \[
+        I \left( \theta \right) = \mathbb{E}\left[ \left( s ( \theta)^2 \right) \right] = \mathbb{E}\left[ \left(
+            \frac{d}{d \theta} \log f_{ \theta}(X)
+          \right)^2 \right] 
+    \]
+\end{framed} 
+
+\begin{framed}
+    \textbf{Lemma} (Properties of the score function): 
+    \begin{enumerate}
+        \item Zero expectation
+        \[
+        \mathbb{E}\left[ s( \theta)\right] = \mathbb{E}\left[ \frac{d}{d \theta} \log f_{ \theta}(X)\right]  = 0
+        \]
+        \item The variance is Fisher Information 
+        \[
+            Var \left( \frac{d}{d \theta} \log f_{ \theta} (x)\right)  = I \left( \theta \right) 
+        \]
+        \item The expectation of the second derivative is negative Fisher information
+        \[
+            I \left(  \theta \right)  = - \mathbb{E}\left[  \frac{d^2}{d \theta^2} \log f_{ \theta}(X)\right] 
+        \]
+        
+    \end{enumerate} 
+\end{framed} 
+
+\textbf{Proof} \\
+
+(1): 
+\begin{align*}
+    \mathbb{E}\left[  \frac{d}{d \theta} \log f_{ \theta} (X)\right]  &= \int_{}^{}  \frac{d}{d \theta} \log f_{ \theta} (x) f_{ \theta}(x) dx \\
+    &= \int_{}^{}   \frac{ \frac{d}{d \theta} f_{ \theta}(x)}{ f_{ \theta}(x)} f_{ \theta}(x) dx \\
+    &= \int_{}^{}   \frac{d}{d \theta} f_{ \theta}(x) dx \\
+    &= \frac{d}{ d \theta} \int_{}^{}   f_{ \theta} (x) dx \\
+    &= \frac{d}{ d \theta} 1 \\
+    &= 0
+\end{align*}
+
+(2): Proof is immediate 
+\begin{align*}
+    Var \left( s ( \theta) \right)  &= \mathbb{E}\left[  (s( \theta))^2\right]  - \mathbb{E}\left[ s( \theta)\right]^2 \\
+    &= \mathbb{E}\left[ (s( \theta))^2\right]  \\
+    &= I ( \theta)
+\end{align*}
+
+\begin{framed}
+    \textbf{Definition} (Asymptotic properties of MLE): Suppose $X_1, \hdots X_n$ iid with \textit{pdf} or \textit{pmf} $f_{ \theta_0}(x), \theta_0 \in \Omega$ where $ \theta_0 $is the true parameter and $\Omega$ is the parameter space.  \\
+
+    Denote by $ \hat{ \theta}$ the MLE estimate based on $X_1, \hdots X_n$. \\
+    
+    Suppose the following assumptions 
+    \begin{itemize}
+        \item The density / \textit{pmf}$f_{ \theta}$ has the same support for all $ \theta \in \Omega$, i.e. 
+        \[
+            \{ x : f_{ \theta }(x) > 0 \} 
+        \]
+        does not depend on $ \theta$
+        \item $ \theta_0$ is an interor point of $\Omega$ 
+        \item The log-likelihood function $l_n( \theta) = l( \theta | X_1, \hdots X_n)$ is differentiable in $ \theta$
+        \item $ \hat{ \theta}$ is the unique value of $ \theta \in \Omega$ such that 
+        \[
+            l^{\prime}_n ( \theta) = 0
+        \]
+    \end{itemize} 
+
+    Then, as $n \to \infty$
+    \[
+        \hat{ \theta} \to \theta_0
+    \]
+    and
+    \[
+    \sqrt{n} \left( \hat{ \theta} - \theta_0 \right)  \overset{d}{\longrightarrow} N \left( 0, \frac{1}{I( \theta_0)} \right) 
+    \]
+\end{framed} 
+
+\textbf{Note}: as a heuristic, 
+\[
+    \hat{ \theta} \approx N \left( \theta_0, \frac{1}{n I \left( \theta \right) } \right) 
+\]
+
+\textbf{Proof}: \\
+
+Normality implies consistency: if we know that the asymptotic distribution is normal with variance being the inverse of Fisher Information, then 
+\begin{align*}
+    \left(  \hat{ \theta} - \theta_0 \right)  &= \frac{\sqrt{n} \left(  \hat{ \theta} - \theta \right) }{ \sqrt{n}} \overset{p}{\longrightarrow}  0 \text{ by Slutsky's}
+\end{align*}
+
+Asymptotic normality: 
+\begin{align*}
+     l_n^{\prime} \left(  \hat{ \theta} \right)  = 0
+\end{align*}
+
+By Taylor Expansion around $ \theta_0$, 
+\begin{align*}
+    l_n^{\prime} ( \hat{ \theta}) & \approx l_n^{\prime} \left(  \theta_0 \right)  + \left(  \hat{ \theta} - \theta_0 \right)  l_n^{\prime \prime} \left(  \theta_0 \right)   \\
+    \implies \left(  \hat{ \theta} - \theta_0 \right)  & \approx \frac{ 
+        - l_n^{\prime} ( \theta_0) 
+    }{
+        l_n^{\prime \prime} ( \theta_0) 
+    } \\
+    \implies \sqrt{n} \left(  \hat{ \theta} - \theta_0 \right)  & \approx \frac{ 
+        - \frac{1}{ \sqrt{n}} l_n^{\prime} ( \theta_0)
+    }{
+        \frac{1}{n} l_n^{\prime \prime} ( \theta_0)
+    }
+\end{align*}
+
+Consider the denominator 
+\begin{align*}
+    & \frac{1}{n} l_{n}^{\prime \prime} \left(  \theta_0 \right)  \\
+    = & \left. \frac{1}{n} \sum\limits_{i = 1}^{n}  \frac{\partial^2}{\partial  \theta^2} \log f_{ \theta} (X_i)   \right|_{ \theta = \theta_0}^{}  \\
+    \overset{p}{\longrightarrow} &  \mathbb{E}\left[ 
+        \left. \frac{\partial^2}{\partial  \theta^2} \log f_{ \theta} (X_i)   \right|_{ \theta = \theta_0}^{} 
+    \right]  \text{ by law of large numbers} \\
+    = & - I \left(  \theta_0 \right) 
+\end{align*}
+
+Consider the numerator 
+\begin{align*}
+    &\frac{1}{ \sqrt{n}} l_{n}^{\prime} \left(  \theta_0 \right)  \\
+    = & \left. \frac{1}{\sqrt{n}} \sum\limits_{i = 1}^{n}  \frac{\partial }{\partial \theta } \log f_{ \theta} (X_i)  \right|_{ \theta = \theta_0}^{}  \\
+    = & \sqrt{n} \left( \frac{1}{n} \left. \sum\limits_{i = 1}^{n}  \frac{\partial }{\partial \theta } \log f_{ \theta} (X_i)  \right|_{ \theta = \theta_0}^{} \right) \\
+    \overset{d}{\longrightarrow} & N \left(  0, I ( \theta_0) \right)  \text{ by CLT}
+\end{align*}
+
+Hence 
+\begin{align*}
+    & \sqrt{n} \left(  \hat{ \theta} - \theta_0 \right)  \\
+    \approx & - \sqrt{n} \left(  \frac{l_{n}^{\prime} \left( \theta_0 \right) }{ l_{n}^{\prime \prime} ( \theta_0)} \right)  \\
+    \approx &\frac{ 
+        - \frac{1}{ \sqrt{n}} l_n^{\prime} ( \theta_0)
+    }{
+        \frac{1}{n} l_n^{\prime \prime} ( \theta_0)
+    } \\
+    \overset{d}{\longrightarrow}& \frac{N \left( 0, I ( \theta_0)\right) }{ I ( \theta_0)}  \text{ by Slutsky's}\\
+    = & N \left( 0, \frac{1}{I ( \theta_0)} \right) 
+\end{align*}

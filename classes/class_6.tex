@@ -1,0 +1,221 @@
+\chapter{Class 6}
+
+\section{Basic Framework of Statistical Estimation}
+
+Given iid samples $X_1, X_2, \hdots X_n$, how do we infer / estimate parameters of $F$?
+
+\textbf{Ex 1} (Bernoulli): Given $X_1, X_2, \hdots, X_n$ iid $Ber(p)$, 
+\[
+    X_i = \begin{cases}
+        1 \text{ with probability } p \\
+        0 \text{ with probability } 1-p \\
+    \end{cases}
+\]
+
+An estimate of $p$ is 
+\[
+  \hat{p} = \frac{1}{n} \sum\limits_{i = 1}^{n}  X_i = \frac{T}{n} 
+\]
+
+Where $T$ is the number of heads and $T \sim Binom(n, p)$. 
+
+\textbf{Ex 2} (Normal): $X_1, X_2, \hdots X_n$ iid $N(\mu, \sigma^2)$. Estimates for parameters are 
+\[
+    \hat{\mu} = \frac{1}{n} \sum\limits_{i = 1}^{n} X_i = \bar{X} 
+\]
+
+\[
+  \hat{\sigma}^2 = s^2 = \frac{1}{n-1} \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
+\]
+
+
+\subsection{Properties of Estimators}
+
+\begin{framed}
+    \textbf{Definition} (Unbiasedness):  An estimate $\hat{ \theta}$ is said to be unbiased for a parameter $ \theta$ if 
+    \[
+      \mathbb{E} [ \hat{ \theta} ]  = \theta
+    \]
+    for all values of the population.
+\end{framed} 
+
+\textbf{Ex} (Bernoulli): 
+\[
+    \mathbb{E}\left[ \hat{ p}\right]  = \frac{\mathbb{E}\left[T \right] }{n} = \frac{np}{n} = p
+\]
+
+Hence $\hat{p}$ is an unbiased estimate of $p$. \\
+
+Note that $ \hat{p}^2$ s not an unbiased estimate of $p^2$.
+\begin{align*}
+    \mathbb{E}\left[ \hat{p}^2\right]  &= \mathbb{E}\left[ T^2\right]  \left( \frac{1}{n^2} \right)  \\
+    &= \left( np(1-p) + n^2 p^2 \right) \left( \frac{1}{n^2} \right)  \\
+    &= p^2 + \frac{p(1-p)}{n}  \\
+    & \neq p^2
+\end{align*}
+
+Note that we can rearrange terms to get 
+\begin{align*}
+    \mathbb{E}\left[T^2\right]  &= n^2 p^2 + np(1-p) \\
+    &= (n^2 - n) p^2 + np \\
+    \frac{\mathbb{E}\left[T^2 \right] }{n(n-1)} &= p^2 + \frac{p}{n- 1} \\
+\end{align*}
+
+We try estimating $ \frac{p}{n-1}$ by $ \frac{T}{(n-1)n}$. \\
+
+Consider the estimate 
+\[
+    \tilde{p} = \frac{T^2}{n(n-1)} - \frac{T}{n(n-1)} = \frac{T(T-1)}{n(n-1)}
+\]
+
+The expectation is 
+
+\[
+    \mathbb{E}\left[ \tilde{p}\right]  = p^2 + \frac{p}{n-1} - \frac{p}{n-1} = p^2
+\]
+
+Note that \textcolor{red}{(Proof left as exercise)}
+\[
+    \mathbb{E}\left[  \frac{T(T-1)}{n(n-1)}\right] = \sum\limits_{r = 2}^{n} \frac{r(r-1)}{n(n-1)} \begin{pmatrix} n \\ r \end{pmatrix}  p^r \left( 1-p \right)^{n-r} = p^2
+\]
+
+In general, an unbiased estimate for $p^k$ is 
+\[
+    \frac{T(T-1)(T-2) \hdots (T-k+1)}{n(n-1)(n-2) \hdots (n-k + 1)}
+\]
+
+An unbiased estimate of $2p^2 + 5p^3$ is 
+\[
+    2 \frac{T(T-1)}{n(n-1)} + 5 \frac{T(T-1)(T-2)}{n(n-1)(n-2)}
+\]
+
+\textbf{Ex} (Normal): Estimate $\sigma^2$ with 
+\begin{align*}
+    \hat{\sigma}^2 = s^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n}  \left( X_i - \bar{X}  \right)^2 \sim \chi_{n-1}^2 \left( \frac{\sigma^2}{n-1} \right) 
+\end{align*}
+
+The expectation of sample variance is 
+\begin{align*}
+    \mathbb{E}\left[ s^2\right]  &= \frac{\sigma^2}{n-1} \mathbb{E}\left[ \chi_{n-1}^2 \right] \\
+    &= \frac{\sigma^2}{n-1} (n-1) \\
+    &= \sigma^2
+\end{align*}
+
+\textbf{Ex} (Network sampling) 
+A \textit{network} refers to a graph of vertices that are connected if they have an interaction.  \\
+
+Network sampling helps with understanding \textit{how networks look} by studying a small section of the network, and understanding \textit{features of a large unobserved network} from a sample subgraph. \\
+
+\textit{Motifs} refer to patterns of small subgraphs, such as an edge, or a triangle. \\
+
+\textit{Motif estimation} refers to estimating the number of a particular type of motif, based on an observed sample subgraph. \\
+
+Let $G_n$ be a population graph on $n$-vertices. Our subgraph sampling model involves sampling each vertex of $G_n$ with probability $p \in (0, 1)$ independently, and then observing the subgraph on the set of sampled vertices. \\
+
+\textbf{Goal}: estimate the number of edges in $G_n$ based on the observed graph. 
+\begin{itemize}
+    \item initial guess: count the number of edges in the observed graph 
+    \item Denote $ \hat{E}(G_n) $ as the number of edges in observed graph 
+    \item Denote $E(G_n)$ as number of edges in population graph
+\end{itemize} 
+
+\textbf{Result}: 
+\[
+\mathbb{E}\left[ \hat{E}(G_n)\right]  = p^2
+\]
+
+Hence, 
+\[
+    \frac{ \hat{E}(G_n)}{p^2} = \frac{\text{\# edges in observed graph}}{p^2}
+\]
+
+is an unbiased estimate of the number of edges in the population. \\
+
+\textbf{Proof}: Note that 
+\[
+    E(G_n) = \sum\limits_{1 \leq i \leq j \leq n}^{}  a_{ij}
+\]
+Where
+\[
+    a_{ij} = \begin{cases}
+        1 \text{ if } (i, j) \text{ edge in } G_n \\
+        0 \text{ otherwise }
+    \end{cases}
+\]
+
+Denote $S$ the set of sampled vertices. 
+\begin{align*}
+    \hat{E}(G_n) &= \sum\limits_{1 \leq i \leq j \leq n, i \in S, j \in S}^{} a_{ij } \\
+    &= \sum\limits_{1 \leq i \leq j \leq n}^{} a_{ij } \bm{1} [i \in S] \bm{1} [j \in S] \\ 
+    \mathbb{E}\left[  \hat{E} (G_n)\right]  &=a_{ij} \sum\limits_{1 \leq i \leq j \leq n}^{}  \mathbb{E}\left[ \bm{1} [i \in S] \bm{1} [j \in S]\right]  \\
+    &= \sum\limits_{1 \leq i \leq j \leq n}^{}  a_{ij}\mathbb{P}(i \in S) \mathbb{P} (j \in S)  \\
+    &= p^2 \sum\limits_{1 \leq i \leq j \leq n}^{}  a_{ij} \\
+    &= p^2 E(G_n)
+\end{align*}
+
+\begin{framed}
+    \textbf{Definition} (Variance of an estimate): The variance of an estimate $ \hat{ \theta}$ is 
+    \[
+        Var( \hat{ \theta}) = \mathbb{E}\left[\left( \hat{ \theta} - \mathbb{E}[ \hat{ \theta}] \right)^2\right] 
+    \]
+\end{framed} 
+
+\textbf{Ex} (Bernoulli): 
+\[
+    Var( \hat{p}) = Var \left( \frac{Binom(n, p)}{n} \right) = \frac{np(1-p)}{n^2} =  \frac{p(1-p)}{n}
+\]
+
+\textbf{Ex} (Normal): 
+\begin{align*}
+    Var \left( \hat{\mu} \right)  &= Var \left( \bar{X}  \right)  = \frac{\sigma^2}{n} \\
+    Var \left( \hat{\sigma}^2 \right)  &= Var(s^2) \\
+    &= Var \left( \frac{\sigma^2}{n-1} \chi_{n - 1}^2 \right)  \\
+    &= \left( \frac{\sigma^2}{n-1} \right)^2 Var \left( \chi_{n-1}^2 \right)  \\
+    &= \frac{\sigma^4}{(n-1)^2} 2 (n-1) \\
+    &= \frac{2\sigma^4}{n-1}
+\end{align*}
+
+\begin{framed}
+    \textbf{Definition} (Mean Squared Error): The mean squared error of an estimate $ \hat{ \theta}$ is 
+    \[
+        MSE( \hat{ \theta}) = \mathbb{E} \left[ \left( \hat{ \theta} - \theta \right)^2 \right] 
+    \]
+\end{framed} 
+
+\textbf{Result}: 
+\[
+    MSE( \hat{ \theta}) = (Bias( \hat{ \theta}))^2 + Var \left( \hat{ \theta} \right) 
+\]
+
+\textbf{Proof}: 
+\begin{align*}
+    MSE( \hat{ \theta}) &= \mathbb{E}\left[ \left(  \hat{ \theta} - \theta\right)^2  \right]  \\
+    &= \mathbb{E}\left[ \left( \hat{ \theta} - \mathbb{E}[  \hat{ \theta} ] + \mathbb{E}[ \hat{ \theta} ] - \theta \right)^2  \right] \\
+    &= \mathbb{E}\left[ 
+        \left( \hat{ \theta} - \mathbb{E}\left[ \hat{ \theta} \right]   \right)^2 
+        + 2 \left(  \hat{ \theta} - \mathbb{E}[ \hat{ \theta} ] \right) \left( \mathbb{E}[ \hat{ \theta} ] - \theta  \right) 
+        + \left( \mathbb{E} [ \hat{ \theta}] - \theta \right)^2 
+    \right] \\
+    &= \mathbb{E}\left[ \left( \hat{ \theta} - \mathbb{E}[ \hat{ \theta} ] \right)^2 \right]
+    + 2 \left( \mathbb{E}[ \hat{ \theta} ] - \theta \right) \mathbb{E}\left[ \hat{ \theta} - \mathbb{E}[ \hat{ \theta} ] \right]
+    + \left( \mathbb{E} [ \hat{ \theta}] - \theta \right)^2 \\
+    &= \operatorname{Var}( \hat{ \theta} ) + 0 + \left( \mathbb{E} [ \hat{ \theta}] - \theta \right)^2 \\
+    &= \operatorname{Var}( \hat{ \theta} ) + \left( \operatorname{Bias}( \hat{ \theta}, \theta ) \right)^2
+\end{align*}
+
+\textbf{Corollary}: If $ \hat{ \theta}$ unbiased, then $MSE( \hat{ \theta}) = Var( \hat{ \theta})$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

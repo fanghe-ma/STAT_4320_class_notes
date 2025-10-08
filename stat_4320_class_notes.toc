@@ -1,0 +1,38 @@
+\contentsline {chapter}{\numberline {1}Class 1}{3}{}%
+\contentsline {section}{\numberline {1.1}The sample mean}{3}{}%
+\contentsline {section}{\numberline {1.2}Central Limit Theorem}{3}{}%
+\contentsline {chapter}{\numberline {2}Chapter 2}{5}{}%
+\contentsline {section}{\numberline {2.1}Breakdown Point and Efficiency}{5}{}%
+\contentsline {subsection}{\numberline {2.1.1}Sample and population median}{5}{}%
+\contentsline {subsection}{\numberline {2.1.2}Breakdown point}{5}{}%
+\contentsline {subsection}{\numberline {2.1.3}Sampling distribution of the sample median}{6}{}%
+\contentsline {subsection}{\numberline {2.1.4}Efficiency}{6}{}%
+\contentsline {chapter}{\numberline {3}Class 3}{7}{}%
+\contentsline {section}{\numberline {3.1}Convergence of random variables}{7}{}%
+\contentsline {section}{\numberline {3.2}Slutsky's Lemma and Continuous Mapping Theorem}{7}{}%
+\contentsline {section}{\numberline {3.3}Weak Law of Large Numbers and Central Limit Theorem}{8}{}%
+\contentsline {section}{\numberline {3.4}Delta method}{9}{}%
+\contentsline {section}{\numberline {3.5}Multivariate Data}{10}{}%
+\contentsline {section}{\numberline {3.6}Multivariate Normal}{11}{}%
+\contentsline {chapter}{\numberline {4}Class 4}{12}{}%
+\contentsline {section}{\numberline {4.1}Linear Algebra Review}{12}{}%
+\contentsline {subsection}{\numberline {4.1.1}Positive definite matrices}{12}{}%
+\contentsline {section}{\numberline {4.2}Moment generating functions}{13}{}%
+\contentsline {section}{\numberline {4.3}Properties of the multivariate normal}{13}{}%
+\contentsline {subsection}{\numberline {4.3.1}Property 1}{13}{}%
+\contentsline {subsection}{\numberline {4.3.2}Property 2}{14}{}%
+\contentsline {section}{\numberline {4.4}Sample Variance}{14}{}%
+\contentsline {chapter}{\numberline {5}Class 5}{15}{}%
+\contentsline {section}{\numberline {5.1}Chi-squared distribution}{15}{}%
+\contentsline {section}{\numberline {5.2}Sample Variance, cont'd}{15}{}%
+\contentsline {section}{\numberline {5.3}Joint distribution of sample mean and sample variance}{17}{}%
+\contentsline {chapter}{\numberline {6}Class 6}{19}{}%
+\contentsline {section}{\numberline {6.1}Basic Framework of Statistical Estimation}{19}{}%
+\contentsline {subsection}{\numberline {6.1.1}Properties of Estimators}{19}{}%
+\contentsline {chapter}{\numberline {7}Class 7}{23}{}%
+\contentsline {section}{\numberline {7.1}Consistency}{23}{}%
+\contentsline {section}{\numberline {7.2}Method of moments estimation}{24}{}%
+\contentsline {chapter}{\numberline {8}Class 8}{27}{}%
+\contentsline {section}{\numberline {8.1}Maximum Likelihood Estimation}{27}{}%
+\contentsline {chapter}{\numberline {9}Class 9}{30}{}%
+\contentsline {section}{\numberline {9.1}Fisher Information and asymptotic properties of the MLE estimator}{30}{}%

@@ -1,0 +1,271 @@
+\chapter{Class 3}
+
+\section{Convergence of random variables}
+
+There are two kinds of convergence 
+\begin{itemize}
+    \item convergence in probability
+    \item convergence in distribution
+\end{itemize} 
+
+\begin{framed}
+    \textbf{Definition} (convegence in probability): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in probability to $X$ if for any $\epsilon > 0$,
+    \[
+      \lim_{n \to \infty} \mathbb{P} \left( \left| X_n - X \right| > \epsilon \right) =  0
+    \]
+    Denoted
+    \[
+        X_n \overset{p}{\longrightarrow} X
+    \]
+\end{framed} 
+
+\begin{framed}
+    \textbf{Definition} (convegence in distribution): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in distribution to $X$ if 
+    \[
+        \mathbb{P} \left( X_n \leq x \right)  \underset{n \to \infty}{\longrightarrow} \mathbb{P} \left( X \leq x \right)
+    \]
+    Which is equivalent to 
+    \[
+    F_n(x) \underset{n \to \infty}{\longrightarrow} F(x)
+    \]
+    Denoted
+    \[
+        X_n \overset{d}{\longrightarrow} X
+    \]
+\end{framed} 
+
+\section{Slutsky's Lemma and Continuous Mapping Theorem}
+\begin{framed}
+    \textbf{Lemma} (Slutsky's Lemma): If $X_n \overset{d}{\longrightarrow} X$ and $Y_n \overset{p}{\longrightarrow} c$ for constant $c$, then the following hold
+    \begin{itemize}
+        \item $X_n + Y_n \overset{d}{\longrightarrow} X + c$
+        \item $X_n Y_n \overset{d}{\longrightarrow} cX$
+        \item $ \frac{X_n}{Y_n} \overset{d}{\longrightarrow} \frac{X}{c}$ if $c > 0$
+    \end{itemize} 
+\end{framed} 
+
+\begin{framed}
+    \textbf{Theorem} (Continuous mapping): If $g$ is a continuous function, then 
+    \[
+    X_n \overset{p}{\longrightarrow} X \implies g(X_n) \overset{p}{\longrightarrow} g(X)
+    \]
+    \[
+    X_n \overset{d}{\longrightarrow} X \implies g(X_n) \overset{d}{\longrightarrow} g(X)
+    \]
+\end{framed} 
+
+\section{Weak Law of Large Numbers and Central Limit Theorem}
+
+The weak law of large numbers is an example of convergence in probability. The central limit theorem is an example of convergence in distribution. 
+
+\begin{framed}
+    \textbf{Weak law of large numbers}: Suppose $X_1 \hdots X_n$ iid from $F$ with $ \mathbb{E}\left[ X_1\right] = \mu$ and $Var( X) = \sigma^2$, then 
+    \[
+      \bar{X}  = \frac{1}{n} \sum\limits_{i = 1}^{n} X_i \overset{p}{\longrightarrow} \mu
+    \]
+\end{framed} 
+
+\textbf{Proof}: Fix $\epsilon > 0$, 
+\begin{align*}
+    \mathbb{P} \left( | \bar{X}  - \mu | > \epsilon \right) &= \frac{Var \left( \bar{X}   \right) }{\epsilon^2} \quad \text{ by Chebyshev's Inequality} \\
+    &= \frac{\sigma^2}{n \epsilon^2}  \\
+    \frac{\sigma^2}{n \epsilon^2} &\underset{n \to \infty}{\longrightarrow} 0
+\end{align*}
+
+\begin{framed}
+    \textbf{Markov's Inequality}: For any random variable $X$, and non-negative constant $a$,
+    \[
+      P( |X| \geq a) \leq \frac{\mathbb{E}\left[ |X|\right] }{a}
+    \]
+
+    Alternatively, for any non-negative random variable $X$, 
+    \[
+      P( X \geq a) \leq \frac{\mathbb{E}\left[ X\right] }{a}
+    \]
+\end{framed} 
+
+\textbf{Proof}: We prove the general case, for any random variable $X$, let $Y = |X|$
+\begin{align*}
+    \mathbb{E}\left[ Y\right] &= \mathbb{E}\left[ Y | Y \geq a\right] P(Y \geq a) + \mathbb{E}\left[ Y | Y < a\right]  P(Y < a) \text{ by Law of Total Expectation} \\
+    & \geq \mathbb{E}\left[ Y | Y \geq a\right]  P(Y \geq a) \\
+    & \geq a P(Y \geq a) \\
+    \implies & P(Y \geq a) \leq \frac{\mathbb{E}\left[ Y\right] }{a}
+\end{align*}
+
+\begin{framed}
+    \textbf{Chebyshev's Inequality}: Let $X$ be a random variable with mean $\mu$ and variance $\sigma^2$, then for any $a > 0$
+    \[
+      P \left( \left| X - \mu \right| \geq a \right)  \leq \frac{\sigma^2}{a^2}
+    \]
+\end{framed} 
+
+\textbf{Proof}: We prove using Markov's Inequality
+\begin{align*}
+    P \left( |X - \mu| \geq a \right) &= P \left( (X -\mu)^2 \geq a^2 \right)  \\
+    &\leq \frac{\mathbb{E}\left[ (X - \mu)^2\right] }{a^2}  \quad \text{ by Markov's Inequality} \\
+    &= \frac{Var(X)}{a^2}
+\end{align*}
+
+\begin{framed}
+    \textbf{Central limit theorem}:  Suppose $X_1 \hdots X_n$ iid from $F$ with $ \mathbb{E}\left[ X_1\right] = \mu$ and $Var( X) = \sigma^2$, then 
+    \[
+    \frac{\sqrt{n} \left( \bar{X} - \mu \right) }{\sigma} \overset{d}{\longrightarrow} N(0, 1)
+    \]
+    Alternatively, let 
+    \[
+      Z_n = \frac{\sqrt{n} \left( \bar{X} - \mu \right) }{\sigma}
+    \]
+    \[
+      \mathbb{P} \left( Z_n \leq t \right) = P(N(0, 1) \leq t) \text{ for all }  t \in \mathbb{R}
+    \]
+\end{framed} 
+
+\textbf{Remarks}: informally, we can say 
+\[
+  \bar{X}_n \approx N \left( \mu, \frac{\sigma^2}{n} \right) 
+\]
+
+Although this statement has no mathematical content. We are taking the limit of the distribution of $\bar{X}$ as $n$ gets large. $N \left( \mu, \frac{\sigma^2}{n} \right) $ cannot be a limit.
+
+\section{Delta method}
+
+CLT gives asymptotic distribution of $\bar{X}$. We want to get the asymptotic distribution of functions of $\bar{X} $. 
+
+By Continuous Mapping Theorem, we get this for free
+\[
+   \frac{\sqrt{n} \left( \bar{X}  - \mu \right) }{\sigma} \overset{d}{\longrightarrow} N(0, 1) \implies g \left( \frac{\sqrt{n} \left( \bar{X} - \mu \right) }{\sigma} \right)  \overset{d}{\longrightarrow}  g(N(0, 1))
+\]
+
+However, we don't just want statements about $g( Z_n)$, we want statements about $g( \bar{X} )$
+
+\begin{framed}
+    \textbf{Delta Method}:  Suppose $X_1, \hdots X_n$ iid $F$, with $ \mathbb{E}\left[ X_1\right]  = \mu$ and $Var(X) = \sigma^2$ and $g$ is a function such that the derivative of $g'(\mu) \neq 0$. Then 
+    \[
+        \sqrt{n} \left( g( \bar{X} ) - g( \mu) \right) \overset{d}{\longrightarrow} N \left( 0, \sigma^2 \left( g'(u) \right)^2 \right)  
+    \]
+\end{framed} 
+
+\textbf{Note}: We know by Continuous Mapping Theorem that the in-probability limit of $g( \bar{X} )$ is $g(\mu)$
+\[
+  g( \bar{X} )  \overset{p}{\longrightarrow} g(\mu)
+\]
+
+Subtracting away the in-probability limit and taking the Z-score, delta method tells us that the z-score follows a normal distribution. \\
+
+
+\textbf{Proof}: \\
+
+Recall Taylor's Expansion 
+\[
+  f(x) = f(a) + (x-a) f'(a) + \frac{1}{2}(x-a)^2 f''(a) + \hdots
+\]
+
+\begin{align*}
+    g( \bar{X} ) - g(\mu) &= ( \bar{X} - \mu) g'(\mu) + \text{ error terms} \\
+    \sqrt{n} \left( g( \bar{X}) - g(\mu) \right)  &= \sqrt{n} (\bar{ X} - \mu) g'(\mu) + \text{ error terms}
+\end{align*}
+
+By CLT, we know that 
+\[
+  \sqrt{n} ( \bar{X}  - \mu) \overset{d}{\longrightarrow} N(0, \sigma^2)
+\]
+
+By Slutsky's, 
+\begin{align*}
+    \sqrt{n}( \bar{X}  - \mu) g'(\mu) & \overset{d}{\longrightarrow}  N(0, \sigma^2) g'(\mu) = N( 0, \sigma^2 (g'(\mu))^2)
+\end{align*}
+
+\textbf{Note}: if $g'(\mu) = 0$, by taking higher orders in the Taylor expansion, we get
+\begin{align*}
+    g( \bar{X} ) - g(\mu) &\approx \frac{1}{2} \left( \bar{X} - \mu  \right)^2 g''(\mu)
+\end{align*}
+
+Since 
+\[
+    n \left( \bar{X}  - \mu \right)^2 = \left( \sqrt{n} \left( \bar{X}  - \mu \right)  \right)^2 \overset{d}{\longrightarrow} \left( \sigma N(0, 1) \right)^2 = \sigma^2 \chi_1^2 
+\]
+
+We get 
+\[
+    n \left( g( \bar{X}) - g(\mu)\right)  \overset{d}{\longrightarrow}  \frac{1}{2} \sigma^2 \chi_1^2 g''(\mu)
+\]
+
+
+
+\section{Multivariate Data}
+
+For each unit of study, the number of measurements is greater than 1. For example, for $n$ data points and $p$ observed variables 
+\[
+  \mathbf{X}_1 = \begin{pmatrix} X_{11} \\ X_{12} \\ \vdots \\ X_{1p} \end{pmatrix}, 
+  \mathbf{X}_2 = \begin{pmatrix} X_{21} \\ X_{22} \\ \vdots \\ X_{2p} \end{pmatrix}, 
+  \mathbf{X}_3 = \begin{pmatrix} X_{31} \\ X_{32} \\ \vdots \\ X_{3p} \end{pmatrix}
+\]
+
+Where $\mathbf{X}_i$ are iid p-dimentional observations with distribution $F$.
+
+The mean vector 
+
+\[
+  \bm{\mu} = \mathbb{E}\left[ \mathbf{X}_1\right]  = \begin{pmatrix} 
+    \mathbb{E}\left[ {X}_{11}\right]  \\
+    \mathbb{E}\left[ {X}_{12}\right]  \\
+    \vdots \\
+    \mathbb{E}\left[ {X}_{1p}\right]  \\
+ \end{pmatrix}  \in \mathbb{R}^{p}
+\]
+
+The covariance matrix is denoted 
+\[
+  \mtr{\Sigma} \in \mathbb{R}^{p \times p}
+\]
+
+Where the $i-j$-th element is 
+\[
+  \mtr{\Sigma}_{i, j} = Cov(X_{1i}, X_{1j}) = \mathbb{E}\left[ X_{1i}X_{1j}\right] - \mathbb{E}\left[ X_{1i}\right] \mathbb{E}\left[ X_{1j}\right] 
+\]
+
+Hence, we can epxress $\Sigma$ as the difference of two matrices
+
+\[
+  \mtr{\Sigma} = \mathbb{E}\left[ \bm{X}_1 \bm{X}_{1}^T\right] - \mathbb{E}\left[ \bm{X}\right]  \mathbb{E}\left[ \bm{X} \right]^T
+\]
+
+\section{Multivariate Normal}
+
+\begin{framed}
+    \textbf{Definition} (Multivariate Normal): A $p$-dimensional random vector $ \bm{X} = \begin{pmatrix} X_1 \\ X_2 \\ \vdots X_p \end{pmatrix} $ is said to follow the multivariate normal distribution with mean vector $ \bm{\mu}$ and positive definite (\textit{pd}) covariance matrix $\mtr{\Sigma}$ if it has a density function $f : \mathbb{R}^p \to \mathbb{R}$ of the form 
+    \[
+      f(\vtr{x}) = \frac{1}{\sqrt{(2\pi)^p det(\mtr{\Sigma})}} e^{ -\frac{1}{2} ( \bm{x} - \bm{\mu})^T \mtr{\Sigma}^{-1} ( \bm{x} - \bm{\mu})}
+    \]
+\end{framed} 
+
+\textbf{Note}: 
+\begin{itemize}
+    \item this definition only works with a \textit{pd} covariance matrix. 
+    \item a multivariate normal can be defined without the \textit{pd} matrix, using the linear combination definition.
+\end{itemize} 
+
+\begin{framed}
+    \textbf{Definition} (Multivariate CLT): Suppose $\bm{X}_1 \hdots \bm{X}_n$ are iid $p$-dimensional random vectors with mean vector $ \bm{\mu} \in \mathbb{R}^p$ and covariance matrix $\mtr{\Sigma}$
+
+    The sample mean
+    \[
+      \bar{\bm{X}}  = \frac{1}{n} \sum\limits_{i = 1}^{n}  \bm{X}_i
+    \]
+    has the following distribution 
+    \[
+      \sqrt{n} \left( \bar{\bm{X}} - \bm{\mu} \right) \overset{d}{\longrightarrow} N_p ( \bm{0}, \mtr{\Sigma})
+    \]
+\end{framed} 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+\documentclass[letterpaper, 10pt]{report}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{tabularx}
+\usepackage{framed}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+
+\titleformat{\chapter}[hang]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter:}{1em}{}
+
+
+\setlength{\parindent}{0em}
+\newcolumntype{L}{>{\arraybackslash}m{10cm}}
+\newcolumntype{T}{>{\arraybackslash}m{6cm}}
+
+\newcommand{\vtr}[1]{\bm{#1}} % or \bm
+\newcommand{\mtr}[1]{\bm{#1}} % or \bm
+
+\begin{document}
+
+\title{STAT-4320 - Class Notes}
+\maketitle
+
+\tableofcontents
+\include{"./classes/class_1.tex"}
+\include{"./classes/class_2.tex"}
+\include{"./classes/class_3.tex"}
+\include{"./classes/class_4.tex"}
+\include{"./classes/class_5.tex"}
+\include{"./classes/class_6.tex"}
+\include{"./classes/class_7.tex"}
+\include{"./classes/class_8.tex"}
+\include{"./classes/class_9.tex"}
+
+\end{document}
+

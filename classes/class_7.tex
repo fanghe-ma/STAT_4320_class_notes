@@ -1,0 +1,247 @@
+\chapter{Class 7}
+
+\section{Consistency}
+
+\begin{framed}
+    \textbf{Definition} (Consistency):  Suppose $ \hat{ \theta}_n$ is an estimate of $ \theta$ based on $n$ iid samples. Then, $ \hat{ \theta}_n$ is said to be consistent for $ \theta$ if 
+    \[
+        \hat{ \theta}_n \overset{p}{\longrightarrow} \theta
+    \]
+    as $n \to \infty$ .
+\end{framed} 
+
+\textbf{Result}: $MSE$ converging to $0$ in the limit implies consistency
+\[
+    MSE( \hat{ \theta}_n) \overset{}{\longrightarrow} 0 \implies \hat{ \theta}_n \overset{p}{\longrightarrow} \theta
+\]
+
+\textbf{Proof}:  By Markov's Inequality, for any $\epsilon > 0$
+\[
+    P \left( \left| \hat{ \theta}_n - \theta \right| > \epsilon  \right)  \leq \frac{ \mathbb{E}\left[ \left( \hat{ \theta} - \theta \right)^2 \right] }{ \epsilon^2} 
+\]
+
+\textbf{Note}: To prove consistency, we can 
+\begin{itemize}
+    \item Show $MSE$ vanishes
+    \item Use Continuous Mapping
+    \item Use Slutsky's Lemma
+\end{itemize} 
+
+\textbf{Ex} (Bernoulli): 
+\[
+    Bias( \hat{p}) = 0, Var( \hat{ p}) = \frac{p(1-p)}{n}
+\]
+
+As $n \to \infty$
+\[
+    MSE( \hat{p}) = Var( \hat{ p}) = \frac{p(1-p)}{n} \overset{}{\longrightarrow}  0
+\]
+
+\textbf{Ex} (Normal): 
+\[
+    \hat{\mu} = \bar{X} \implies bias( \hat{\mu}) = 0, Var( \hat{ \mu} ) = Var( \bar{X} ) = \frac{\sigma^2}{n}
+\]
+
+As $n \to \infty$ 
+\[
+    MSE( \bar{X} ) = \frac{\sigma^2}{n} \overset{}{\longrightarrow} 0
+\]
+
+\[
+    \hat{\sigma}^2 = s^2  = \frac{1}{n-1} \sum\limits_{i=1}^{n}  (X_i - \bar{X} )^2
+\]
+\[
+    bias( \hat{ \sigma}_2) =  0, Var( \hat{\sigma^2}) = Var \left( \sigma^2 \frac{\chi_{n-1}^2}{n-1} \right)  = \frac{2\sigma^4}{n-1}
+\]
+
+As $n \to \infty$
+\[
+    MSE( \hat{\sigma}^2) = Var( \hat{\sigma}^2) \overset{}{\longrightarrow}  0
+\]
+
+\section{Method of moments estimation}
+
+\begin{framed}
+    \textbf{Definition} (Method of Moments): Suppose $X_1, X_2, \hdots X_n$ iid from distribution $F$ which as $k$ unknown parameters $( \theta_1, \theta_2, \hdots \theta_k)$.  \\
+    
+    Denote $ \vtr{ \theta} = ( \theta_1, \theta_2, \hdots \theta_k)$. \\
+
+    For each $1 \leq j \leq k$, compute the $j$-th moment of $F$ 
+    \[
+        \alpha_j ( \vtr{ \theta}) = \mathbb{E}\left[ X^j\right]  = \int_{}^{}  X_j f(x) dx
+    \]
+
+    Define the $j$-th sample moment as 
+    \[
+        \hat{\alpha}_j = \frac{1}{n} \sum\limits_{i = 1}^{n}  X_i^j
+    \]
+
+    Set up $k$ equations 
+    \[
+        \begin{cases}
+            \alpha_1 =& \hat{\alpha}_1 \\
+            \alpha_2 =& \hat{\alpha}_2 \\
+            & \vdots \\
+            \alpha_k =& \hat{\alpha}_k \\
+        \end{cases}
+    \]
+
+    The method of moments estimate $ \hat{ \theta}_n$ is the solution to the system of equations.
+\end{framed} 
+
+\textbf{Note} that 
+\begin{itemize}
+    \item The above system is a system of $k$ equations in $k$ unknows
+    \item The above system may have $0, 1$ or multiple solutions. If solution is unique, then the solution is the method of moments estimate of $ \hat{ \theta}$
+\end{itemize} 
+
+\textbf{Ex} (Bernoulli): $X_1, \hdots X_n \sim Ber(p)$
+\begin{align*}
+    \alpha_1 &= \alpha_1 (p) = \mathbb{E}\left[X \right]  = p \\
+    \hat{\alpha}_1 &= \frac{1}{n} \sum\limits_{i=1}^{n} X_i
+\end{align*}
+
+Solving for $p$:
+\begin{align*}
+    \hat{\alpha}_1 &= \alpha_1 \\
+    \implies \hat{p} &= \frac{1}{n}\sum\limits_{ i = 1}^{n} X_i
+\end{align*}
+
+\textbf{Ex} (Normal) $X_1, \hdots X_n \sim N(\mu, \sigma^2)$ 
+
+The population moments are 
+\begin{align*}
+    \alpha_1 &= \mu\\
+    \alpha_2 &=  \mathbb{E}\left[ X^2\right] = \sigma^2 + \mu^2
+\end{align*}
+
+Equating to sample moments
+\begin{align*}
+    \mu = \alpha_1 &= \hat{\alpha}_1 = \frac{1}{n}\sum\limits_{i=1}^{n}  X_i \\
+    \mu^2 + \sigma^2 = \alpha_2 &= \hat{\alpha}_2 = \frac{1}{n}\sum\limits_{i=1}^{n} X_i^2
+\end{align*}
+
+Therefore, 
+\begin{align*}
+    \hat{\mu} &= \sum\limits_{i = 1}^{n}  X_i \\
+    \hat{\sigma}^2 &= \frac{1}{n}\sum\limits_{i=1}^{n}  X_i^2 - \left( \frac{1}{n}\sum\limits_{i = 1}^{n} X_i \right)^2 \\
+    &= \frac{1}{n} \sum\limits_{i=1}^{n} X_i^2 - \bar{X}^2 \\
+    &= \frac{1}{n} \sum\limits_{i=1}^{n}  (X_i - \bar{X} )^2
+\end{align*}
+
+The last equality follows because 
+\begin{align*}
+    & \frac{1}{n} \sum\limits_{i=1}^{n}  (X_i - \bar{X} )^2 \\
+    = & \frac{1}{n} \sum\limits_{i = 1}^{n}  \left( X_i^2 - 2X_i \bar{X} + \bar{X}^2   \right)  \\
+    =& \frac{1}{n} \sum\limits_{i = 1}^{n} X_i^2 - \frac{2}{n} \bar{X}  \sum\limits_{i=1}^{n}  X_i + \bar{X}^2 \\
+    =& \frac{1}{n} \sum\limits_{i=1}^{n} X_i^2 - \bar{X}^2 \\
+\end{align*}
+
+\textbf{Note}: $\hat{\sigma}^2_{MLE}$ is a biased estimator of $\sigma^2$.
+\[
+    \mathbb{E}\left[ \hat{\sigma}^2\right]  = \frac{n-1}{n} \mathbb{E}\left[ s^2\right]  = \frac{n-1}{n} \sigma^2
+\]
+
+As $n \to \infty$
+\begin{align*}
+    Bias( \hat{ \theta}^2) &= \frac{n-1}{n} \sigma^2 - \sigma^2 \to 0 \\
+    Var( \hat{ \theta}^2) &= Var \left( \frac{n-1}{n}s^2 \right)  \\ 
+    &= \left( \frac{n-1}{n} \right)^2 \left( \frac{2\sigma^4}{n-1} \right)  \\
+    &= \frac{n-1}{n^2} 2 \sigma^4 \\
+    & \to 0
+\end{align*}
+
+Hence $MSE( \hat{ \sigma}) \to 0$, and $ \hat{ \sigma}_{MLE}^2$ is consistent despite being biased.
+
+\textbf{Ex} (Pearson, 1984). 
+
+Contributions to the mathematical theory of evolution (1894).
+Weldon (1893) crab data: body length.
+
+The histogram of the data did not look like the bell-shaped Gaussian curve.
+
+\textbf{Conjecture:} maybe two species, each Gaussian? (Gaussian Mixture Model.)
+
+Pearson conjectured that the data consists of two different kinds of crabs, each with its own Gaussian distribution.
+
+\subsection*{Gaussian Mixture Model (GMM)}
+
+Let $W$ be a random variable such that
+\[
+W \sim 
+\begin{cases}
+N(\mu_1, \sigma_1^2), & \text{with prob. } p, \\
+N(\mu_2, \sigma_2^2), & \text{with prob. } (1-p).
+\end{cases}
+\]
+
+\subsubsection*{Distribution Function}
+\[
+P(W \leq t) 
+= P(W \leq t, Z=1) + P(W \leq t, Z=2),
+\]
+where $Z = \begin{cases} 
+1 & \text{if group 1 is sampled}, \\
+2 & \text{if group 2 is sampled}.
+\end{cases}$
+
+So,
+\[
+P(W \leq t) = p \, P(N(\mu_1,\sigma_1^2) \leq t) + (1-p) P(N(\mu_2,\sigma_2^2) \leq t).
+\]
+
+\textbf{Note:} GMM is \emph{not} adding two normals. Adding two normals gets another normal, but GMM is not a sum. It is a mixture.
+
+\subsubsection*{Density Function}
+\[
+f(t) = \frac{d}{dt} P(W \leq t) 
+= p \, \phi\!\left(\frac{t-\mu_1}{\sigma_1}\right) + (1-p) \, \phi\!\left(\frac{t-\mu_2}{\sigma_2}\right),
+\]
+where $\phi(t) = \frac{1}{\sqrt{2\pi}} \exp\!\left(-\frac{t^2}{2}\right)$.
+
+\subsection*{Estimation of Parameters of GMM}
+
+\begin{enumerate}
+    \item Compute sample moments:
+    \[
+    \hat{m}_r = \frac{1}{n} \sum_{i=1}^n X_i^r, \quad 1 \leq r \leq 5.
+    \]
+
+    \item Compute population moments:
+    \[
+    m_r = \mathbb{E}[X^r], \quad 1 \leq r \leq 5.
+    \]
+
+    \item Solve for $\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, p$ from
+    \[
+    \hat{m}_r = m_r, \quad r = 1, \dots, 5.
+    \]
+\end{enumerate}
+
+\subsection*{Pearson's Sixth-Moment Test}
+
+In general, the system of equations can have multiple roots.  
+To choose a root, Pearson's approach: choose the root $(\hat{\mu}_1,\hat{\mu}_2,\hat{\sigma}_1^2,\hat{\sigma}_2^2,\hat{p})$ that is closest to the sixth sample moment.
+
+That is, the feasible root with the smallest value of
+\[
+\left| \hat{m}_6 - m_6 \right| = \left| \frac{1}{n} \sum_{i=1}^n X_i^6 - \mathbb{E}[X^6] \right|.
+\]
+
+\subsection*{Theorem (Kalai, Moitra, Valiant, 2010)}
+
+Pearson’s method works: the sixth-moment method gives consistent estimates of the parameters of GMM and can be computed efficiently.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

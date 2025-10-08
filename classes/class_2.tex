@@ -1,0 +1,103 @@
+\chapter{Chapter 2}
+
+\section{Breakdown Point and Efficiency}
+
+Recall that sample mean is defined as 
+\[
+  \bar{X}  = \frac{1}{n} \sum_{i = 1}^n X_i
+\]
+
+\textbf{Issues with the sample mean}: corruption in 1 or few data points can make sample mean unstable.
+
+Alternatively, the sample median is more robust. 
+
+\subsection{Sample and population median}
+
+\begin{framed}
+    \textbf{Definition} (sample median): The sample median is the \textit{middle value} when a list of numbers are sorted in non-decreasing order.
+    \[
+        X_{med} = \begin{cases}
+            X_{\left( \frac{n + 1}{2} \right)}  \quad  & \text{ if } n \text{ odd} \\
+            X_{\left( \frac{n}{2}\right)}  + X_{ \left( \frac{n}{2} + 1  \right) } \quad  & \text{ if } n \text{even} \\
+        \end{cases}
+    \]
+    Where $X_{(i)}$ denotes the $i$-th smallest value in $X_1, \hdots X_n$
+\end{framed} 
+
+\begin{framed}
+    \textbf{Definition} (population median): The population median of distribution F with density function $f$ is the point $m$ such that 
+    \[
+      \int_{\infty}^{m} f(x) dx = \int_{m}^{\infty} f(x) dx   = \frac{1}{2}
+    \]
+\end{framed} 
+
+\subsection{Breakdown point}
+
+\begin{framed}
+    \textbf{Definition} (Breakdown Point): The breakdown point of an estimate $ \hat{ \theta}_n$ based on data $X_1 \hdots X_n$ is the fraction of data points that have to be moved to infinity for the esimate to also move to infinity.
+\end{framed} 
+
+Ex. 
+\begin{itemize}
+    \item For sample mean, $ \frac{1}{n}$
+    \item For sample median, $\approx \frac{1}{2}$
+\end{itemize} 
+
+\subsection{Sampling distribution of the sample median}
+
+Let $X_1, \hdots X_n$ iid $F$ and $F$ has population median $m$. As $n \to \infty$
+\[
+  X_{med} \approx N \left( m, \frac{1}{4f(m)^2 n} \right) 
+\]
+
+Note that this is \textbf{not} a direct consequence of CLT. 
+
+For example, $F = N \left( \mu, {\sigma^2} \right) $
+
+The sample mean follows \textbf{exactly} a normal distribution
+\[
+  \bar{X} \sim N \left( \mu, \frac{\sigma^2}{n} \right) 
+\]
+
+The sample median approximately follows 
+\[
+  X_{med} \approx N \left( \mu, \frac{1}{4 f(\mu)^2 n} \right) 
+\]
+
+Recall that 
+\[
+    f(x) = \frac{1}{\sqrt{2 \pi}\sigma }e^{- \frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}
+\]
+
+Hence 
+\[
+  f(\mu) = \frac{1}{\sqrt{2\pi}\sigma}
+\]
+\[
+  X_{med} \approx N \left( \mu, \frac{\pi \sigma^2}{2 n} \right) 
+\]
+
+\subsection{Efficiency} 
+\begin{framed}
+    \textbf{Definition} (Efficiency): The efficiency of two estimates is the ratio of their variances.
+    \[
+      \text{Efficiency} \left( \widetilde{X}_{med}, \bar{X}  \right)  = \frac{Var( \bar{X})}{ Var \left( \widetilde{X}_{med} \right) }
+    \]
+\end{framed} 
+
+Ex. For sample mean and sample median, the efficnecy is $ \frac{2}{\pi}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

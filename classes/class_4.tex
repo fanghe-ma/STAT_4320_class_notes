@@ -1,0 +1,181 @@
+\chapter{Class 4}
+
+\section{Linear Algebra Review}
+
+\subsection{Positive definite matrices}
+
+\begin{framed}
+    \textbf{Definition} (positive definite): A symmetric $p\times p$ matrix is said to be positive definite (\textit{pd}) if for all $\bm{x} \in \mathbb{R}^p \setminus \{ \bm{0} \} $, 
+    \[
+      \bm{x}^T A \bm{x} > 0
+    \]
+\end{framed} 
+
+\textbf{Note}:
+\begin{itemize}
+    \item All eigenvalues of a \textit{pd} matrix are positive
+    \item By spectral decomposition, any \textit{pd} matrix can be written as 
+    \[
+      A = P \Lambda P^T, 
+    \]
+    Where $\Lambda$ is a diagonal matrix with the eigenvalues of $A$ on the diagonals 
+    \[
+      \Lambda = \begin{bmatrix} 
+        \lambda_1 & \hdots & \hdots & 0 \\  
+        0 & \lambda_2 & \hdots & 0 \\  
+         & \vdots &  &  \\  
+        0  & \hdots & \hdots & \lambda_p  \\  
+      \end{bmatrix}
+    \]
+    and $P$ is an orthogonal matrix
+    \[
+      P^T P = PP^T = I_{p \times p}
+    \]
+    \item $A^{-1}$ exists and is given by 
+    \[
+      A^{-1} = P \Lambda^{-1} P^T
+    \]
+    Proof:
+    \[
+      A^{-1} A = P \Lambda^{-1} P^T P \Lambda P^T = P \Lambda^{-1} \Lambda P^T = PP^T = I
+    \]
+    \item $A$ has a square root. Given a \textit{pd} matrix $A$, we say that $B$ is the square root of $A$ if $BB = A$ 
+    \[
+    B = P \begin{bmatrix} 
+        \sqrt{\lambda_1} & \hdots & \hdots & 0 \\  
+        0 & \sqrt{\lambda_2} & \hdots & 0 \\  
+         & \vdots &  &  \\  
+        0  & \hdots & \hdots & \sqrt{\lambda_p}  \\  
+    \end{bmatrix} P^T
+    \]
+    \item Sum of eigenvalues is the trace of $A$
+    \[
+      \sum\limits_{i=1}^{n}  \lambda_i = tr(A)
+    \]
+\end{itemize} 
+
+\textbf{Note}: What does it mean to assume that the covariance matrix is \textit{pd}? \\
+
+Consider any $\bm{a} \in \mathbb{R}^p \setminus \{ 0 \} $. Recall that
+\begin{align*}
+  \Sigma &= \mathbb{E}\left[ \bm{X} \bm{X}^T \right]  - \mathbb{E}\left[ \bm{X} \right]  \mathbb{E}\left[ \bm{X}\right]^T \\
+  &= \mathbb{E}\left[ ( \bm{X} - \mathbb{E}\left[ \bm{x}\right] )(\bm{X} - \mathbb{E}\left[ \bm{X}\right] )^T \right]
+\end{align*}
+
+Consider $ \bm{a}^T \Sigma \bm{a}$, 
+ \begin{align*}
+     \bm{a}^T \Sigma \bm{a} &= \mathbb{E}\left[ 
+      ( \bm{a}^T ( \bm{X} - \mathbb{E}\left[ \bm{X}\right] ))(\bm{a}^T (\bm{X} - \mathbb{E}\left[ \bm{X}\right] ))^T
+     \right]  \text{ since } (AB)^T = B^T A^T \\
+     &= \mathbb{E}\left[ (a^T (\bm{X} - \mathbb{E}\left[ \bm{X}\right] ))^2\right]  \\
+     &= Var( \bm{a}^T X) \\
+     &> 0
+ \end{align*}
+
+i.e. \textit{projected onto any direction $\bm{a}$, the variance of $ \bm{X}$ is nonzero.}\\
+
+i.e. The RV is non-degenerate  along every direction $ \bm{a} \in \mathbb{R}^p \setminus \{ 0 \} $.
+
+
+\section{Moment generating functions}
+
+For a random variable $X$, the \textit{mgf} is a function $ \mathbb{R} \to \mathbb{R}_{\geq 0}$, 
+\[
+  \phi_{X}(t) = \mathbb{E}\left[ e^{tX}\right] 
+\]
+
+For $X \sim N(\mu, \sigma^2)$
+\[
+  \phi_X(t) = \exp \left( t \mu + \frac{1}{2}\sigma^2 t^2 \right)
+\]
+
+If $X$ is a p-dimensional random variable, the \textit{mgf} is a function $\mathbb{R}^p \to \mathbb{R}_{\geq 0}$ 
+\[
+  \phi_X( \bm{t}) = \exp \left( \bm{t}^T \bm{\mu}  + \frac{1}{2} \bm{t}^T \Sigma \bm{t}\right) 
+\]
+
+\section{Properties of the multivariate normal}
+
+\subsection{Property 1}
+
+If $\bm{X}$ is a p-dimensional normal, $\bm{X} \sim N_p( \bm{\mu}, \Sigma)$, and $\bm{A}$ is a $k \times p$ matrix such that $rank(\bm{A}) = k \leq p$ (i.e. full row rank) and $\bm{b} \in \mathbb{R}^k$ is a fixed vector, 
+\[
+  \bm{A} \bm{X} + \bm{b} \sim N_k \left( \bm{A} \bm{\mu}, \bm{A} \bm{\Sigma} \bm{A}^T \right) 
+\]
+
+An important case of this is when $\vtr{b} = \vtr{0}$ and $k=1$, then $ \mtr{A}$ is a row vector $\mtr{A} = [a_1, a_2, \hdots, a_p]$. 
+
+Take any $\vtr{a} \in \mathbb{R}^p$, then 
+\[
+  \vtr{a}^T \vtr{X} \sim N_1 (\vtr{a}^T \vtr{\mu}, \vtr{a}^T \mtr{\Sigma}\vtr{a})
+\]
+This can also be expressed as 
+\[
+  \vtr{a}^T \vtr{X} = \sum\limits_{i=1}^{p} a_i X_i \sim N_1 \left( \sum\limits_{i=1}^{p} a_i \mu_i, \vtr{a}^T \mtr{\Sigma} \vtr{a} \right) 
+\]
+
+\textcolor{red}{Exercise for enthusiasts}: Prove $1$ using \textit{mgfs}.
+
+\subsection{Property 2}
+
+Suppose $\vtr{X}$ is a $p_1$-dimensional RV and $\vtr{Y}$ is a $p_2$-dimensional RV, such that 
+\[
+  \begin{pmatrix} \vtr{X} \\ \vtr{Y} \end{pmatrix} \in \mathbb{R}^{p_1 + p_2}, \begin{pmatrix} \vtr{X} \\ \vtr{Y} \end{pmatrix} \sim N_{p_1 + p_2} \left( \begin{pmatrix} \vtr{\mu_1} \\ \vtr{\mu_2} \end{pmatrix}, 
+  \begin{pmatrix} 
+    \mtr{\Sigma_{11}}  & \mtr{\Sigma_{12}}  \\
+    \mtr{\Sigma_{21}}  & \mtr{\Sigma_{22}}
+  \end{pmatrix}
+    \right) 
+\]
+
+where $\vtr{\mu_1} \in \mathbb{R}^{p_1}, \vtr{\mu_2} \in \mathbb{R}^{p_2}$, and 
+\[
+  \mtr{\Sigma} = 
+  \begin{pmatrix} 
+    \mtr{\Sigma_{11}}  & \mtr{\Sigma_{12}}  \\
+    \mtr{\Sigma_{21}}  & \mtr{\Sigma_{22}}
+  \end{pmatrix} \in \mathbb{R}^{(p_1 + p_2) \times (p_1 + p_2)}
+\]
+
+then we say that $ \vtr{X} \perp \vtr{Y}$ if and only if $\mtr{\Sigma_{11}} = \mtr{\Sigma_{21}}^T = \mtr{0}$. 
+
+\textbf{Proof}: The forward direction is obvious. \\
+
+The converse is not true in general for a 1-dimensional normal, but it is true in multivariate normal. 
+
+\textbf{Important case}: $p_1 = p_2 = 1$, 
+Suppose 
+\[
+  \begin{pmatrix} X \\ Y \end{pmatrix}  \sim N \left(  \begin{pmatrix} \mu_1, \mu_2 \end{pmatrix}, \begin{bmatrix} 
+    \sigma_1^2 & \sigma_{21}   \\
+    \sigma_{12}^2 & \sigma_{2}^2   \\
+  \end{bmatrix}
+    \right) 
+\]
+
+Then $X \perp Y$ if and only if $\sigma_{12} = 0$. \\
+
+\textbf{Remarks}
+\begin{itemize}
+    \item If $X \perp Y$, then $Cov(X, Y) = 0$. This is always true 
+    \[
+      X \perp Y \implies Cov(X, Y) = 0
+    \]
+    \item The converse is not true in general 
+    \item However, if $(X, Y)$ are jointly normal, then 
+    \[
+    Cov(X, Y) = 0 \implies X \perp Y
+    \]
+\end{itemize} 
+
+\section{Sample Variance}
+
+The sample variance 
+\[
+  s^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n} (X_i - \bar{X} )^2
+\]
+
+Has a sampling distribution 
+\[
+  s^2 \sim \frac{\sigma^2}{n-1}\chi_{n-1}^2
+\]

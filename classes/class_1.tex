@@ -1,0 +1,46 @@
+\chapter{Class 1}
+
+\section{The sample mean}
+
+\begin{framed}
+    \textbf{Definition} (Sample mean): Given $X_1, \hdots X_n$ iid from $F$, and $\mathbb{E}\left[ X_i\right] = \mu$, the sample mean is the random variable defined as 
+    \[
+      \bar{X} = \frac{1}{n} \sum\limits_{i = 1}^{n} X_i
+    \]
+\end{framed} 
+
+\textbf{Note} 
+\begin{enumerate}
+    \item The sample mean is random, so it has an expectation
+    \begin{align*}
+        \mathbb{E}\left[ \bar{X}\right] &= \mathbb{E}\left[ \frac{1}{n}\sum\limits_{i = 1}^{n} X_i  \right]  \\
+        &= \frac{1}{n} \sum\limits_{i = 1}^{n} \mathbb{E}\left[ X_i\right]  \quad \text{ by linearity} \\
+        &= \mu
+    \end{align*}
+    \textit{The expectation of the sample mean is the population mean}. OR 
+
+    \text{The sample mean is an unbiased estimator of the population mean}.
+    \item The variance of $ \bar{X}  $ is given by 
+    \begin{align*}
+        Var \left(  \bar{X} \right)  &= Var \left(  \frac{1}{n} \sum\limits_{i = 1}^{n} X_i \right)  \\
+        &= \frac{1}{n^2} \sum\limits_{i = 1}^{n} Var(X_i)  \quad \text{ since } \mathbb{E}\left[ c X_i\right] = c \mathbb{E}\left[ X_i\right], Var(c X_i) = c^2 Var (X_i), X_i \text{ indepedent } \\
+        &= \frac{\sigma^2}{n}
+    \end{align*}
+\end{enumerate}
+
+
+We say that $ \bar{X}$ follows a sampling distribution. Think of this as a thought experiment. If a sample of size $n$ is taken many times, we expect to see the sample mean exhibit the above expectation and variability.
+
+\section{Central Limit Theorem}
+
+\begin{framed}
+    \textbf{Theorem} (Central Limit Theorem): Let $X_1, \hdots X_n$ be iid from arbitrary distribution $F$ wit mean $\mu$ and variance $\sigma^2$, then as $n \to \infty$, 
+    \[
+      \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \approx N(0, 1), 
+    \]
+    OR
+    \[
+      \bar{X} \approx N \left( \mu, \frac{\sigma^2}{n} \right) 
+    \]
+    
+\end{framed} 
