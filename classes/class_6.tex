@@ -1,10 +1,11 @@
-\chapter{Class 6}
+\section{Class 6}
 
-\section{Basic Framework of Statistical Estimation}
+\subsection{Basic Framework of Statistical Estimation}
 
 Given iid samples $X_1, X_2, \hdots X_n$, how do we infer / estimate parameters of $F$?
 
-\textbf{Ex 1} (Bernoulli): Given $X_1, X_2, \hdots, X_n$ iid $Ber(p)$, 
+\begin{example}
+(Bernoulli): Given $X_1, X_2, \hdots, X_n$ iid $Ber(p)$, 
 \[
     X_i = \begin{cases}
         1 \text{ with probability } p \\
@@ -18,8 +19,10 @@ An estimate of $p$ is
 \]
 
 Where $T$ is the number of heads and $T \sim Binom(n, p)$. 
+\end{example}
 
-\textbf{Ex 2} (Normal): $X_1, X_2, \hdots X_n$ iid $N(\mu, \sigma^2)$. Estimates for parameters are 
+\begin{example}
+(Normal): $X_1, X_2, \hdots X_n$ iid $N(\mu, \sigma^2)$. Estimates for parameters are 
 \[
     \hat{\mu} = \frac{1}{n} \sum\limits_{i = 1}^{n} X_i = \bar{X} 
 \]
@@ -27,19 +30,24 @@ Where $T$ is the number of heads and $T \sim Binom(n, p)$.
 \[
   \hat{\sigma}^2 = s^2 = \frac{1}{n-1} \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
 \]
+\end{example}
+
+
 
 
 \subsection{Properties of Estimators}
 
-\begin{framed}
-    \textbf{Definition} (Unbiasedness):  An estimate $\hat{ \theta}$ is said to be unbiased for a parameter $ \theta$ if 
+\begin{definition}
+    (Unbiasedness):  An estimate $\hat{ \theta}$ is said to be unbiased for a parameter $ \theta$ if 
     \[
       \mathbb{E} [ \hat{ \theta} ]  = \theta
     \]
     for all values of the population.
-\end{framed} 
+\end{definition} 
 
-\textbf{Ex} (Bernoulli): 
+
+\begin{example}
+(Bernoulli): 
 \[
     \mathbb{E}\left[ \hat{ p}\right]  = \frac{\mathbb{E}\left[T \right] }{n} = \frac{np}{n} = p
 \]
@@ -88,8 +96,10 @@ An unbiased estimate of $2p^2 + 5p^3$ is
 \[
     2 \frac{T(T-1)}{n(n-1)} + 5 \frac{T(T-1)(T-2)}{n(n-1)(n-2)}
 \]
+\end{example}
 
-\textbf{Ex} (Normal): Estimate $\sigma^2$ with 
+\begin{example}
+(Normal): Estimate $\sigma^2$ with 
 \begin{align*}
     \hat{\sigma}^2 = s^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n}  \left( X_i - \bar{X}  \right)^2 \sim \chi_{n-1}^2 \left( \frac{\sigma^2}{n-1} \right) 
 \end{align*}
@@ -100,8 +110,11 @@ The expectation of sample variance is
     &= \frac{\sigma^2}{n-1} (n-1) \\
     &= \sigma^2
 \end{align*}
+\end{example}
 
-\textbf{Ex} (Network sampling) 
+
+\begin{example}
+(Network sampling)  \\
 A \textit{network} refers to a graph of vertices that are connected if they have an interaction.  \\
 
 Network sampling helps with understanding \textit{how networks look} by studying a small section of the network, and understanding \textit{features of a large unobserved network} from a sample subgraph. \\
@@ -131,7 +144,7 @@ Hence,
 
 is an unbiased estimate of the number of edges in the population. \\
 
-\textbf{Proof}: Note that 
+\textbf{proof}: Note that 
 \[
     E(G_n) = \sum\limits_{1 \leq i \leq j \leq n}^{}  a_{ij}
 \]
@@ -153,19 +166,24 @@ Denote $S$ the set of sampled vertices.
     &= p^2 E(G_n)
 \end{align*}
 
-\begin{framed}
-    \textbf{Definition} (Variance of an estimate): The variance of an estimate $ \hat{ \theta}$ is 
+\end{example}
+
+\begin{definition}
+    (Variance of an estimate): The variance of an estimate $ \hat{ \theta}$ is 
     \[
         Var( \hat{ \theta}) = \mathbb{E}\left[\left( \hat{ \theta} - \mathbb{E}[ \hat{ \theta}] \right)^2\right] 
     \]
-\end{framed} 
+\end{definition} 
 
-\textbf{Ex} (Bernoulli): 
+\begin{example}
+(Bernoulli): 
 \[
     Var( \hat{p}) = Var \left( \frac{Binom(n, p)}{n} \right) = \frac{np(1-p)}{n^2} =  \frac{p(1-p)}{n}
 \]
+\end{example}
 
-\textbf{Ex} (Normal): 
+\begin{example}
+(Normal): 
 \begin{align*}
     Var \left( \hat{\mu} \right)  &= Var \left( \bar{X}  \right)  = \frac{\sigma^2}{n} \\
     Var \left( \hat{\sigma}^2 \right)  &= Var(s^2) \\
@@ -174,19 +192,24 @@ Denote $S$ the set of sampled vertices.
     &= \frac{\sigma^4}{(n-1)^2} 2 (n-1) \\
     &= \frac{2\sigma^4}{n-1}
 \end{align*}
+\end{example}
 
-\begin{framed}
+\begin{definition}
     \textbf{Definition} (Mean Squared Error): The mean squared error of an estimate $ \hat{ \theta}$ is 
     \[
         MSE( \hat{ \theta}) = \mathbb{E} \left[ \left( \hat{ \theta} - \theta \right)^2 \right] 
     \]
-\end{framed} 
+\end{definition} 
 
-\textbf{Result}: 
+ \begin{result}
 \[
     MSE( \hat{ \theta}) = (Bias( \hat{ \theta}))^2 + Var \left( \hat{ \theta} \right) 
 \]
+ \end{result}
+ 
 
+\begin{proof}
+ 
 \textbf{Proof}: 
 \begin{align*}
     MSE( \hat{ \theta}) &= \mathbb{E}\left[ \left(  \hat{ \theta} - \theta\right)^2  \right]  \\
@@ -202,8 +225,14 @@ Denote $S$ the set of sampled vertices.
     &= \operatorname{Var}( \hat{ \theta} ) + 0 + \left( \mathbb{E} [ \hat{ \theta}] - \theta \right)^2 \\
     &= \operatorname{Var}( \hat{ \theta} ) + \left( \operatorname{Bias}( \hat{ \theta}, \theta ) \right)^2
 \end{align*}
+\end{proof}
 
-\textbf{Corollary}: If $ \hat{ \theta}$ unbiased, then $MSE( \hat{ \theta}) = Var( \hat{ \theta})$
+\begin{corollary}
+If $ \hat{ \theta}$ unbiased, then $MSE( \hat{ \theta}) = Var( \hat{ \theta})$
+\end{corollary}
+
+\newpage
+
 
 
 

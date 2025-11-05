@@ -1,0 +1,210 @@
+\section{Class 10}
+
+\subsection{Cramer-Rao Lower Bound}
+
+\begin{theorem}
+    (Cramer-Rao Lower Bound) Consider a parametric model of distributions $ \{ f_{ \theta}(x), \theta \in \Omega \} $ satisfying certain \textit{mild regularity conditions}, and $T$ is any unbiased estimator $ \theta $ based on $X_1, X_2, \hdots X_n$ iid. Then 
+    \[
+        Var(T) \geq \frac{1}{n I( \theta)}
+    \]
+\end{theorem}
+
+\begin{proof}
+    Denote the score function 
+    \[
+        s( \theta, x) = \frac{\partial }{\partial \theta} \log f_{ \theta}(x) = \frac{ \frac{\partial f_{ \theta}(x)}{\partial }}{f_{ \theta}(x)}
+    \]
+
+    Let 
+    \[
+        S = s( X_1, S_2, \hdots X_n) = \sum\limits_{i = 1}^{n}  s( \theta, X_i)
+    \]
+
+    For any unbiased estimator $T$, 
+    \begin{align*}
+        & \left( Corr(S, T) \right)^2 \leq 1  \\
+        \implies & Cov( S, T)^2 \leq Var(S) \cdot Var(T) \\
+        \implies & Var(T) \geq \frac{(Clv(S, T))^2}{Var(S)}
+    \end{align*}
+
+    Where 
+    \begin{align*}
+        Var(S) &= n Var( s) \\
+        &= n Var \left( \frac{\partial }{\partial \theta} \log f_{ \theta} (X_1) \right)  \\
+        &= n I ( \theta)
+    \end{align*}
+
+    Hence 
+    \[
+    Var(T) \geq \frac{(Cov(S, T))^2}{n I( \theta)}
+    \]
+
+    To show that $Cov(S, T) = 1$, by unbiasedness of $T$
+    \begin{align*}
+        \theta &= \mathbb{E}\left[ (T)\right]  \\
+        &= \int_{\mathbb{R}^n}^{}   T(X_1, X_2, \hdots X_n) f_{ \theta}(X_1) f_{ \theta}(X_2) \hdots f_{ \theta} (X_n) dX_1 dX_2 \hdots dX_n
+    \end{align*}
+
+    Taking the derivative wrt $ \theta$ on both sides, 
+    \begin{align*}
+        1 &= \int_{\mathbb{R}^n}^{}   T(X_1, X_2, \hdots X_n) \left[
+            \sum\limits_{ i = 1}^{n} \left( \frac{\partial }{\partial \theta} f_{ \theta}(x_i)  \prod\limits_{j \in [1, n], j \neq i} f_{ \theta}(x_j)
+        \right) 
+         \right] dX_1, dX_2 \hdots dX_n \\
+         &= \int_{ \mathbb{R}^n}^{}   T(X_1 \hdots X_n) S(X_1, \hdots X_n) f_{ \theta}(X_1) f_{ \theta}(X_2) \hdots f_{ \theta}(X_n) dX_1 dX_2 \hdots dX_n \\
+         &= \mathbb{E}_{ \theta}\left[ TS\right] 
+    \end{align*} 
+    Since the score function has zero expectation, 
+    \[
+        1 = \mathbb{E}\left[ TS\right]  - \mathbb{E}\left[ T\right] \mathbb{E}\left[ S\right]  = Cov(S, T)
+    \]
+    
+\end{proof}
+
+\begin{remark}
+    An unbiased estimator is said to be efficient if its variance is 
+    \[
+        \frac{1}{n I( \theta)}
+    \]
+\end{remark}
+\begin{remark}
+    Since the MLE is asymptotically unbiased and the variance of the MLE attains the Cramer-Rao Lower Bound asymptotically, the MLE is said to be \textbf{asymptotically efficient}.
+\end{remark}
+
+\subsection{Simple Linear Regression}
+
+\subsubsection{Estimating $\beta_0, \beta_1$}
+\begin{definition}
+    (Simple Linear Regression) Suppose we have data $(X_1, Y_1), (X_2, Y_2), \hdots (X_n, Y_n)$ related by model 
+\[
+    Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
+\]
+
+
+The \textbf{least squares estimates} are obtained via 
+\[
+    \left( 
+        \hat{\beta}_0, 
+        \hat{\beta}_1
+     \right)  = \arg \min_{ \beta_0, \beta_1} \sum\limits_{i = 1}^{n} (Y_i - \beta_0 - \beta_1 X_i)^2
+\]
+
+The \textbf{fitted values} are defined as 
+\[
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i
+\]
+
+The \textbf{residuals} are defined as 
+\[
+    E_i = Y_i - \hat{Y}_i
+\]
+
+
+\end{definition}
+
+\begin{remark}
+Define 
+\[
+    f (\beta_0, \beta_1) = \sum\limits_{i = 1}^{n} (Y_i - \beta_0 - \beta_1 X_i)^2
+\]
+
+The LS estimates $( \hat{\beta}_0, \hat{\beta}_1)$ are solved via 
+\[
+    \begin{cases}
+        \frac{\partial f}{\partial \beta_0} = 0 \\
+        \frac{\partial f}{\partial \beta_1} = 0 \\
+    \end{cases}
+\]
+\end{remark}
+
+
+\begin{result}
+    The LS line always passes through the point $ ( \bar{X} , \bar{Y} )$
+    \[
+        \hat{ \beta}_1 = \frac{
+            \sum\limits_{i = 1}^{n} (X_i - \bar{X} ) (Y_i - \bar{Y} ) 
+        }{
+            \sum\limits_{i = 1}^{n} (X_i - \bar{X} )^2
+        }
+    \]
+
+    \[
+        \hat{\beta}_0 = \bar{Y}  - \hat{ \beta}_1 \bar{X} 
+    \]
+\end{result}
+
+\begin{remark}
+    Note that the results thus far assumes nothign about the $\epsilon_i$'s.
+\end{remark}
+
+\subsubsection{Estimating $\sigma^2$}
+Now assume that 
+\[
+    \epsilon_i \overset{ iid}{\sim} N(0, \sigma^2)
+\]
+
+By definition 
+\begin{align*}
+    \epsilon_i &= Y_i - \beta_0 - \beta_1 X_i \\
+    \lVert \epsilon \rVert^2 &= \sum\limits_{i = 1}^{n} \epsilon_i^2 = \sum\limits_{i = 1}^{n} \left( Y_i - \beta_0 - \beta_1 X_i \right)^2 
+\end{align*}
+
+If $\beta_0, \beta_1$ known, then 
+\[
+    \mathbb{E}\left[ \frac{1}{n} \sum\limits_{i = 1}^{n} \epsilon_i^2 \right]  = \sigma^2
+\]
+and an unbiased estimator of $\sigma^2$ is 
+\[
+    \frac{ \lVert \epsilon \rVert^2 }{n}
+\]
+
+
+\begin{definition}
+    (Sum of Squared Errors, SSE): The Sum of squared errorsis defined as 
+    \[
+        SSE := \sum\limits_{i = 1}^{n} E_i = \sum\limits_{i = 1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i)^2
+    \]
+\end{definition}
+
+
+\begin{result}
+    $\hat{\sigma}^2$ defined below is an unbiased estimate of $\sigma^2$
+    \[
+        SSE \sim \sigma^2 \chi_{n-2}^2 \implies 
+    \hat{ \sigma}^2 = \frac{SSE}{n-2}
+    \]
+\end{result}
+
+\subsubsection{Facts about Least Square Estimates}
+
+\begin{result}
+    The LS estimates are unbiased.
+\end{result}
+
+\begin{result}
+    The LS estimates are normally distributed.
+\end{result}
+
+\begin{result}
+    The LS estimates find the vector $ \bm{ \hat{V}}$in the plane spanned by the vectors $ \bm{1}, \bm{X}$ that is the closest to $ \bm{Y}$, where 
+    \[
+        \bm{ \hat{v}} = \hat{ \beta}_0 \bm{1} + \hat{ \beta}_1 \bm{X}
+    \]
+\end{result}
+
+\begin{result}
+    $\hat{\beta}_0, \hat{\beta}_1$ are independent of $ \hat{ \sigma}^2$
+\end{result}
+
+
+\begin{result}
+    $\hat{\beta}_0, \hat{\beta_1}$ coincides with the MLE estimates.
+\end{result}
+
+
+
+
+
+
+
+\newpage

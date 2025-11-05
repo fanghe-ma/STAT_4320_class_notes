@@ -1,0 +1,138 @@
+\section{Class 12}
+
+\subsection{Confidence Intervals}
+
+
+\begin{definition}
+For an unknown parameter $ \theta$ and a sample $X_1, X_2, \hdots X_n$, A $100(1-\alpha)$\% confidence interval for $ \theta$ is a random interval 
+\[
+    \left[ L(X_1, X_2, \hdots X_n), U(X_1, X_2, \hdots X_n)\right] 
+\]
+such that 
+\[
+    P(L \leq \theta \leq U) = 1- \alpha
+\]
+\end{definition}
+
+\begin{remark}
+    Interpretation of CI: If the experiment is repeated, $100(1 - \alpha)$\% of intervals will contain true $ \theta$.
+\end{remark}
+
+\subsubsection{Exact Confidence Intervals}
+
+\begin{definition}
+    (t-distribution). If $U \sim N(0, 1)$ and $V \sim \chi_d^2$ and $U, V$ independent, then 
+    \[
+        \frac{U}{ \sqrt{ \frac{ V}{d}}} \sim t_d
+    \]
+    i.e. the $t$-distribution with $d$ degrees of freedom.
+\end{definition}
+
+\begin{example}
+    (CI for $\mu, \sigma^2$, normal data) Suppose $X_1, X-2, \hdots X_n \sim \ iid\ N(\mu, \sigma^2)$ where $\mu, \sigma^2$ unknown. \\
+
+    \textbf{Confidence interval for $\mu$}: \\
+    \begin{enumerate}
+        \item Estimate $\mu$ with $ \hat{ \mu} = \bar{X} $
+        \item Find distribution of estimate 
+        \begin{align*}
+            & \bar{X}  \sim N \left( \mu, \frac{\sigma^2}{n} \right)  \\
+            \implies & Z = \frac{\bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}} \sim N(0, 1) \\
+            \implies & P \left( \left| \frac{\bar{X}  - \mu}{\sigma / \sqrt{n}} \right| \leq z_{\alpha / 2} \right)  = 1- \alpha \\
+            \implies & P \left( \left| \bar{X}  - \mu \right| \leq \frac{\sigma}{\sqrt{n}} z_{\alpha / 2} \right) = 1- \alpha \\
+            \implies & P \left( 
+                - \frac{\sigma}{\sqrt{n}} z_{\alpha / 2} 
+                \leq \mu \leq 
+                \frac{\sigma}{\sqrt{n}} z_{\alpha / 2} 
+            \right) = 1- \alpha \\
+            \implies & P \left( 
+                \bar{X} - \frac{\sigma}{\sqrt{n}} z_{\alpha / 2} 
+                \leq \mu \leq 
+                \bar{X} + \frac{\sigma}{\sqrt{n}} z_{\alpha / 2} 
+            \right) = 1- \alpha \\
+        \end{align*}
+        \item Estimate $\sigma^2$:
+        \begin{align*}
+            s^2 = \frac{1}{n-1} \sum\limits_{i - 1}^{n} (X_i - \bar{X} )^2 \sim \frac{\sigma^2}{n-1} \chi_{n - 1}^2
+        \end{align*}
+        Then, define 
+        \begin{align*}
+            \hat{Z} &:= \frac{\bar{X}  - \mu}{s / \sqrt{n}}  \\
+            &= \frac{\sqrt{n} \left(\bar{X}  - \mu  \right) / \sigma }{\sqrt{s^2 / \sigma^2}} \\
+            &= \frac{N(0, 1)}{\sqrt{\chi_{n-1}^2 / (n-1)}} \\
+            &\sim t_{n-1}
+        \end{align*}
+        Hence 
+        \begin{align*}
+            & P( \left| \hat{Z} \right| \leq t_{n-1, \alpha/2} ) = 1 - \alpha \\
+           \implies & P \left( - t_{n - 1, \alpha/2} \leq \left| \frac{\bar{X} - \mu}{s / \sqrt{n}} \right| \leq t_{n - 1, \alpha/2}  \right)  = 1 - \alpha \\ 
+            \implies & P \left( 
+                \bar{X}  - t_{n - 1, \alpha/2} \frac{s}{\sqrt{n}} 
+                \leq \mu \leq 
+                \bar{X}  + t_{n - 1, \alpha/2} \frac{s}{\sqrt{n}} 
+             \right) 
+        \end{align*}
+    \end{enumerate} 
+
+    \textbf{Confidence interval for $\sigma^2$} 
+    \begin{enumerate}
+        \item Estimate $\sigma^2$ with 
+        \[
+            s^2 = \frac{1}{n-1} \sum\limits_{i=1}^{n}  (X_i - \bar{X} )^2
+        \]
+        \item Find the distribution of the estimate 
+        \[
+            s^2 \sim \frac{\sigma^2}{n-1} \chi_{n - 1}^2 \implies \frac{s^2}{\sigma^2} \sim \frac{\chi_{n - 1}^2}{n-1}
+        \]
+        \item Since the distribution is free of unknown parameters, we can immediately find a confidence interval. 
+    
+        Define $\chi_{n-1, \alpha}$ be the $(1 - \alpha)$-th percentile of the $\chi_{n - 1}^2$ distribution. 
+        \begin{align*}
+            & P \left( \chi_{n - 1, 1 - \alpha/2}^2 \leq \frac{(n-1)s^2}{\sigma^2} \leq \chi_{n-1, \alpha/2} \right)  = 1- \alpha \\
+            \implies & P \left( 
+                \frac{(n-1)s^2}{\chi_{n-1, \alpha/2}} 
+                \leq \sigma^2 \leq 
+                \frac{(n-1)s^2}{\chi_{n-1, 1-\alpha/2}}  
+            \right)  = 1 - \alpha
+        \end{align*}
+    \end{enumerate}
+    
+\end{example}
+
+\subsubsection{Asymptotic Confidence Intervals}
+
+\begin{example}
+    (Confidence interval for $\mu$, arbitrary distribution): Suppose $X_1, X_2, \hdots X_n \sim\ iid\ F$ with $\mathbb{E}\left[ X_1\right] = \mu, Var(X_1) = \sigma^2$.  \\
+
+    \textbf{Confidence interval for $\mu$}:
+    \begin{enumerate}
+        \item By CLT
+        \[
+            \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma} \overset{d}{\longrightarrow} N(0, 1)
+        \]
+        \item By LLN, 
+        \[
+            s^2 \overset{p}{\longrightarrow}  \sigma^2 \implies s \overset{p}{\longrightarrow} \sigma
+        \]
+        \item By Slutsky's 
+        \[
+            \frac{\sqrt{n}( \bar{X} - \mu )}{s} \overset{d}{\longrightarrow}  N(0, 1)
+        \]
+        \item Find the CI 
+        \begin{align*}
+            & P \left( \mu \in \left[ 
+                \bar{X}  - z_{\alpha / 2} \frac{s}{\sqrt{n}},
+                \bar{X}  + z_{\alpha / 2} \frac{s}{\sqrt{n}},
+             \right]  \right) \overset{n \to \infty}{\longrightarrow} 1 - \alpha \\
+            \implies & \left[ 
+                \bar{X}  - z_{\alpha / 2} \frac{s}{\sqrt{n}},
+                \bar{X}  + z_{\alpha / 2} \frac{s}{\sqrt{n}}
+             \right]  \text{ is an asymptotically } 100 (1-\alpha) \text{ \% confidence interval for } \mu
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\begin{note}
+    CLT of estimate and consistent estimation of variance gives asymptotic confidence interals.
+\end{note}
+

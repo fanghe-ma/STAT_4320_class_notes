@@ -1,33 +1,41 @@
-\chapter{Class 7}
+\section{Class 7}
 
-\section{Consistency}
+\subsection{Consistency}
 
-\begin{framed}
-    \textbf{Definition} (Consistency):  Suppose $ \hat{ \theta}_n$ is an estimate of $ \theta$ based on $n$ iid samples. Then, $ \hat{ \theta}_n$ is said to be consistent for $ \theta$ if 
+\begin{definition}
+    (Consistency):  Suppose $ \hat{ \theta}_n$ is an estimate of $ \theta$ based on $n$ iid samples. Then, $ \hat{ \theta}_n$ is said to be consistent for $ \theta$ if 
     \[
         \hat{ \theta}_n \overset{p}{\longrightarrow} \theta
     \]
-    as $n \to \infty$ .
-\end{framed} 
+    as $n \to \infty$
+\end{definition} 
 
-\textbf{Result}: $MSE$ converging to $0$ in the limit implies consistency
+\begin{result}
+$MSE$ converging to $0$ in the limit implies consistency
 \[
     MSE( \hat{ \theta}_n) \overset{}{\longrightarrow} 0 \implies \hat{ \theta}_n \overset{p}{\longrightarrow} \theta
 \]
+\end{result}
 
-\textbf{Proof}:  By Markov's Inequality, for any $\epsilon > 0$
+
+\begin{proof}
+By Markov's Inequality, for any $\epsilon > 0$
 \[
     P \left( \left| \hat{ \theta}_n - \theta \right| > \epsilon  \right)  \leq \frac{ \mathbb{E}\left[ \left( \hat{ \theta} - \theta \right)^2 \right] }{ \epsilon^2} 
 \]
+\end{proof}
 
-\textbf{Note}: To prove consistency, we can 
+\begin{remark}
+To prove consistency, we can 
 \begin{itemize}
     \item Show $MSE$ vanishes
     \item Use Continuous Mapping
     \item Use Slutsky's Lemma
 \end{itemize} 
+\end{remark}
 
-\textbf{Ex} (Bernoulli): 
+\begin{example}
+(Bernoulli): 
 \[
     Bias( \hat{p}) = 0, Var( \hat{ p}) = \frac{p(1-p)}{n}
 \]
@@ -36,8 +44,10 @@ As $n \to \infty$
 \[
     MSE( \hat{p}) = Var( \hat{ p}) = \frac{p(1-p)}{n} \overset{}{\longrightarrow}  0
 \]
+\end{example}
 
-\textbf{Ex} (Normal): 
+\begin{example}
+(Normal): 
 \[
     \hat{\mu} = \bar{X} \implies bias( \hat{\mu}) = 0, Var( \hat{ \mu} ) = Var( \bar{X} ) = \frac{\sigma^2}{n}
 \]
@@ -58,11 +68,12 @@ As $n \to \infty$
 \[
     MSE( \hat{\sigma}^2) = Var( \hat{\sigma}^2) \overset{}{\longrightarrow}  0
 \]
+\end{example}
 
-\section{Method of moments estimation}
+\subsection{Method of moments estimation}
 
-\begin{framed}
-    \textbf{Definition} (Method of Moments): Suppose $X_1, X_2, \hdots X_n$ iid from distribution $F$ which as $k$ unknown parameters $( \theta_1, \theta_2, \hdots \theta_k)$.  \\
+\begin{definition}
+    (Method of Moments): Suppose $X_1, X_2, \hdots X_n$ iid from distribution $F$ which as $k$ unknown parameters $( \theta_1, \theta_2, \hdots \theta_k)$.  \\
     
     Denote $ \vtr{ \theta} = ( \theta_1, \theta_2, \hdots \theta_k)$. \\
 
@@ -87,15 +98,19 @@ As $n \to \infty$
     \]
 
     The method of moments estimate $ \hat{ \theta}_n$ is the solution to the system of equations.
-\end{framed} 
+\end{definition} 
 
-\textbf{Note} that 
+\begin{remark}
+Note that 
 \begin{itemize}
     \item The above system is a system of $k$ equations in $k$ unknows
     \item The above system may have $0, 1$ or multiple solutions. If solution is unique, then the solution is the method of moments estimate of $ \hat{ \theta}$
 \end{itemize} 
+\end{remark}
 
-\textbf{Ex} (Bernoulli): $X_1, \hdots X_n \sim Ber(p)$
+
+\begin{example}
+(Bernoulli): $X_1, \hdots X_n \sim Ber(p)$
 \begin{align*}
     \alpha_1 &= \alpha_1 (p) = \mathbb{E}\left[X \right]  = p \\
     \hat{\alpha}_1 &= \frac{1}{n} \sum\limits_{i=1}^{n} X_i
@@ -106,8 +121,10 @@ Solving for $p$:
     \hat{\alpha}_1 &= \alpha_1 \\
     \implies \hat{p} &= \frac{1}{n}\sum\limits_{ i = 1}^{n} X_i
 \end{align*}
+\end{example}
 
-\textbf{Ex} (Normal) $X_1, \hdots X_n \sim N(\mu, \sigma^2)$ 
+\begin{example}
+(Normal) $X_1, \hdots X_n \sim N(\mu, \sigma^2)$ 
 
 The population moments are 
 \begin{align*}
@@ -137,6 +154,7 @@ The last equality follows because
     =& \frac{1}{n} \sum\limits_{i=1}^{n} X_i^2 - \bar{X}^2 \\
 \end{align*}
 
+
 \textbf{Note}: $\hat{\sigma}^2_{MLE}$ is a biased estimator of $\sigma^2$.
 \[
     \mathbb{E}\left[ \hat{\sigma}^2\right]  = \frac{n-1}{n} \mathbb{E}\left[ s^2\right]  = \frac{n-1}{n} \sigma^2
@@ -152,19 +170,22 @@ As $n \to \infty$
 \end{align*}
 
 Hence $MSE( \hat{ \sigma}) \to 0$, and $ \hat{ \sigma}_{MLE}^2$ is consistent despite being biased.
+\end{example}
+
+\begin{example}
 
 \textbf{Ex} (Pearson, 1984). 
 
 Contributions to the mathematical theory of evolution (1894).
 Weldon (1893) crab data: body length.
 
-The histogram of the data did not look like the bell-shaped Gaussian curve.
+The histogram of the data did not look like the bell-shaped Gaussian curve. \\
 
 \textbf{Conjecture:} maybe two species, each Gaussian? (Gaussian Mixture Model.)
 
-Pearson conjectured that the data consists of two different kinds of crabs, each with its own Gaussian distribution.
+Pearson conjectured that the data consists of two different kinds of crabs, each with its own Gaussian distribution. \\
 
-\subsection*{Gaussian Mixture Model (GMM)}
+\textbf{Gaussian Mixture Model (GMM)}
 
 Let $W$ be a random variable such that
 \[
@@ -175,7 +196,7 @@ N(\mu_2, \sigma_2^2), & \text{with prob. } (1-p).
 \end{cases}
 \]
 
-\subsubsection*{Distribution Function}
+\textbf{Distribution Function}
 \[
 P(W \leq t) 
 = P(W \leq t, Z=1) + P(W \leq t, Z=2),
@@ -190,16 +211,16 @@ So,
 P(W \leq t) = p \, P(N(\mu_1,\sigma_1^2) \leq t) + (1-p) P(N(\mu_2,\sigma_2^2) \leq t).
 \]
 
-\textbf{Note:} GMM is \emph{not} adding two normals. Adding two normals gets another normal, but GMM is not a sum. It is a mixture.
+\textbf{Note:} GMM is \emph{not} adding two normals. Adding two normals gets another normal, but GMM is not a sum. It is a mixture. \\
 
-\subsubsection*{Density Function}
+\textbf{Density Function}
 \[
 f(t) = \frac{d}{dt} P(W \leq t) 
 = p \, \phi\!\left(\frac{t-\mu_1}{\sigma_1}\right) + (1-p) \, \phi\!\left(\frac{t-\mu_2}{\sigma_2}\right),
 \]
 where $\phi(t) = \frac{1}{\sqrt{2\pi}} \exp\!\left(-\frac{t^2}{2}\right)$.
 
-\subsection*{Estimation of Parameters of GMM}
+\textbf{Estimation of Parameters of GMM}
 
 \begin{enumerate}
     \item Compute sample moments:
@@ -218,21 +239,21 @@ where $\phi(t) = \frac{1}{\sqrt{2\pi}} \exp\!\left(-\frac{t^2}{2}\right)$.
     \]
 \end{enumerate}
 
-\subsection*{Pearson's Sixth-Moment Test}
+\textbf{Pearson's Sixth-Moment Test} \\
 
 In general, the system of equations can have multiple roots.  
-To choose a root, Pearson's approach: choose the root $(\hat{\mu}_1,\hat{\mu}_2,\hat{\sigma}_1^2,\hat{\sigma}_2^2,\hat{p})$ that is closest to the sixth sample moment.
+To choose a root, Pearson's approach: choose the root $(\hat{\mu}_1,\hat{\mu}_2,\hat{\sigma}_1^2,\hat{\sigma}_2^2,\hat{p})$ that is closest to the sixth sample moment. \\
 
 That is, the feasible root with the smallest value of
 \[
 \left| \hat{m}_6 - m_6 \right| = \left| \frac{1}{n} \sum_{i=1}^n X_i^6 - \mathbb{E}[X^6] \right|.
 \]
 
-\subsection*{Theorem (Kalai, Moitra, Valiant, 2010)}
+\textbf{Theorem (Kalai, Moitra, Valiant, 2010)}: the sixth-moment method gives consistent estimates of the parameters of GMM and can be computed efficiently.
 
-Pearson’s method works: the sixth-moment method gives consistent estimates of the parameters of GMM and can be computed efficiently.
+\end{example}
 
-
+\newpage
 
 
 

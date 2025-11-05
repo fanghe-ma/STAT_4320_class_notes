@@ -1,9 +1,9 @@
-\chapter{Class 8}
+\section{Class 8}
 
-\section{Maximum Likelihood Estimation}
+\subsection{Maximum Likelihood Estimation}
 
-\begin{framed}
-    \textbf{Definition} (Maximum Likelihood Estimation): Let $X_1, \hdots X_n$ iid from $F$ with \textit{pdf} or \textit{pmf} $ f_{ \theta}$. Consider the joint \textit{pdf} or \textit{pmf} 
+\begin{definition}
+    (Maximum Likelihood Estimation): Let $X_1, \hdots X_n$ iid from $F$ with \textit{pdf} or \textit{pmf} $ f_{ \theta}$. Consider the joint \textit{pdf} or \textit{pmf} 
     \[
         L ( \theta | x_1, x_2, \hdots x_n) = \prod_{i = 1}^n f_{ \theta} (x_i)
     \]
@@ -19,9 +19,10 @@
     \[
         \hat{ \theta}_n = \arg \max_{ \Theta} l ( \theta | x_1, x_2, \hdots x_n)
     \]
-\end{framed} 
+\end{definition} 
 
-\textbf{Ex} (Bernoulli) $X_1, \hdots X_n \sim Ber(p)$. 
+\begin{example}
+(Bernoulli) $X_1, \hdots X_n \sim Ber(p)$. 
 
 \begin{align*}
     f_p(x) &= P(X = x) \\
@@ -32,7 +33,7 @@
     &= p^x (1-p)^{1-x}
 \end{align*}
 
-The likelihood functino is 
+The likelihood function is 
 \begin{align*}
     L( p | X_1, \hdots X_n) &= \prod_{i =1}^n f_p(X_i) \\
     &= \prod_{i = 1}^n p^{X_i} (1-p)^{1-X_i} \\
@@ -68,8 +69,10 @@ By CLT,
 \[
     \sqrt{n} \left( \hat{p} - p\right)  \overset{d}{\longrightarrow}  N(0, p(1-p))
 \]
+\end{example}
 
-\textbf{Ex} (Normal): $X_1, \hdots X_n$ iid $N(\mu, \sigma^2)$ 
+\begin{example}
+(Normal): $X_1, \hdots X_n$ iid $N(\mu, \sigma^2)$ 
 
 \begin{align*}
     L(\mu, \sigma^2 | X_1, \hdots X_n) &= \prod_{i = 1}^n f_{\mu, \sigma^2} (X_i) \\
@@ -135,8 +138,11 @@ Hence
 \[
     \sqrt{n} \left( \hat{\sigma}^2 - \sigma^2 \right)  \overset{d}{\longrightarrow}  N(0, 2\sigma^4)
 \]
+\end{example}
 
 \textcolor{red}{REVISIT}: check with the professor regarding this proof on asymptotic normality of $\hat{\sigma}^2_{MLE}$ without using Fisher Information.
+
+\newpage
 
 
 

@@ -1,6 +1,6 @@
-\chapter{Class 3}
+\section{Class 3}
 
-\section{Convergence of random variables}
+\subsection{Convergence of random variables}
 
 There are two kinds of convergence 
 \begin{itemize}
@@ -8,8 +8,8 @@ There are two kinds of convergence
     \item convergence in distribution
 \end{itemize} 
 
-\begin{framed}
-    \textbf{Definition} (convegence in probability): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in probability to $X$ if for any $\epsilon > 0$,
+\begin{definition}
+    (Convegence in probability): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in probability to $X$ if for any $\epsilon > 0$,
     \[
       \lim_{n \to \infty} \mathbb{P} \left( \left| X_n - X \right| > \epsilon \right) =  0
     \]
@@ -17,10 +17,10 @@ There are two kinds of convergence
     \[
         X_n \overset{p}{\longrightarrow} X
     \]
-\end{framed} 
+\end{definition} 
 
-\begin{framed}
-    \textbf{Definition} (convegence in distribution): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in distribution to $X$ if 
+\begin{definition}
+    (Convegence in distribution): We say a sequence of random variables $ \{ X_n \}_{n \geq 1}$ converges in distribution to $X$ if 
     \[
         \mathbb{P} \left( X_n \leq x \right)  \underset{n \to \infty}{\longrightarrow} \mathbb{P} \left( X \leq x \right)
     \]
@@ -32,47 +32,48 @@ There are two kinds of convergence
     \[
         X_n \overset{d}{\longrightarrow} X
     \]
-\end{framed} 
+\end{definition} 
 
-\section{Slutsky's Lemma and Continuous Mapping Theorem}
-\begin{framed}
+\subsection{Slutsky's Lemma and Continuous Mapping Theorem}
+\begin{lemma}
     \textbf{Lemma} (Slutsky's Lemma): If $X_n \overset{d}{\longrightarrow} X$ and $Y_n \overset{p}{\longrightarrow} c$ for constant $c$, then the following hold
     \begin{itemize}
         \item $X_n + Y_n \overset{d}{\longrightarrow} X + c$
         \item $X_n Y_n \overset{d}{\longrightarrow} cX$
         \item $ \frac{X_n}{Y_n} \overset{d}{\longrightarrow} \frac{X}{c}$ if $c > 0$
     \end{itemize} 
-\end{framed} 
+\end{lemma} 
 
-\begin{framed}
-    \textbf{Theorem} (Continuous mapping): If $g$ is a continuous function, then 
+\begin{theorem}
+    (Continuous mapping): If $g$ is a continuous function, then 
     \[
     X_n \overset{p}{\longrightarrow} X \implies g(X_n) \overset{p}{\longrightarrow} g(X)
     \]
     \[
     X_n \overset{d}{\longrightarrow} X \implies g(X_n) \overset{d}{\longrightarrow} g(X)
     \]
-\end{framed} 
+\end{theorem} 
 
-\section{Weak Law of Large Numbers and Central Limit Theorem}
+\subsection{Weak Law of Large Numbers and Central Limit Theorem}
 
 The weak law of large numbers is an example of convergence in probability. The central limit theorem is an example of convergence in distribution. 
 
-\begin{framed}
+\begin{theorem}
     \textbf{Weak law of large numbers}: Suppose $X_1 \hdots X_n$ iid from $F$ with $ \mathbb{E}\left[ X_1\right] = \mu$ and $Var( X) = \sigma^2$, then 
     \[
       \bar{X}  = \frac{1}{n} \sum\limits_{i = 1}^{n} X_i \overset{p}{\longrightarrow} \mu
     \]
-\end{framed} 
+\end{theorem} 
 
-\textbf{Proof}: Fix $\epsilon > 0$, 
+\begin{proof}
 \begin{align*}
     \mathbb{P} \left( | \bar{X}  - \mu | > \epsilon \right) &= \frac{Var \left( \bar{X}   \right) }{\epsilon^2} \quad \text{ by Chebyshev's Inequality} \\
     &= \frac{\sigma^2}{n \epsilon^2}  \\
     \frac{\sigma^2}{n \epsilon^2} &\underset{n \to \infty}{\longrightarrow} 0
 \end{align*}
+\end{proof}
 
-\begin{framed}
+\begin{theorem}
     \textbf{Markov's Inequality}: For any random variable $X$, and non-negative constant $a$,
     \[
       P( |X| \geq a) \leq \frac{\mathbb{E}\left[ |X|\right] }{a}
@@ -82,31 +83,34 @@ The weak law of large numbers is an example of convergence in probability. The c
     \[
       P( X \geq a) \leq \frac{\mathbb{E}\left[ X\right] }{a}
     \]
-\end{framed} 
+\end{theorem} 
 
-\textbf{Proof}: We prove the general case, for any random variable $X$, let $Y = |X|$
+\begin{proof}
+We prove the general case, for any random variable $X$, let $Y = |X|$
 \begin{align*}
     \mathbb{E}\left[ Y\right] &= \mathbb{E}\left[ Y | Y \geq a\right] P(Y \geq a) + \mathbb{E}\left[ Y | Y < a\right]  P(Y < a) \text{ by Law of Total Expectation} \\
     & \geq \mathbb{E}\left[ Y | Y \geq a\right]  P(Y \geq a) \\
     & \geq a P(Y \geq a) \\
     \implies & P(Y \geq a) \leq \frac{\mathbb{E}\left[ Y\right] }{a}
 \end{align*}
+\end{proof}
 
-\begin{framed}
+\begin{theorem}
     \textbf{Chebyshev's Inequality}: Let $X$ be a random variable with mean $\mu$ and variance $\sigma^2$, then for any $a > 0$
     \[
       P \left( \left| X - \mu \right| \geq a \right)  \leq \frac{\sigma^2}{a^2}
     \]
-\end{framed} 
+\end{theorem} 
 
-\textbf{Proof}: We prove using Markov's Inequality
+\begin{proof}
 \begin{align*}
     P \left( |X - \mu| \geq a \right) &= P \left( (X -\mu)^2 \geq a^2 \right)  \\
     &\leq \frac{\mathbb{E}\left[ (X - \mu)^2\right] }{a^2}  \quad \text{ by Markov's Inequality} \\
     &= \frac{Var(X)}{a^2}
 \end{align*}
+\end{proof}
 
-\begin{framed}
+\begin{theorem}
     \textbf{Central limit theorem}:  Suppose $X_1 \hdots X_n$ iid from $F$ with $ \mathbb{E}\left[ X_1\right] = \mu$ and $Var( X) = \sigma^2$, then 
     \[
     \frac{\sqrt{n} \left( \bar{X} - \mu \right) }{\sigma} \overset{d}{\longrightarrow} N(0, 1)
@@ -118,16 +122,17 @@ The weak law of large numbers is an example of convergence in probability. The c
     \[
       \mathbb{P} \left( Z_n \leq t \right) = P(N(0, 1) \leq t) \text{ for all }  t \in \mathbb{R}
     \]
-\end{framed} 
+\end{theorem} 
 
-\textbf{Remarks}: informally, we can say 
+\begin{remark}
 \[
   \bar{X}_n \approx N \left( \mu, \frac{\sigma^2}{n} \right) 
 \]
 
 Although this statement has no mathematical content. We are taking the limit of the distribution of $\bar{X}$ as $n$ gets large. $N \left( \mu, \frac{\sigma^2}{n} \right) $ cannot be a limit.
+\end{remark}
 
-\section{Delta method}
+\subsection{Delta method}
 
 CLT gives asymptotic distribution of $\bar{X}$. We want to get the asymptotic distribution of functions of $\bar{X} $. 
 
@@ -138,22 +143,22 @@ By Continuous Mapping Theorem, we get this for free
 
 However, we don't just want statements about $g( Z_n)$, we want statements about $g( \bar{X} )$
 
-\begin{framed}
+\begin{theorem}
     \textbf{Delta Method}:  Suppose $X_1, \hdots X_n$ iid $F$, with $ \mathbb{E}\left[ X_1\right]  = \mu$ and $Var(X) = \sigma^2$ and $g$ is a function such that the derivative of $g'(\mu) \neq 0$. Then 
     \[
         \sqrt{n} \left( g( \bar{X} ) - g( \mu) \right) \overset{d}{\longrightarrow} N \left( 0, \sigma^2 \left( g'(u) \right)^2 \right)  
     \]
-\end{framed} 
+\end{theorem} 
 
+\begin{remark}
 \textbf{Note}: We know by Continuous Mapping Theorem that the in-probability limit of $g( \bar{X} )$ is $g(\mu)$
 \[
   g( \bar{X} )  \overset{p}{\longrightarrow} g(\mu)
 \]
-
 Subtracting away the in-probability limit and taking the Z-score, delta method tells us that the z-score follows a normal distribution. \\
+\end{remark}
 
-
-\textbf{Proof}: \\
+\begin{proof}
 
 Recall Taylor's Expansion 
 \[
@@ -189,10 +194,11 @@ We get
 \[
     n \left( g( \bar{X}) - g(\mu)\right)  \overset{d}{\longrightarrow}  \frac{1}{2} \sigma^2 \chi_1^2 g''(\mu)
 \]
+\end{proof}
 
 
 
-\section{Multivariate Data}
+\subsection{Multivariate Data}
 
 For each unit of study, the number of measurements is greater than 1. For example, for $n$ data points and $p$ observed variables 
 \[
@@ -203,8 +209,7 @@ For each unit of study, the number of measurements is greater than 1. For exampl
 
 Where $\mathbf{X}_i$ are iid p-dimentional observations with distribution $F$.
 
-The mean vector 
-
+The mean vector is
 \[
   \bm{\mu} = \mathbb{E}\left[ \mathbf{X}_1\right]  = \begin{pmatrix} 
     \mathbb{E}\left[ {X}_{11}\right]  \\
@@ -230,23 +235,25 @@ Hence, we can epxress $\Sigma$ as the difference of two matrices
   \mtr{\Sigma} = \mathbb{E}\left[ \bm{X}_1 \bm{X}_{1}^T\right] - \mathbb{E}\left[ \bm{X}\right]  \mathbb{E}\left[ \bm{X} \right]^T
 \]
 
-\section{Multivariate Normal}
+\subsection{Multivariate Normal}
 
-\begin{framed}
-    \textbf{Definition} (Multivariate Normal): A $p$-dimensional random vector $ \bm{X} = \begin{pmatrix} X_1 \\ X_2 \\ \vdots X_p \end{pmatrix} $ is said to follow the multivariate normal distribution with mean vector $ \bm{\mu}$ and positive definite (\textit{pd}) covariance matrix $\mtr{\Sigma}$ if it has a density function $f : \mathbb{R}^p \to \mathbb{R}$ of the form 
+\begin{definition}
+    (Multivariate Normal): A $p$-dimensional random vector $ \bm{X} = \begin{pmatrix} X_1 \\ X_2 \\ \vdots X_p \end{pmatrix} $ is said to follow the multivariate normal distribution with mean vector $ \bm{\mu}$ and positive definite (\textit{pd}) covariance matrix $\mtr{\Sigma}$ if it has a density function $f : \mathbb{R}^p \to \mathbb{R}$ of the form 
     \[
       f(\vtr{x}) = \frac{1}{\sqrt{(2\pi)^p det(\mtr{\Sigma})}} e^{ -\frac{1}{2} ( \bm{x} - \bm{\mu})^T \mtr{\Sigma}^{-1} ( \bm{x} - \bm{\mu})}
     \]
-\end{framed} 
+\end{definition} 
 
-\textbf{Note}: 
-\begin{itemize}
-    \item this definition only works with a \textit{pd} covariance matrix. 
-    \item a multivariate normal can be defined without the \textit{pd} matrix, using the linear combination definition.
-\end{itemize} 
+\begin{remark}
+    This definition only works with a \textit{pd} covariance matrix. 
+\end{remark}
 
-\begin{framed}
-    \textbf{Definition} (Multivariate CLT): Suppose $\bm{X}_1 \hdots \bm{X}_n$ are iid $p$-dimensional random vectors with mean vector $ \bm{\mu} \in \mathbb{R}^p$ and covariance matrix $\mtr{\Sigma}$
+\begin{remark}
+    A multivariate normal can be defined without the \textit{pd} matrix, using the linear combination definition.
+\end{remark}
+
+\begin{definition}
+    (Multivariate CLT): Suppose $\bm{X}_1 \hdots \bm{X}_n$ are iid $p$-dimensional random vectors with mean vector $ \bm{\mu} \in \mathbb{R}^p$ and covariance matrix $\mtr{\Sigma}$
 
     The sample mean
     \[
@@ -256,7 +263,9 @@ Hence, we can epxress $\Sigma$ as the difference of two matrices
     \[
       \sqrt{n} \left( \bar{\bm{X}} - \bm{\mu} \right) \overset{d}{\longrightarrow} N_p ( \bm{0}, \mtr{\Sigma})
     \]
-\end{framed} 
+\end{definition} 
+
+\newpage
 
 
 

@@ -1,24 +1,24 @@
-\chapter{Class 9} 
+\section{Class 9} 
 
-\section{Fisher Information and asymptotic properties of the MLE estimator}
+\subsection{Fisher Information}
 
-\begin{framed}
-    \textbf{Definition} (Score Function): The score function is defined as 
+\begin{definition}
+    (Score Function): The score function is defined as 
     \[
         s \left( \theta \right)  =  \frac{d}{d \theta} \log f_{ \theta} (X)
     \]
-\end{framed} 
+\end{definition} 
 
-\begin{framed}
+\begin{definition}
     \textbf{Definition} (Fisher Information): The Fisher Information is defined as 
     \[
         I \left( \theta \right) = \mathbb{E}\left[ \left( s ( \theta)^2 \right) \right] = \mathbb{E}\left[ \left(
             \frac{d}{d \theta} \log f_{ \theta}(X)
           \right)^2 \right] 
     \]
-\end{framed} 
+\end{definition} 
 
-\begin{framed}
+\begin{lemma}
     \textbf{Lemma} (Properties of the score function): 
     \begin{enumerate}
         \item Zero expectation
@@ -35,10 +35,9 @@
         \]
         
     \end{enumerate} 
-\end{framed} 
+\end{lemma} 
 
-\textbf{Proof} \\
-
+\begin{proof}
 (1): 
 \begin{align*}
     \mathbb{E}\left[  \frac{d}{d \theta} \log f_{ \theta} (X)\right]  &= \int_{}^{}  \frac{d}{d \theta} \log f_{ \theta} (x) f_{ \theta}(x) dx \\
@@ -55,9 +54,13 @@
     &= \mathbb{E}\left[ (s( \theta))^2\right]  \\
     &= I ( \theta)
 \end{align*}
+\end{proof}
 
-\begin{framed}
-    \textbf{Definition} (Asymptotic properties of MLE): Suppose $X_1, \hdots X_n$ iid with \textit{pdf} or \textit{pmf} $f_{ \theta_0}(x), \theta_0 \in \Omega$ where $ \theta_0 $is the true parameter and $\Omega$ is the parameter space.  \\
+\subsection{Asymptotic properties of the MLE estimator}
+
+
+\begin{result}
+    (Asymptotic properties of MLE): Suppose $X_1, \hdots X_n$ iid with \textit{pdf} or \textit{pmf} $f_{ \theta_0}(x), \theta_0 \in \Omega$ where $ \theta_0 $is the true parameter and $\Omega$ is the parameter space.  \\
 
     Denote by $ \hat{ \theta}$ the MLE estimate based on $X_1, \hdots X_n$. \\
     
@@ -76,23 +79,22 @@
         \]
     \end{itemize} 
 
-    Then, as $n \to \infty$
-    \[
-        \hat{ \theta} \to \theta_0
-    \]
+    Then the following hold 
+    \begin{enumerate}
+        \item $\hat{ \theta}$ consistent for $ \theta_0$, i.e. as $n \to \infty$
+            \[
+                \hat{ \theta} \to \theta_0
+            \]
+        \item 
+    \end{enumerate}
+    
     and
     \[
     \sqrt{n} \left( \hat{ \theta} - \theta_0 \right)  \overset{d}{\longrightarrow} N \left( 0, \frac{1}{I( \theta_0)} \right) 
     \]
-\end{framed} 
+\end{result} 
 
-\textbf{Note}: as a heuristic, 
-\[
-    \hat{ \theta} \approx N \left( \theta_0, \frac{1}{n I \left( \theta \right) } \right) 
-\]
-
-\textbf{Proof}: \\
-
+\begin{proof}
 Normality implies consistency: if we know that the asymptotic distribution is normal with variance being the inverse of Fisher Information, then 
 \begin{align*}
     \left(  \hat{ \theta} - \theta_0 \right)  &= \frac{\sqrt{n} \left(  \hat{ \theta} - \theta \right) }{ \sqrt{n}} \overset{p}{\longrightarrow}  0 \text{ by Slutsky's}
@@ -148,3 +150,163 @@ Hence
     \overset{d}{\longrightarrow}& \frac{N \left( 0, I ( \theta_0)\right) }{ I ( \theta_0)}  \text{ by Slutsky's}\\
     = & N \left( 0, \frac{1}{I ( \theta_0)} \right) 
 \end{align*}
+\end{proof}
+
+\begin{example} 
+(Bernoulli): $X_1, x_2, \hdots X_n \sim Ber(P)$. Then, 
+\begin{align*}
+    f_p(x) &= p^x (1-p)^x \\
+    \log f_p(x) &= x \log p + (1-x) \log(1 - p) \\
+    \frac{\partial }{\partial p} \log f_p(x) &= \frac{x}{p} - \frac{1 - x}{ 1 - p} \\  
+    - \frac{\partial^2}{\partial p^2}\log f_p(x) &= \frac{x}{p^2} + \frac{1-x}{(1-p)^2}
+\end{align*}
+
+Therefore 
+\begin{align*}
+    I(p) &= - \mathbb{E}\left[ \left( \frac{\partial^2}{\partial p^2} \log f_p(x) \right) \right] \\
+    &= \frac{p}{p^2} + \frac{1-p}{(1-p)^2} \\
+    &= \frac{1}{p} + \frac{1}{1-p} \\
+    &= \frac{1}{p(1-p)}
+\end{align*}
+
+Hence 
+\begin{align*}
+    \sqrt{n} \left( \hat{p}_{MLE} - p \right)  \overset{p}{\longrightarrow} & N \left( 0, \frac{1}{I(p)} \right)  \\ 
+    =& N \left( 0, p(1-p) \right) 
+\end{align*}
+\end{example}
+
+\begin{example}
+    (Normal): $X_1, X_2, \hdots X_n \sim N(\mu, \sigma^2)$. The \textit{pdf} of $X$ is 
+    \begin{align*}
+        f_{\mu, \sigma^2}(x) &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{- \frac{1}{2\sigma^2} (x-\mu)^2} \\
+        \log f_{\mu, \sigma^2}(x) &= - \frac{1}{2} \log 2\pi - \frac{1}{2} \log \sigma^2 - \frac{1}{2\sigma^2} (x -\mu)^2
+    \end{align*}
+
+    \textbf{Fisher information for $\mu$}: 
+    \begin{align*}
+        \frac{\partial }{\partial \mu} \log f(x) &= \frac{1}{\sigma^2} (x- \mu) \\ 
+        - \frac{\partial^2}{\partial \mu^2} \log f(x) &= \frac{1}{\sigma^2}
+    \end{align*}
+
+    Therefore, 
+    \begin{align*}
+        I(\mu) = \frac{1}{\sigma^2}
+    \end{align*}
+    Hence 
+    \[
+        \sqrt{n} ( \hat{\mu}_{MLE} - \mu) \overset{d}{\longrightarrow} N(0, \sigma^2)
+    \]
+    
+    \textbf{Fisher information for $\sigma^2$}:  
+    \begin{align*}
+        \frac{\partial }{\partial \sigma^2} \log f(x) &= - \frac{1}{2 \sigma^2} + \frac{1}{2 \sigma^4} (x - \mu)^2  \\
+        - \frac{\partial^2}{(\partial \sigma^2)^2} &= - \frac{1}{2 \sigma^4}  + \frac{1}{\sigma^6} (x - \mu)^2
+    \end{align*}
+    Therefore, 
+    \[
+        I(\sigma^2) = - \mathbb{E}\left[ 
+        \frac{\partial^2}{(\partial \sigma^2)^2}
+        \right]  = - \frac{1}{2 \sigma^4} + \frac{1}{ \sigma^4} = \frac{1}{2 \sigma^4}
+    \]
+    And 
+    \begin{align*}
+        \sqrt{n} \left( \hat{\sigma}_{MLE}  - \sigma^2 \right)  \overset{d}{\longrightarrow}& N \left( 0, \frac{1}{I (\sigma^2)} \right)  \\
+        &= N (0, 2 \sigma^4)
+    \end{align*}
+\end{example}
+
+\begin{remark}
+As a heuristic
+\[
+    \hat{ \theta} \approx N \left( \theta_0, \frac{1}{n I \left( \theta \right) } \right) 
+\]
+\end{remark}
+
+\subsection{Asymptotic properties of the MLE estimator for multiple parameters}
+
+Let $ \{ f_{ \bm{ \theta}}(x): \bm{ \theta} \in \Omega \} $ be a family of distributions where $ \bm{ \theta} = ( \theta_1, \theta_2, \hdots \theta_k) \in \mathbb{R}^k$ is a $k$-dimensional parameter. 
+
+\begin{theorem}
+    Suppose $X_1, \hdots X_n$ iid from distribution with density / \textit{pmf} $f_{ \theta}$. Let $ \bm{ \hat{ \theta}_n}$  be the MLE based on $X_1, X_2, \hdots X_n$. 
+    
+    Let the $k \times k$ Fisher Information matrix be defined as 
+    \[
+        \left(I( \bm{ \theta}) \right)_{ij} = Cov \left( 
+            \frac{\partial }{\partial \theta_i} \log f_{ \bm{ \theta}} (x) , 
+            \frac{\partial }{\partial \theta_j} \log f_{ \bm{ \theta}} (x)
+         \right) 
+    \]
+    Under the same conditions as the univariate normal, 
+    \[
+        \sqrt{n} \left( \bm{ \hat{ \theta}}_n \right)   - \bm{ \theta} \overset{d}{\longrightarrow}  N_k ( \bm{0}, I ( \bm{ \theta})^{-1})
+    \]
+\end{theorem}
+
+% \begin{remark}  As an heuristic, 
+%     \[
+%         \bm{ \hat{ \theta_n}} \approx N \left( \bm{ \theta}, \frac{1}{n} I() \right) 
+%     \]
+% \end{remark} 
+
+\begin{proof}
+    We WTS that 
+    \[
+        Cov( 
+            \frac{\partial }{\partial \theta_i} \log f_{ \bm{ \theta}} (x),  
+            \frac{\partial }{\partial \theta_j} \log f_{ \bm{ \theta}} (x),  
+        ) = - \mathbb{E}\left[ \frac{\partial^2}{\partial \theta_i \partial \theta_j}\right]  \log f_{ \theta} (x)
+    \]
+\end{proof}
+
+\begin{example}
+    (Normal): 
+    \begin{align*}
+        - \frac{\partial^2 }{\partial \partial \mu \partial \sigma^2} l_n (\mu, \sigma^2) &= \frac{1}{ \sigma^4} (x - \mu) \\ 
+        \mathbb{E}\left[ 
+- \frac{\partial^2 }{\partial \partial \mu \partial \sigma^2} l_n (\mu, \sigma^2) 
+        \right]  = 0
+    \end{align*}
+    
+    The Fisher Information matrix is 
+    \[
+        I (\mu, \sigma^2) = \begin{pmatrix} 
+          \frac{1}{\sigma^2}   & 0 \\
+          0 & \frac{1}{2 \sigma^4}
+        \end{pmatrix}
+    \]
+
+    Hence 
+    \[
+        I (\mu, \sigma^2)^{-1} = \begin{pmatrix} 
+          {\sigma^2}   & 0 \\
+          0 & {2 \sigma^4}
+        \end{pmatrix}
+    \]
+    and 
+    \[
+        \sqrt{n} \begin{pmatrix} 
+          \hat{\mu}_{MLE} - \mu \\
+          \hat{\sigma^2}_{MLE} - \sigma^2 
+        \end{pmatrix} = 
+        N_2 \left( 
+            \bm{0}, 
+            \begin{pmatrix} 
+              \sigma^2 & 0 \\
+              0 & 2 \sigma^4  
+            \end{pmatrix}
+         \right) 
+    \]
+\end{example}
+
+\begin{example}
+    (Gamma distribution)
+\end{example}
+
+
+
+
+
+\newpage
+
+

@@ -1,0 +1,96 @@
+\section{Class 11}
+
+\subsection{Least Absolute Deviation Line}
+
+\begin{definition}
+    (Least Absolute Deviation) Suppose we have data $(X_1, Y_1), (X_2, Y_2), \hdots (X_n, Y_n)$ related by model 
+\[
+    Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
+\]
+
+The \textbf{least absolute deviation line} is obtained by minimizing 
+\[
+    \min_{\beta_0, \beta_1} \sum\limits_{i = 1}^{n} \left| Y_i - \beta_0 - \beta_1 X_i \right| 
+\]
+\end{definition}
+
+\begin{result}
+    \[
+        \arg \min_{m} \sum\limits_{i = 1}^{n}  \left| X_i - m \right|  = median \{ X_1, \hdots X_n \} 
+    \]
+\end{result}
+
+\begin{result}
+    The LAD line passes through a pair of points $(X_i, Y_i), (X_j, Y_j)$. 
+\end{result}
+
+\begin{proof}
+    For simplicity, assume $n$ odd. \\ 
+
+    Begin by fixing $\beta_1$ and defining 
+    \[
+        Z_i = Y_i - \beta_1 X_i
+    \]
+
+    Then
+
+    \begin{align*}
+        \arg \min_{\beta_0} \sum\limits_{i = 1}^{n} \left| Z_i - \beta_0 \right|  &= \arg \min_{\beta_0} \sum\limits_{i = 1}^{n} \left| Z_i - \beta_0 \right|  \\
+        &= median \{ Z_1, \hdots, Z_n \}  \\
+        &= Z_{i_0} \text{ for some } i_0 \\
+        &= Y_{i_0} - \beta_1 X_{i_0}
+    \end{align*}
+
+    This implies the LAD line for fixed $\beta_1$ passes through some point $(X_{i_0}, Y_{i_0})$. \\
+
+    by shifting the coordinate system, we can assume that the LAD line passes through the origin 
+    \[
+        Y - Y_{i_0} = \beta_1 (X - X_{i_0})
+    \]
+
+    We solve for $\beta_1$ with 
+    \begin{align*}
+        & \min_{\beta_1} \sum\limits_{i = 1}^{n}  \left| (Y_i - Y_{i_0})  - \beta_1 (X_i - X_{i_0})\right|  \\ 
+        = & \min_{\beta_1} \sum\limits_{i = 1}^{n}  \left| Y_{\tilde{i}}  - \beta_1 X_{\tilde{i}} \right|
+    \end{align*}
+
+    For simplicity, we just write $Y_i, X_i$
+    \begin{align*}
+        &\min_{\beta_1} \sum\limits_{i = 1}^{n}  \left| Y_i  - \beta_1 X_i \right| \\
+        = & \min_{\beta_1} \sum\limits_{i = 1}^{n} \left| X_i \right|  \left| \frac{Y_i}{X_i} - \beta_1 \right| 
+    \end{align*}
+
+    This is a weighted median problem, the sum of absolute deviations is piecewise linear between each data point and convex. Hence, the minimum is attained at some $i_*$, i.e. 
+    \[
+        \hat{\beta}_1 = \frac{Y_{i_*}}{X_{i_*}}
+    \]
+
+    The LAD line is 
+    \[
+        Y = Y_{i_0} + \frac{Y_{i_*} - Y_{i_0}}{X_{i_*} - X_{i_0}} (X - X_{i_0})
+    \] 
+\end{proof}
+
+\begin{remark}
+    The LAD line can be computed by checking over all the $ \begin{pmatrix} n \\ 2 \end{pmatrix} $ pairwise lines determined by the data points. These lines are called the \textbf{elemental lines}. 
+\end{remark}
+
+\begin{remarks}
+    Note that 
+    \begin{enumerate}
+        \item The LAD line is one of the elemental lines 
+        \item The LAD estimates are the MLEs where the errors have the Laplace / Double Exponential distribution
+        \[
+            Ae^{ \frac{ -\left| x \right| }{B}}
+        \]
+        \item The slope of the LS line is a weighted average of the slopes of the elemental lines.
+    \end{enumerate}
+\end{remarks}
+
+\newpage
+
+
+
+
+
+

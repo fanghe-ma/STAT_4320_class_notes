@@ -1,22 +1,30 @@
-\chapter{Class 5}
+\section{Class 5}
 
-\section{Chi-squared distribution}
+\subsection{Chi-squared distribution}
 
-Note that $\chi_{d}^2$ is the sum of $d$ iid standard normals squared. 
+\begin{definition}
+The $\chi_{d}^2$ is the sum of $d$ iid standard normals squared. 
 \[
   Z_1, \hdots Z_d \sim N(0, 1), \quad \sum\limits_{i=1}^{d} Z_i \sim \chi_d^2
 \]
+\end{definition}
 
+
+\begin{result}
 The \textit{chi-squared} distribution has expectation
 \begin{align*}
     \mathbb{E}\left[ \chi_d^2\right] &= d \mathbb{E}\left[ Z_1^2\right]  \\
     &= d \quad
 \end{align*}
-Since 
+\end{result}
+\begin{proof}
 \[
   \mathbb{E}\left[ Z_1^2\right]  = Var(Z_1) - \mathbb{E}\left[ Z_1\right]^2
 \]
+\end{proof}
 
+
+\begin{result}
 The \textit{chi-squared} distribution has variance 
 \begin{align*}
     Var(\chi_d^2) &= Var \left( \sum\limits_{i = 1}^{d} Z_i^2 \right)  \\
@@ -24,24 +32,37 @@ The \textit{chi-squared} distribution has variance
     &= 2d
 \end{align*}
 
-Since 
+\end{result}
+
+\begin{proof}
 \begin{align*}
     Var(Z_1^2) &= \mathbb{E}\left[ Z_1^4\right]  - \mathbb{E}\left[ Z_1^2\right]^2 \\
     &= \mathbb{E}\left[ Z_1^4\right]  - 1 \\
     &= 3 - 1 \\
     &= 2
 \end{align*}
+\end{proof}
 
-\section{Sample Variance, cont'd}
 
-\textbf{Result}: the sample variance follows a \textit{chi-squared} distribution. 
+
+
+
+\subsection{Sample Variance, cont'd}
+
+\begin{result}
+The sample variance follows a \textit{chi-squared} distribution. 
 \[
   s^2 \sim \frac{\sigma^2}{n-1}\chi_{n-1}^2
 \]
+\end{result}
 
-\textbf{Proof}: 
-
-Consider $\vtr{Y} = \begin{pmatrix} Y_1 \\ Y_2 \\ \vdots \\ Y_n \end{pmatrix} $ = $ \begin{pmatrix} X_1 - \bar{X}  \\ X_2 - \bar{X}  \\\vdots \\ X_n - \bar{X} \end{pmatrix} $. We express $\vtr{Y} = \mtr{A} \vtr{X}$ for some matrix $\mtr{A}$.
+\begin{proof}
+  Let
+  \[
+  \vtr{Y} = \begin{pmatrix} Y_1 \\ Y_2 \\ \vdots \\ Y_n \end{pmatrix}    \begin{pmatrix} X_1 - \bar{X}  \\ X_2 - \bar{X}  \\\vdots \\ X_n - \bar{X} \end{pmatrix}   
+  \]
+  
+We express $\vtr{Y} = \mtr{A} \vtr{X}$ for some matrix $\mtr{A}$.
 \[
 \vtr{Y} = \begin{pmatrix} 
   1 - \frac{1}{n} & - \frac{1}{n} & \hdots & - \frac{1}{n}   \\
@@ -140,17 +161,25 @@ Hence
   &= \sum\limits_{i = 1}^{n-1} W_i^2 \\
   &\sim \chi_{n - 1}^2 \qed
 \end{align*}
+\end{proof}
 
-\section{Joint distribution of sample mean and sample variance}
+\subsection{Joint distribution of sample mean and sample variance}
 
 We know the marginal distributions for the sample mean and variance 
 \[
-  \bar{X}  sim N \left( \mu, \frac{\sigma^2}{n} \right) , s^2 \sim \frac{\sigma^2}{n - 1} \chi_{n-1}^2
+  \bar{X} \sim N \left( \mu, \frac{\sigma^2}{n} \right) , s^2 \sim \frac{\sigma^2}{n - 1} \chi_{n-1}^2
 \]
 
-\textbf{Result}: If $X_1, X_2, \hdots X_n$ iid normal, $\bar{X} , s^2$ independent. 
+\begin{result}
+If $X_1, X_2, \hdots X_n$ iid normal, $\bar{X} , s^2$ independent. 
+\end{result}
 
-\textbf{Proof}: Define $\vtr{Z} = \begin{pmatrix} X_1 - \bar{X} \\ X_2 - \bar{X} \\ \vdots \\ X_n - \bar{X} \\ \bar{X}  \end{pmatrix} $
+\begin{proof}
+Define 
+\[
+\vtr{Z} = \begin{pmatrix} X_1 - \bar{X} \\ X_2 - \bar{X} \\ \vdots \\ X_n - \bar{X} \\ \bar{X}  \end{pmatrix} 
+\]
+
 \[
   \vtr{Z} = \mtr{B} \vtr{X}, \mtr{B} \in \mathbb{R}^{(n + 1) \times n}, \mtr{B} = \begin{pmatrix} 
     & & & & \\  
@@ -174,17 +203,9 @@ If we show that $X_1 - \bar{X}   \perp \bar{X} $, $X_2 - \bar{X}  \perp \bar{X} 
   \end{pmatrix} \perp \bar{X}  \implies s^2 \perp \bar{X} 
 \]
 
-Since $\vtr{Z} = \mtr{B} \vtr{X}$ is multivariate normal, it suffices to check that the covariance is 0. 
+Since $\vtr{Z} = \mtr{B} \vtr{X}$ is multivariate normal, it suffices to check that the covariance is 0.  \\
 
-\begin{framed}
-    \textbf{Note}: As a general strategy, to show independence, we can show in two steps
-    \begin{enumerate}
-        \item show jointly normal
-        \item show 0 covariance
-    \end{enumerate}
-\end{framed} 
-
-It suffices to show $Cov( \bar{X} , X_i - \bar{X} ) = 0$ for all $1 \leq i \leq n$. 
+To show $Cov( \bar{X} , X_i - \bar{X} ) = 0$ for all $1 \leq i \leq n$. 
 
 Note that 
 \[
@@ -202,7 +223,17 @@ Note that
     &= 0
 \end{align*}
 
+\end{proof}
 
+\begin{remark}
+    As a general strategy, to show independence, we can show in two steps
+    \begin{enumerate}
+        \item show jointly normal
+        \item show 0 covariance
+    \end{enumerate}
+\end{remark} 
+
+\newpage
 
 
 
