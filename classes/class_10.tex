@@ -12,7 +12,7 @@
 \begin{proof}
     Denote the score function 
     \[
-        s( \theta, x) = \frac{\partial }{\partial \theta} \log f_{ \theta}(x) = \frac{ \frac{\partial f_{ \theta}(x)}{\partial }}{f_{ \theta}(x)}
+        s( \theta, x) = \frac{\partial }{\partial \theta} \log f_{ \theta}(x) = \frac{ \frac{\partial }{\partial \theta} f_{ \theta}(x)}{f_{ \theta}(x)}
     \]
 
     Let 
@@ -24,7 +24,7 @@
     \begin{align*}
         & \left( Corr(S, T) \right)^2 \leq 1  \\
         \implies & Cov( S, T)^2 \leq Var(S) \cdot Var(T) \\
-        \implies & Var(T) \geq \frac{(Clv(S, T))^2}{Var(S)}
+        \implies & Var(T) \geq \frac{(Cov(S, T))^2}{Var(S)}
     \end{align*}
 
     Where 
@@ -99,8 +99,22 @@ The \textbf{residuals} are defined as
     E_i = Y_i - \hat{Y}_i
 \]
 
+The \textbf{sum of squared errors, SSE} are 
+\[
+    SSE := \sum\limits_{i = 1}^{n} E_i = \sum\limits_{i = 1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i)^2
+\]
 
 \end{definition}
+
+\begin{definition}
+    Define 
+    \begin{align*}
+        S_{xy} &= \sum\limits_{i = 1}^{n}  (x_i - \bar{x} )(y_i - \bar{y} ) = (n - 1)s_{xy} \\
+        S_{xx} &= \sum\limits_{i = 1}^{n}  (x_i - \bar{x} )^2 = (n - 1)s_{x}^2 \\
+        S_{yy} &= \sum\limits_{i = 1}^{n}  (y_i - \bar{y} )^2 = (n - 1)s_{y}^2
+    \end{align*}
+\end{definition}
+
 
 \begin{remark}
 Define 
@@ -134,10 +148,58 @@ The LS estimates $( \hat{\beta}_0, \hat{\beta}_1)$ are solved via
 \end{result}
 
 \begin{remark}
+    (Derivation of regression parameters) \\
+
+    Let 
+    \[
+        f(a, b) = \sum\limits_{i = 1}^{n} (y_i - (a + bx_i))^2
+    \]
+
+    Setting the partial derivatives to 0 
+    \begin{align*}
+        \frac{\partial f}{\partial a} &= -2 \sum\limits_{i=1}^{n} (y_i - (a + bx_i)) = 0  \\
+        \frac{\partial f}{\partial b} &= -2 \sum\limits_{i=1}^{n} (y_i - (a + bx_i))x_i = 0
+    \end{align*}
+
+    This is a system of linear equations in $a, b$. 
+    \begin{align*}
+        (2n)a + \left( 2 \sum\limits_{i = 1}^{n} x_i \right) b &= 2 \sum\limits_{i = 1}^{n} y_i \\ 
+        \left( 2 \sum\limits_{i = 1}^{n} x_i \right) a + \left( 2 \sum\limits_{i = 1}^{n} x_i^2 \right) b &= 2 \sum\limits_{i = 1}^{n} x_i y_i
+    \end{align*}
+
+    Solving for $a, b$
+    \begin{align*}
+        \hat{ \beta }_0 = a &= \frac{
+            \left( \sum x_i^2   \right)  \left( \sum y_i \right)  - \left( \sum x_i \right)  \left( \sum x_i y_i \right) 
+        }{
+            n \sum x_i^2 - \left( \sum x_i \right)^2
+        } \\
+        \hat{\beta}_1 = b &=  \frac{
+            n \sum x_i y_i - \left( \sum x_i \right) \left( \sum y_i \right) 
+        }{
+            n \sum x_i^2 - \left( \sum x_i \right)^2
+        }
+    \end{align*}
+
+    Also 
+    \[
+        \hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{s_{xy}}{s_{x}^2} = r \frac{s_y}{s_x}
+    \]
+    \[
+        \hat{\beta}_0 = \bar{y}  - \hat{\beta}_1 \bar{x} 
+    \]
+    
+    
+\end{remark}
+
+
+
+
+\begin{remark}
     Note that the results thus far assumes nothign about the $\epsilon_i$'s.
 \end{remark}
 
-\subsubsection{Estimating $\sigma^2$}
+\subsubsection{Estimating variance}
 Now assume that 
 \[
     \epsilon_i \overset{ iid}{\sim} N(0, \sigma^2)
@@ -158,15 +220,6 @@ and an unbiased estimator of $\sigma^2$ is
     \frac{ \lVert \epsilon \rVert^2 }{n}
 \]
 
-
-\begin{definition}
-    (Sum of Squared Errors, SSE): The Sum of squared errorsis defined as 
-    \[
-        SSE := \sum\limits_{i = 1}^{n} E_i = \sum\limits_{i = 1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i)^2
-    \]
-\end{definition}
-
-
 \begin{result}
     $\hat{\sigma}^2$ defined below is an unbiased estimate of $\sigma^2$
     \[
@@ -179,26 +232,91 @@ and an unbiased estimator of $\sigma^2$ is
 
 \begin{result}
     The LS estimates are unbiased.
-\end{result}
-
-\begin{result}
-    The LS estimates are normally distributed.
-\end{result}
-
-\begin{result}
-    The LS estimates find the vector $ \bm{ \hat{V}}$in the plane spanned by the vectors $ \bm{1}, \bm{X}$ that is the closest to $ \bm{Y}$, where 
     \[
-        \bm{ \hat{v}} = \hat{ \beta}_0 \bm{1} + \hat{ \beta}_1 \bm{X}
+        \mathbb{E}\left[  \hat{\beta}_1\right]  = \beta_1
+    \]
+    \[
+        \mathbb{E}\left[ \hat{ \beta}_0\right]  = \beta_0
     \]
 \end{result}
 
 \begin{result}
-    $\hat{\beta}_0, \hat{\beta}_1$ are independent of $ \hat{ \sigma}^2$
+    The LS estimates are normally distributed.
+    \[
+        \hat{\beta}_0 \sim N \left( \beta_0 \frac{\sigma^2 \sum\limits_{i = 1}^{n} x_i^2}{n s_{xx}} \right) 
+    \]
+
+    \[
+        \hat{\beta}_1 \sim N \left( \beta_1, \frac{\sigma^2}{s_{xx}} \right) 
+    \]
+    where
+    \[
+        s_{xx}= \sum\limits_{i = 1}^{n} (x_i - \bar{X} )^2
+    \]
+    
+\end{result}
+
+\begin{result}
+    The LS estimates find the vector $ \bm{ \hat{v}}$in the plane spanned by the vectors $ \bm{1}, \bm{X}$ that is the closest to $ \bm{Y}$, where 
+    \[
+        \bm{ \hat{v}} = \hat{ \beta}_0 \bm{1} + \hat{ \beta}_1 \bm{X}
+    \]
+
+    To see this, denote $\bm{v} = \begin{pmatrix} 
+      v_1 \\ v_2 \\ \vdots   v_n
+    \end{pmatrix}
+    $  with $v_i = \beta_0 + \beta_1 x_i$. 
+    This can be written as 
+    \[
+        \bm{v} = \beta_0 \bm{1} + \beta_1 \bm{x}
+    \]
+    where 
+    \[
+        \bm{x} = \begin{pmatrix} 
+          x_1 \\ x_2 \\ \hdots \\ x_n  
+        \end{pmatrix}
+    \]
+    Therefore, $ \bm{v}$ is a linear combination of $\bm{1}$ and $\bm{x}$.  \\
+
+    The LS estimate minimizes 
+    \[
+        \sum\limits_{i = 1}^{n}  \left( Y_i - \beta_0 - \beta_1 x_i \right)^2 = \left| \bm{Y} - \bm{v} \right|^2
+    \]
+\end{result}
+
+\begin{result}
+    $\hat{\beta}_0, \hat{\beta}_1$ are independent of $ \hat{ \sigma}^2$. \\
+
+    Hence
+    \[
+        \frac{\hat{\beta}_1 - \beta_1}{S / \sqrt{S_{xx}}} \sim t_{n - 2}
+    \]
+    \[
+        \frac{\hat{\beta}_0 - \beta_0}{S \sqrt{ \frac{\sum\limits_{}^{}X_i^2 }{nS_{xx}}}} \sim t_{n - 2}
+    \]
+    This can be used for constructing confidence intervals and hypothesis testing for $ \beta_0$ and $\beta_1$.
 \end{result}
 
 
 \begin{result}
-    $\hat{\beta}_0, \hat{\beta_1}$ coincides with the MLE estimates.
+    $\hat{\beta}_0, \hat{\beta_1}$ coincides with the MLE estimates. \\
+
+    Note that $Y_i \sim N( \beta_0 +\beta_1 x_i, \sigma^2)$. The likelihood function is 
+    \[
+        \left( \frac{1}{\sqrt{2 \pi} \sigma} \right)^n \exp{- \frac{1}{2\sigma^2} \sum\limits_{i = 1}^{n} \left( Y_i - \beta_0 - \beta x_i \right)^2 }
+    \]
+
+    The log likelihood function is 
+    \[
+        - \frac{1}{2 \sigma^2} \sum\limits_{i = 1}^{n} \left( Y_i - \beta_0 - \beta x_i \right)^2 - \frac{n}{2} \log(2 \pi \sigma^2)
+    \]
+    The MLE is obtained by 
+    \[
+        \arg \min_{\beta_0, \beta_1, \sigma^2} l \left( \beta_0, \beta_1, \sigma^2 \right) 
+    \]
+    
+    
+    
 \end{result}
 
 

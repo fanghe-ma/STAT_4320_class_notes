@@ -1,0 +1,245 @@
+\section{Class 14}
+
+\subsection{Hypothesis testing}
+
+\begin{remark}
+    Suppose $X_1, \hdots, X_n$ iid from $f_{ \theta}(x)$, where $ \theta \in \Omega$. We want to test the following hypotheses 
+    \begin{enumerate}
+        \item Simple vs simple
+        \[
+            H_0: \theta = \theta_0 \text{ vs } H_1: \theta = \theta_1
+        \]
+        \item Simple vs composite
+        \begin{align*}
+            H_0: \theta = \theta_0 \text{ vs } &  H_1: \theta \neq \theta_1 \text{ OR } \\
+            & H_1: \theta < \theta_0 \\
+            & H_1: \theta > \theta_0 \\
+        \end{align*}
+        \item Composite vs composite
+        \begin{align*}
+            H_0: \theta < \theta_0 \text{ vs } &  H_1: \theta > \theta_1 \text{ OR } \\
+            H_0: \theta > \theta_0 \text{ vs } &  H_1: \theta < \theta_1 \text{ OR } \\
+        \end{align*}
+    \end{enumerate} 
+\end{remark}
+
+\begin{definition}
+    (Test function) A test function $\phi$ is a function $\phi: (X_1, X_2, \hdots, X_n) \to \{ 0, 1 \} $ such that 
+    \begin{align*}
+        \phi = 0 & \implies H_0 \text{ is accepted} \\
+        \phi = 1 & \implies H_0 \text{ is rejected} \\
+    \end{align*}
+\end{definition}
+
+\begin{definition}
+    (Type I, Type II error) The two types of error in testing problems are 
+    \begin{itemize}
+        \item Type I error: rejecting $H_0$ when $H_0$ true (false positive)
+        \item Type II error: not rejecting $H_0$ when $H_1$ true (false negative)
+    \end{itemize} 
+\end{definition}
+
+\begin{definition}
+    (Level of a test): The significance level of a test is the probability of Type I error 
+    \[
+        \alpha = P_{H_0} ( \text{ reject } H_0) = P_{H_0} (\phi = 1) = \text{ Type I error rate} = \text{ False Positive Rate}
+    \]
+\end{definition}
+
+\begin{definition}
+    (p-value): The p-value is the smallest significance level at which the test rejects $H_0$.
+\end{definition}
+
+\begin{definition}
+    (Power): Let $\beta$ be the probability of Type II error
+    \[
+        \beta = P_{H_1} ( \text{ accept } H_0) = P_{H_1} (\phi = 0) = \text{ Type II error rate} = \text{ False Negatve Rate}
+    \]
+    The power of a test is 
+    \[
+        1 - \beta = P_{H_1} ( \text{ reject } H_0) = P_{H_1} (\phi = 1)
+    \]
+\end{definition}
+
+\subsubsection{Likelihood Ratio Test and Neyman-Pearson Lemma}
+
+\begin{definition}
+    (MP test): The \textbf{most powerful (MP) test} is a test which maximizes power $(1 - \beta)$ at a given level ($\alpha$), i.e. 
+
+    \begin{align*}
+        &\max_{\phi} \mathbb{E}_{H_1}\left[ \phi\right]  \\
+        & \text{subject to } \mathbb{E}_{H_0}\left[ \phi\right]  \leq \alpha
+    \end{align*}
+\end{definition}
+
+\begin{definition}
+    (Likelihood ratio test): Reject $H_0$ for small values of the likelihood ratio
+    \[
+        L \left( X_1, \hdots X_n \right)  = \frac{f_{ \theta_0 (X_1, \hdots X_n)}}{f_{ \theta_1} (X_1, \hdots X_n)}
+    \]
+\end{definition}
+
+\begin{remark}
+    "The points which give the strongest evidence in favor of $H_1$ over $H_0$". \textcolor{red}{check what this means}
+\end{remark}
+
+\begin{theorem}
+    (Neyman-Pearson Lemma) Under a simple vs simple hypothesis test, for a constant $c > 0$, define the test function 
+    \[
+        \phi_0 \left( X_1, X_2, \hdots X_n \right)  = L(X_1, \hdots X_n) < c
+    \]
+    where $c$ is chosen such that 
+    \[
+    P( \text{Type I error}) = P_{H_0} (L(X_1, \hdots X_n)) = \alpha
+    \]
+
+    Then $\phi_0$ is a MP test for the testing problem
+\end{theorem}
+
+\begin{proof}
+    Let $ \phi$ be any other test with significance level at most $\alpha$. WTS that 
+    \[
+        \mathbb{E}_{H_1}\left[ \phi_0\right]  \geq \mathbb{E}_{H_1}\left[ \phi\right] 
+    \]
+    Let
+    \[
+        g(\bm{x}) = \left( \phi_0 ( \bm{x}) - \phi(\bm{x}) \right) \left( cf_{ \theta_1}( \bm{x}) - f_{ \theta_0}( \bm{x})\right)  
+    \]
+    Note that 
+    \begin{align*}
+        \phi_0( \bm{x}) > \phi ( \bm{x}) &\implies f_{ \theta_0} (\bm{x}) < c f_{ \theta_1} ( \bm{x}) \\
+        \phi_0( \bm{x}) < \phi ( \bm{x}) &\implies f_{ \theta_0} (\bm{x}) \geq c f_{ \theta_1} ( \bm{x}) \\
+    \end{align*}
+    This means 
+    \begin{align*}
+        & g( \bm{x}) \geq 0 \\
+        \implies & \int_{}^{} g( \bm{x})  d \bm{x} \geq 0 \\
+        \implies & \int \left( \phi_0 ( \bm{x}) - \phi(\bm{x}) \right) \left( cf_{ \theta_1}( \bm{x}) - f_{ \theta_0}( \bm{x})\right)   d \bm{x} \geq 0 \\
+        \implies & c \int_{}^{}  \left( \phi_0( \bm{x}) - \phi( \bm{x}) \right)  f_{ \theta_1} ( \bm{x}) d \bm{x} \geq \int_{}^{}   \left( \phi_0( \bm{x}) - \phi( \bm{x}) \right) f_{ \theta_0} (\bm{x}) d \bm{x} \\
+        \implies & c \left( \mathbb{E}_{H_1}\left[ \phi_0\right] - \mathbb{E}_{H_1}\left[ \phi\right]  \right) \geq 0 
+    \end{align*}
+    Since 
+    \begin{align*}
+        \int_{}^{}   \phi_0 ( \bm{x}) f_{ \theta_0} (\bm{x}) d \bm{x} &= \mathbb{E}_{ H_0}\left[ \phi_0\right]  = \alpha \\
+        \int_{}^{}   \phi ( \bm{x}) f_{ \theta_0} (\bm{x}) d \bm{x} &= \mathbb{E}_{ H_0}\left[ \phi\right]  \leq \alpha
+    \end{align*}
+   
+    Hence,
+    \[
+        \mathbb{E}_{H_1}\left[ \phi_0\right]  \geq \mathbb{E}_{H_1}\left[ \phi\right] 
+    \]
+\end{proof}
+
+\begin{example}
+    (Testing normal means)
+    $X_1, \hdots X_n \sim N(\mu, \sigma^2)$, $\sigma^2$ known. Want to test 
+    \[
+        H_0: \mu = \mu_0 \text{ vs } H_1: \mu = \mu_1 \neq \mu_0
+    \]
+    The likelihood ratio is 
+    \begin{align*}
+        L \left( X_1, \hdots X_n \right) &= \frac{
+            \exp{- \frac{1}{2\sigma^2} \sum\limits_{i = 1}^{n} (X_i - \mu_0)^2}
+        }{
+            \exp{- \frac{1}{2\sigma^2} \sum\limits_{i = 1}^{n} (X_i - \mu_1)^2}
+        } \\
+        &= \exp{- \frac{1}{2\sigma^2} \left( 
+            \sum\limits_{i = 1}^{n} (X_i - \mu_0)^2 - 
+            \sum\limits_{i = 1}^{n} (X_i - \mu_1)^2
+         \right) } \\
+        &= \exp{- \frac{1}{2\sigma^2} \left( 
+            2 \left( \mu_1 - \mu_0 \right)  \sum\limits_{i = 1}^{n} X_i + \mu_0^2 - \mu_1^2
+         \right) } \\
+        &= \exp{- \frac{(\mu_1 - \mu_0)}{(\sigma^2)} \sum\limits_{i = 1}^{n} X_i} \exp{- \frac{1}{2 \sigma^2} \left( \mu_0^2 - \mu_1^2 \right) }
+    \end{align*}
+
+    \textbf{Case 1}: $\mu_1 > \mu_0$, then we reject for large values of $\sum\limits_{i = 1}^{n} X_i$. \\
+
+    Choose $c$ such that 
+    \[
+        P_{H_0} \left( \sum\limits_{i = 1}^{n} X_i > c \right)  = \alpha
+    \]
+    Since under $H_0$
+    \[
+        \sum\limits_{i=1}^{n}  X_i \sim N(n \mu_0, n \sigma^2)
+    \]
+    therefore
+    \[
+        Z = \frac{
+            \sum\limits_{i = 1}^{n} X_i - n \mu_0
+        }{\sqrt{n}\sigma} \sim N(0, 1)
+    \]
+
+    Therefore we need to choose $c$ such that
+    \begin{align*}
+        & P_{H_0} \left( 
+        \frac{
+            \sum\limits_{i = 1}^{n} X_i - n \mu_0
+        }{\sqrt{n}\sigma} > \frac{c - n \mu_0}{\sqrt{n} \sigma}
+         \right)  = \alpha \\
+        \implies & P_{H_0} \left( N(0, 1) > \frac{c - n \mu_0}{\sqrt{n} \sigma} \right)  = \alpha \\
+        \implies & \frac{c - n \mu_0}{\sqrt{n} \sigma} = z_{\alpha} \implies c = n \mu_0 + z_{\alpha} \sigma \sqrt{n}
+    \end{align*}
+
+    Hence the MP test for when $\mu_1 > \mu_0$ rejects $H_0$ when 
+    \[
+        \sum\limits_{i = 1}^{n}  X_i > n \mu_0 + z_{\alpha} \sigma \sqrt{n} \iff \frac{\sqrt{n} \bar{X} - \mu_0 }{\sigma} > z_{\alpha}
+    \]
+
+    \textbf{Case 2}: when $\mu_1 < \mu_0$, we reject for small values of $\bar{X} $. Choose $c$ such that 
+    \[
+        P_{H_0} (\bar{X}  < c) = \alpha
+    \]
+    Therefore 
+    \[
+    P \left( 
+        \frac{\sqrt{n}  (\bar{X}  - \mu_0)}{\sigma} < \frac{\sqrt{n}(c - \mu_0)}{\sigma} 
+     \right)  = \alpha
+    \]
+
+    Hence 
+    \[
+        \frac{\sqrt{n} (c - \mu_0)}{\sigma} = - z_{\alpha}
+    \]
+
+    Hence the MP teste for when $\mu_1 < \mu_0$ rejects $H_0$ when 
+    \[
+        \frac{\sqrt{n}(\bar{X}  - \mu_0)}{\sigma} < -z_{\alpha}
+    \]
+    
+    
+    
+    
+    
+    
+\end{example}
+
+\subsubsection{One sided composite hypothesis and UMP tests}
+
+\begin{definition}
+    (UMP test) Conider testing the following one-sided composite hypothesis 
+    \[
+        H_0: \mu = \mu_) \text{ vs } H_1: \mu > \mu_0
+    \]
+
+    The \textbf{uniformly most powerful test} is a test such that the power function is uniformly maximized for $\mu \neq \mu_0$ over all level $\alpha$ tests. 
+
+    i.e. The UMP test is $\phi_0$ such that 
+    \[
+        \mathbb{E}_{H_0}\left[\phi_0 \right] = \alpha
+    \]
+    and 
+    \[
+        \mathbb{E}_{\mu}\left[ \phi_0 \right]  \geq \mathbb{E}_{\mu}\left[\phi \right] 
+    \]
+    for all $\mu \neq \mu_0$ and any $\phi$ such that $\mathbb{E}_{H_0}\left[ \phi \right]  = \alpha$
+    
+\end{definition}
+\begin{remark}
+    There exists no UMP test for two sided hypothesis because the UMP tests for 1 sided hypotheses have disjoint rejection regions.
+\end{remark}
+
+
+
+
+\newpage

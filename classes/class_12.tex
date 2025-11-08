@@ -132,7 +132,71 @@ such that
     \end{enumerate}
 \end{example}
 
-\begin{note}
+\begin{remark}
     CLT of estimate and consistent estimation of variance gives asymptotic confidence interals.
-\end{note}
+\end{remark}
 
+\begin{example}
+    (Poisson distribution) Let $X_1, \hdots X_n \sim Pois(\lambda)$. To find CI for $\lambda$, 
+    \begin{enumerate} 
+        \item Estimate $\lambda$ by $\hat{\lambda} = \bar{X} $ 
+        \item By CLT
+        \[
+            \sqrt{n} \left( \hat{\lambda} - \lambda\right)  \overset{d}{\longrightarrow} N(0, \lambda)
+        \]
+        Hence 
+        \[
+            Z = \frac{\sqrt{n} \left( \hat{\lambda} - \lambda \right) }{\sqrt{ \lambda}} \overset{d}{\longrightarrow} N(0, 1)
+        \]
+        \item Hence, by Slutsky's 
+        \[
+            \hat{Z} = \frac{\sqrt{n} \left( \hat{\lambda} - \lambda \right) }{\sqrt{ \hat{\lambda}}} \overset{d}{\longrightarrow} N(0, 1)
+        \]
+        Hence, 
+        \[
+            P \left( -z_{\alpha / 2} \leq
+            \frac{\sqrt{n}( \hat{\lambda} - \lambda)}{ \sqrt{ \hat{\lambda}}} 
+            \leq z_{\alpha / 2} \overset{n \to \infty}{\longrightarrow}  1 - \lambda
+            \right) 
+        \]
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    (Wald Interval) Suppse $ \{ f_{ \theta}(x) : \theta \in \Omega \} $ is a parametric family of distributions, and $X_1, \hdots X_n$ iid from $f_{\theta}$, the \textbf{Wald Interval} for $ \theta$ is the asymptotically $100(1 - \alpha)$\% CI for $ \theta$ given by 
+    \[
+        \left[  
+            \hat{ \theta} - \frac{z_{\alpha /2}}{\sqrt{n I( \hat{ \theta})}},
+            \hat{ \theta} + \frac{z_{\alpha /2}}{\sqrt{n I( \hat{ \theta})}},
+        \right] 
+    \]
+
+    where $ \hat{ \theta}$ is the MLE estimate.
+\end{definition}
+
+\begin{proof}
+    Since 
+    \[
+        \sqrt{n} \left( \hat{ \theta} - \theta \right)  \overset{d}{\longrightarrow} N \left( 0, \frac{1}{ I ( \theta)} \right) 
+    \]
+
+    Estimate $ I ( \theta)$ by $ I ( \hat{ \theta})$. If $I( \theta)$ continuous in $ \theta$< by continuous mapping, 
+    \[
+        I \left(  \hat{ \theta} \right)  \overset{p}{\longrightarrow} I ( \theta)
+    \]
+    By Slutsky's 
+    \[
+        \sqrt{n I ( \hat{ \theta})} \left(  \hat{ \theta} - \theta \right)  \overset{d}{\longrightarrow} N (0, 1)
+    \]
+    Hence 
+    \[
+        P \left( 
+            -z_{\alpha / 2} 
+            \leq \sqrt{n I ( \hat{ \theta})} ( \hat{ \theta} - \theta) 
+            \leq z_{\alpha/2}
+        \right) \overset{n \to \infty}{\longrightarrow}  1- \alpha
+    \]
+\end{proof}
+
+
+\newpage

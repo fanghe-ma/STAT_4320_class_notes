@@ -1,0 +1,95 @@
+\section{Lecture 16}
+
+\subsection{GLRT for submodels, cont'd}
+
+\begin{example} (Hardy-Weinberg Equilibrium)
+    An individuals has genotype $AA, Aa, aa$. Draw $n$ random observations and denote 
+    \[
+        N_{AA}, N_{Aa}, N_{aa}
+    \]
+    such that 
+    \[
+        N_{AA}+ N_{Aa}+ N_{aa} = n
+    \]
+
+    We model this with multinomial distribution with parameters $p_{AA}, p_{Aa}, p_{aa}$ where 
+    \[
+        p_{AA}+ p_{Aa}+ p_{aa} = 1
+    \]
+    Then 
+    \[
+        (N_{AA}, N_{Aa}, N_{aa}) \sim Multi(n, p_{AA}, p_{Aa}, p_{aa})
+    \]
+    This has PMF 
+    \[
+    P(N_1 = n_1, N_2 = n_2, N_3 = n_3)= \frac{n! p_1^{n_1} p_2^{n_2} p_3^{n_3}}{n_1 ! n_2 ! n_3 !}
+    \]
+    We want to test 
+    \[
+        H_0: p_1 = \theta^2, p_2 = 2 \theta (1 - \theta), p_3 = ( 1- \theta)^2
+    \]
+    vs 
+    \[
+        H_1: H_0 \text{ not true}
+    \]
+    Here, the reduced model is 
+    \[
+    \Omega_0 = \{ \theta \in (0, 1), P_1 = \theta^2, 2 \theta (1 - \theta), p_3 = (1 - \theta)^2\} 
+    \]
+    and 
+    \[
+        \Omega = \{ 
+            (p_1, p_2, p_3): p_1 + p_2 + p_3 = 1 \} 
+    \]
+    Note 
+    \[
+        \dim \Omega_0 = 1, \dim \Omega = 2
+    \]
+
+    Under full model ($H_1$), denote 
+    \[
+        \hat{p}_1, \hat{p}_2, \hat{p}_3
+    \]
+    Under submodel, $(H_0)$, denote
+    \[
+        \hat{p}_{1, H_0}, \hat{p}_{2, H_0}, \hat{p_{3, H_0}}
+    \]
+
+    \textbf{1. Solve MLE for full model}
+    \[
+        \hat{p}_1 = \frac{n_1}{n}, \hat{p}_2 = \frac{n_2}{n}, \hat{p}_3 = \frac{n_3}{n}
+    \]
+    \textbf{2. Solve MLE for submodel}
+    \begin{align*}
+        l( \theta) & \propto \left( \theta^2 \right)^{n_1} \left( 2 \theta( 1- \theta) \right)^{n_2} (1 - \theta)^{2 n_3} \\
+        & \propto \theta^{2 n_1 + n_2 } ( 1- \theta)^{n_2 + 2n_3}
+    \end{align*}
+
+    Setting $ \frac{\partial }{\partial \theta} \log l( \theta) = 0$, 
+    \begin{align*}
+        \hat{ \theta} &= \frac{2n_1 + n_2}{2n_1 + 2n_2 + 2n_3} \\
+        &= \frac{2n_1 + n_2}{2n}
+    \end{align*}
+
+    Then, 
+    \[
+    \wedge = \left( \frac{\hat{p}_{1, H_0}}{\hat{p}_1} \right)^{n_1}
+            \left( \frac{\hat{p}_{2, H_0}}{\hat{p}_2} \right)^{n_2}
+            \left( \frac{\hat{p}_{3, H_0}}{\hat{p}_3} \right)^{n_3}
+    \]
+    and under $H_0$
+    \[
+        -2 \log \wedge = 
+        2n_1 \log \left( \frac{\hat{p}_1}{\hat{p}_{1, H_0}} \right)  + 
+        2n_2 \log \left( \frac{\hat{p}_2}{\hat{p}_{2, H_0}} \right)  + 
+        2n_3 \log \left( \frac{\hat{p}_3}{\hat{p}_{3, H_0}} \right)  \overset{d}{\longrightarrow} \chi_1^2
+    \]
+    
+     
+\end{example}
+
+\begin{example} (Two sample t-test, equal variances)
+\end{example}
+
+\begin{example} (Two sample t-test, unequal variances)
+\end{example}

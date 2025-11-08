@@ -1,0 +1,257 @@
+\section{Class 15}
+
+\subsection{Generalized Likelihood Ratio Test}
+
+\begin{definition}
+    (GLRT, simple null) Let $ \{ f_{ \theta}(x): \theta \in Omega \} $ be a parametric model and let $ \theta_0 \in \Omega$ be a particular parameter value. Consider the testing problem 
+    \[
+        H_0 :  \theta = \theta_0 \text{ vs } H_1 : \theta \neq \theta_0
+    \]
+    Then, the GLRT rejects $H_0$ for small values of 
+    \[
+        \wedge = \frac{L( \theta_0 | X_1,\hdots X_n)}{\max_{ \theta \in \Omega} L ( \theta | X_1, \hdots X_n)}
+    \]
+    Where 
+    \[
+        L( \theta | X_1, \hdots X_n) = \prod_{i = 1}^n f_{ \theta} (X_i)
+    \]
+    is the likelihood ratio function.
+\end{definition}
+
+\begin{example}
+    (Testing normal means for two sided hypothesis) \\ 
+
+    Let $X_1, \hdots X_n \sim N(\mu, \sigma^2), \sigma^2$ known, with test 
+    \[
+        H_0: \mu = \mu_0 \text{ vs } H_1: \mu \neq \mu_0
+    \]
+
+    To compute the GLRT, note that 
+    \[
+        \max_{\mu} L( \mu | X_1, \hdots X_n) = L( \hat{\mu} | X_1, \hdots X_n)
+    \]
+    where $\hat{ \mu} = \bar{X} $ is the MLE for $\mu$. \\
+
+    Then 
+    \begin{align*}
+        \wedge &= \frac{
+            \exp{- \frac{1}{2\sigma^2} \sum\limits_{i = 1}^{n} (X_i - \mu_0)^2}
+        }{
+            \exp{- \frac{1}{2\sigma^2} \sum\limits_{i = 1}^{n} (X_i - \bar{X} )^2}
+        } \\
+        &= \exp{
+            - \frac{1}{2\sigma^2}n \left( \bar{X} - \mu_0  \right)^2
+        }
+    \end{align*}
+
+    We reject for small $\wedge$, which is equivalent to large values of 
+    \[
+        -2 \log \wedge = \frac{n \left( \bar{X}  - \mu_0 \right)^2 }{\sigma^2}
+    \]
+
+    Under $H_0$, 
+    \[
+        n \frac{(\bar{X} - \mu_0)^2}{\sigma^2} \sim \chi_1^2
+    \]
+    Hence we reject $H_0$ when 
+    \begin{align*}
+        \frac{ \left( \bar{X}  - \mu_0 \right)^2 }{\sigma^2} > \chi^2_{1, \alpha} \iff \left| \frac{\sqrt{n} \left( \bar{X}  - \mu_0 \right) }{\sigma} \right| \leq z_{\alpha / 2} 
+    \end{align*}
+\end{example}
+
+\begin{example}
+    (MVG) $X_1, \hdots X_n \sim N_p( \bm{\mu}, \Sigma)$ where $\Sigma$ known, and test 
+    \[
+        H_0: \bm{\mu} = \bm{\mu_0} \text{ vs } H_1: \bm{\mu}\neq \bm{\mu_0}
+    \]
+
+    GLRT rejects when 
+    \[
+        -2 \log \wedge = n \left( \bar{X}  - \bm{\mu} \right)^T \Sigma^{-1} \left( \bar{X} - \mu  \right) > \chi_{p, \alpha}^2
+    \]
+\end{example}
+
+\begin{example}
+    (One sided hypothesis)
+
+    Recall $X_1, \hdots X_n \sim N(\mu, \sigma^2)$ where $\sigma^2$ known,
+    \[
+        H_0: \mu = \mu_0 \text{ vs } H_1: \mu > \mu_0
+    \]
+    Reject $H_0$ when 
+    \[
+    \sqrt{n} \frac{\bar{X}  - \mu_0}{\sigma} > z_{\alpha}
+    \]
+
+    \textbf{We claim that this is the GLRT}.  \\
+
+    To compute GLRT, we need to first maximize 
+    \[
+        \max_{\mu > \mu_0} L( \mu |X_1, \hdots X_n) = \max_{\mu > \mu_0} 
+        \left( \frac{1}{\sqrt{2 \pi} \sigma} \right)^n \exp{
+            - \frac{\sum\limits_{i = 1}^{n} \left( X_i - \bar{X}  \right)^2 }{2 \sigma^2}
+        }
+    \]
+    This equivalently minimizes 
+    \[
+    \min_{\mu > \mu_0} \sum\limits_{}^{} (X_i - \mu)^2 = \min_{\mu > \mu > 0} \left( \sum\limits_{i = 1}^{n} X_i^2 - 2n \bar{X} + n \mu_0^2 \right) 
+    \]
+
+    \textbf{Case 1}: $\bar{X} > \mu_0 $:  
+    \[
+    \min_{\mu > \mu_0} \sum\limits_{i = 1}^{n}  (X_i - \mu)^2 = \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
+    \]
+
+    \textbf{Case 2}: $\bar{X} \leq \mu_0 $:  
+    \[
+    \min_{\mu > \mu_0} \sum\limits_{i = 1}^{n}  (X_i - \mu)^2 = \sum\limits_{i = 1}^{n}  (X_i - \mu_0 )^2
+    \]
+
+    Hence 
+    \begin{align*}
+    \wedge &= 
+    \frac{
+        \exp{ - \frac{1}{2 \sigma^2} \sum\limits_{ i = 1}^{n} (X_i - \mu_0)^2}
+    }{
+        \exp{ - \frac{1}{2 \sigma^2} \sum\limits_{ i = 1}^{n} (X_i - \bar{X} )^2} \bm{1} \left[ \bar{X}  > \mu_0 \right]  + 
+        \exp{ - \frac{1}{2 \sigma^2} \sum\limits_{ i = 1}^{n} (X_i - \bar{\mu_0} )^2} \bm{1} \left[ \bar{X}  \leq \mu_0 \right] 
+    } \\
+    &= \begin{cases}
+        \exp{ - \frac{n}{2 \sigma^2} \left( \bar{X} - \mu_0  \right)^2 } \text{ if } \bar{X}  > \mu_0 \\
+        1 \text{ otherwise }
+    \end{cases}
+    \end{align*}
+
+    Reject $H_0$ for small values of $\wedge$, i.e. large values of $ \bar{X}  - \mu_0$. Hence the level $\alpha$ GLRT rejects $H_0$ when 
+    \[
+        \sqrt{n} \frac{ \bar{X}  - \mu_0}{\sigma} > z_{\alpha}
+    \]
+    
+\end{example}
+
+\subsection{Asymptotic distribution of the GLRT}
+
+In general, the exact distribution of $-2 \log \wedge$ under $H_0$ may not have a simple form, but it can be approximated by chi-squared when $n \to \infty$.
+
+\begin{theorem}
+    Suppose $f_{ \bm{ \theta} (x): \bm{ \theta} \in \mathbb{R}^k}$ is a parametric model indexed by $k$-dim parameter vector. \\
+
+    Let $X_1, \hdots X_n$ iid $f ( x | \theta)$ and test 
+    \[
+        H_0: \theta = \theta_0 \text{ vs } H_1: \theta \neq \theta_0
+    \]
+
+    Under regularity conditions 
+    \[
+    -2 \log \wedge \overset{d}{\longrightarrow} \chi_k^2
+    \]
+\end{theorem}
+
+\begin{proof}
+    Proof for case $k = 1$
+\end{proof}
+
+\subsection{GLRT for submodels}
+
+Suppose $ \Omega_0 \subset \Omega$ is a lower dimension subspace of parameter space $\Omega = \mathbb{R}^k$. We want to test 
+\[
+    H_0:  \theta \in \Omega_0 \text{ vs } H_1: \theta \notin \Omega_0
+\]
+
+The GLRT is 
+\[
+\wedge = \frac{
+    \max_{ \theta \in \Omega_0} L( \theta | X_1, \hdots X_n)
+}{
+    \max_{ \theta \in \Omega} L( \theta | X_1, \hdots X_n)
+}
+\]
+\begin{theorem}
+    Let $\{ f_{ \theta} : \theta \in \Omega \} $ be a parametric model, and let $X_1, \hdots, X_n$ be iid $f_{\theta_0}(x)$. Suppose $\theta_0$ is an interior point of both $\Omega_0$ and $\Omega$, then under regulartiy conditions, 
+    \[-2 \log \wedge \overset{d}{\longrightarrow}  \chi_d^2
+    \]
+    Where 
+    \[
+    d = \dim \Omega - \dim \Omega_0
+    \]
+\end{theorem}
+
+\begin{example}
+    (Testing normal means, unknown variance)\\
+
+    Suppose $X_1, \hdots, X_n \sim N(\mu, \sigma^2)$ , where $\sigma^2$ unknown. Test 
+    \[
+    H_0: \mu = \mu_0 \text{ vs } H_1: \mu \neq \mu_0
+    \]
+    Then 
+    \begin{align*}
+        \wedge = \frac{
+            \max_{\sigma^2} \left( \frac{1}{\sqrt{2 \pi} \sigma} \exp{
+                - \frac{1}{2 \sigma^2} \sum\limits_{i = 1}^{n}  (X_i - \mu_0)^2
+            } \right) 
+        }{
+            \max_{\mu, \sigma^2} \left( \frac{1}{\sqrt{2 \pi} \sigma} \exp{
+                - \frac{1}{2 \sigma^2} \sum\limits_{i = 1}^{n}  (X_i - \mu)^2
+            } \right) 
+        }
+    \end{align*}
+    The denominator is maximized at 
+    \[
+    \hat{\mu} = \bar{X}, \hat{\sigma}^2 = \frac{1}{n} \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
+    \]
+    The numerator is maximized by 
+    \[
+    \hat{\sigma}_{H_0}^2 = 
+    \sum\limits_{i = 1}^{n}  (X_i - \mu_0)^2
+    \]
+    Therefore 
+    \begin{align*}
+        \wedge &= \left( \frac{
+            \hat{\sigma}^2
+        }{
+            \hat{\sigma}_{H_0}^2
+        } \right)^{ \frac{n}{2}} \\
+        &= \left( \frac{
+            \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
+        }{
+            \sum\limits_{i = 1}^{n}  (X_i - \mu_0 )^2
+        } \right)^{ \frac{n}{2}} \\
+        &= \left( \frac{
+            \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2
+        }{
+            \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2 + n (\bar{X} - \mu_0 )^2
+        } \right)^{ \frac{n}{2}} 
+    \end{align*}
+    Since 
+    \[
+    S^2 = \frac{1}{n-1} \sum\limits_{i = 1}^{n}  \left( X_i - \bar{X}  \right)^2
+    \]
+    $\wedge$ small is equivalent to large values of 
+    \[
+    \left| 
+    \frac{\sqrt{n}(\bar{X} - \mu_0 )}{S} \right| 
+    \]
+
+    Hence $GLRT$ rejects $H_0$ when 
+    \[
+        -2 \log \wedge = n \log \left( 1 + \frac{n (\bar{X}  - \mu_0)^2}{\sum\limits_{i = 1}^{n}(X_i - \bar{X} )^2 } \right)  \approx     \frac{n (\bar{X}  - \mu_0)^2}{\sum\limits_{i = 1}^{n}(X_i - \bar{X} )^2 }
+    \]    
+    Since $\log(1 + x) \approx x$. \\
+
+    Since
+    \begin{align*}
+        n (\bar{X} - \mu_0 )^2 \overset{d}{\longrightarrow}  \sigma^2 \chi_1^2
+    \end{align*}
+    \[
+    \frac{1}{n} \sum\limits_{i = 1}^{n}  (X_i - \bar{X} )^2 \overset{p}{\longrightarrow} \sigma^2
+    \]
+
+    Therefore 
+    \[-2 \log \wedge \overset{d}{\longrightarrow}  \chi_1^2
+    \]
+    
+    
+    
+\end{example}
+
+ 
