@@ -1,0 +1,367 @@
+\section{Class 19}
+
+\subsection{Comparison of confidence intervals}
+
+\begin{remark}
+    (Normal data): $X_1, \hdots X_n \sim N(\mu, \sigma^2)$
+
+    \begin{center}
+    \begin{tabular}{l | c | c | c}
+    Parameter & $\sigma^2$ known & $\sigma^2$ unknown & Type \\
+    \hline 
+    $\mu$ 
+    & $\left[\;\bar X \pm z_{1-\alpha/2}\,\dfrac{\sigma}{\sqrt{n}}\;\right]$ 
+    & $\left[\;\bar X \pm t_{n-1,\,1-\alpha/2}\,\dfrac{S}{\sqrt{n}}\;\right]$ 
+    & Exact\\
+    $\sigma^2$ 
+    & NA 
+    & $\left[\dfrac{(n-1)S^2}{\chi^2_{n-1,\,1-\alpha/2}},\,\dfrac{(n-1)S^2}{\chi^2_{n-1,\,\alpha/2}}\right]$ 
+    & Exact \\
+    \end{tabular}
+    \end{center}
+\end{remark}
+
+\begin{remark}
+    (Arbitrary data): $X_1, \hdots X_n \sim F$ with $\mathbb{E}\left[ X_1\right] = \mu, Var(X) = \sigma^2$ unknown
+
+    \begin{center}
+    \begin{tabular}{r | c | c}
+        interval & $ \left[ \bar{X} \pm t_{n - 1, \alpha / 2} \frac{S}{\sqrt{n}} \right] $ & $ \left[ \bar{X}  \pm z_{\alpha / 2} \frac{S}{\sqrt{n}} \right] $ \\
+        type of interval & Exact & Asymptotic \\
+        requires noramlity of data? & Yes & No
+    \end{tabular}
+    \end{center}
+\end{remark}
+
+
+\subsection{Confidence set}
+
+\begin{definition}
+    (Confidence set): A confidence set is a set $A$ which is a function of $X_1, \hdots X_n$, such that 
+    \[
+        P( \bm{\mu} \in A(X_1, \hdots X_n)) \geq 1 - \alpha
+    \]
+\end{definition}
+
+\begin{result}
+    The multivariate sample mean is multivariate normal
+    \[
+        \bar{ \bm{X}} = \frac{1}{n} \sum\limits_{i = 1}^{n}  \bar{X}_i \sim N_p \left( \bm{\mu}, \frac{\Sigma}{n} \right) 
+    \]
+\end{result}
+
+\begin{example} 
+
+    When $p = 1$, 
+\[
+\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+\quad \Rightarrow \quad
+\sqrt{n}\,\frac{\bar{X}-\mu}{\sigma} \sim \mathcal{N}(0,1).
+\]
+
+When: $p \ge 2$
+
+Define
+\[
+\bm{Z} = \sqrt{n}\,\bm{\Sigma}^{-1/2}(\bar{\bm{X}}-\bm{\mu}) 
+\sim \mathcal{N}_p(\bm{0}, \bm{I}_p).
+\]
+
+Then
+\[
+\bm{Z}^\top \bm{Z} = \sum_{i=1}^p Z_i^2 
+= n(\bar{\bm{X}}-\bm{\mu})^\top \bm{\Sigma}^{-1} (\bar{\bm{X}}-\bm{\mu})
+\sim \chi^2_p.
+\]
+
+Hence,
+\[
+P\left(\bm{Z}^\top \bm{Z} \le \chi^2_{p,\,1-\alpha}\right) = 1 - \alpha,
+\]
+or equivalently,
+\[
+P\left(n(\bar{\bm{X}}-\bm{\mu})^\top \bm{\Sigma}^{-1} (\bar{\bm{X}}-\bm{\mu}) 
+\le \chi^2_{p,\,1-\alpha}\right) = 1 - \alpha.
+\]
+
+\textbf{Confidence set for $\bm{\mu}$} 
+
+If $\Sigma$ known
+\[
+    \{ \bm{\mu} \in \mathbb{R}^p : n \left( \bar{ \bm{X}} - \bm{\mu}  \right)^T \Sigma^{-1} \left( \bar{ \bm{X}} - \bm{\mu} \right) \leq \chi_{p, \alpha}^2 \} 
+\]
+is a $100(1 - \alpha)$\% confidence set for $\mu$.
+
+For the case where $ p = 2, \Sigma = I$, the confidence set is 
+\[
+    \{ \bm{\mu} \in \mathbb{R}^2: \left( \bar{ \bm{X}}  - \bm{\mu} \right)^T \left( \bar{\bm{X}} - \bm{\mu}  \right)  \leq \frac{\chi_{p, \alpha}}{n} \} 
+\]
+which describes a circle centered at $ \bar{ \bm{X}} $ and radius 
+\[
+    \sqrt{ \frac{\chi_{p, \alpha}^2}{n}}
+\]
+
+For $p = 2, \sigma \neq I$
+\[
+    \{ \bm{\mu} \in \mathbb{R}^2: \left( \bar{ \bm{X}}  - \bm{\mu} \right)^T \Sigma^{-1} \left( \bar{\bm{X}} - \bm{\mu}  \right)  \leq \frac{\chi_{p, \alpha}}{n} \} 
+\]
+
+If $ \Sigma$ unknown, 
+By multivariate CLT 
+\[\sqrt{n} \left( \bar{ \bm{X}} - \bm{\mu}  \right)  \overset{d}{\longrightarrow} N_p \left( 0, \Sigma \right) 
+\]
+Therefore, 
+\[
+    Z = \sqrt{n} \Sigma^{-1} \left( \bar{\bm{X}} - \mu\right) \overset{d}{\longrightarrow}  N_p(0, 1)
+\]
+
+To estimate $\Sigma$, we use the sample covariance matrix 
+\begin{align*}
+    S &= \frac{1}{n - 1} \sum\limits_{i = 1}^{n}  \left( \bm{X}_i - \bar{\bm{X}}  \right) \left( \bm{X}_i - \bar{\bm{X}}  \right)^2 \\
+    S & \overset{p}{\longrightarrow}  \Sigma
+\end{align*}
+
+By multivariate Slutsky's 
+\[
+    \tilde{ Z} = \sqrt{n} S^{- \frac{1}{2}} \left( \bar{ \bm{X}} - \bm{\mu} \right)  \overset{d}{\longrightarrow} N_p(\bm{0}, I)
+\]
+
+\begin{align*}
+    \tilde{Z}^T \tilde{Z} &= n \left( \bar{X} - \mu \right)  S^{-1} (\bar{X} - \mu) \\
+    & \overset{d}{\longrightarrow} \chi_p^2
+\end{align*}
+
+Hence, 
+\[
+    \{ \bm{\mu} \in \mathbb{R}^{p}: n \left( \bar{\bm{X}}  - \bm{\mu} \right)S^{-1}  \left( \bar{\bm{X}}  - \bm{\mu} \right)  \leq \chi_{p, \alpha}^2 \} 
+\]
+is an asymptotically $100(1-\alpha)$ \% confidence set of $\mu$. 
+\end{example}
+
+\subsection{Hypothesis tests}
+
+\subsubsection{Simple vs simple}
+
+Recall that for simple vs simple hypothesis, the most powerful test is given by the Neyman-Pearson lemma, where we reject for large values of 
+\[
+    \wedge (X_1, \hdots X_n) = \frac{f_{ \theta_0}(X_1, \hdots X_n)}{f_{ \theta_1}( X_1, \hdots X_n)}
+\]
+
+\subsubsection{Simple vs composite}
+
+\begin{example}
+Recall that for testing normal means, for $X_1, \hdots, X_n \sim N(\mu, \sigma^2)$, $\sigma^2$ known, the following are UMP tests 
+
+\begin{center}
+    \begin{tabular}{c | c | c}
+        $H_0$ & $H_1$ & UMP Test \\
+        \hline
+        $H_0: \mu = \mu_0$ & $H_1: \mu > \mu_0$ & Reject $\bar{X} > \mu_0 + \frac{Z_{\alpha}}{\sqrt{n}}$\\
+        $H_0: \mu = \mu_0$ & $H_1: \mu < \mu_0$ & Reject $\bar{X} < \mu_0 - \frac{Z_{\alpha}}{\sqrt{n}}$\\
+        $H_0: \mu = \mu_0$ & $H_1: \mu \neq \mu_0$ & No UMP Test \\
+    \end{tabular}
+\end{center}
+    For the last case, we can use the GLRT. The GLRT says to reject if 
+    \[
+    \left| \sqrt{n} \frac{ \left( \bar{X} - \mu_0  \right) }{\sigma}\right|  > z_{ \alpha / 2}
+    \]
+\end{example}
+
+\begin{remark}
+    Recall that for GLRT, testing 
+    \[
+        H_0: \theta = \theta_0 \text{ vs } H_1: \theta \neq \theta_0
+    \]
+
+    \begin{align*}
+        \wedge = \frac{L( \theta_0| X_1, \hdots X_n)}{\max_{ \theta \in \Omega} L( \theta | X_1, \hdots X_n)}
+    \end{align*}
+
+    Under $H_0$: 
+    \[-2 \log \wedge \overset{d}{\longrightarrow}  \chi_k^2
+    \]
+\end{remark}
+
+\begin{remark}
+    Recall GLRT for submodels, testing 
+    \[
+        H_0: \theta \in \Omega_0 \subset \Omega \text{ vs } H_1: \theta \notin \Omega_0
+    \]
+    \[
+        \wedge = \frac{\max_{ \theta \in \Omega_0} L( \theta| X_1, \hdots X_n)}{\max_{ \theta \in \Omega} L( \theta | X_1, \hdots X_n)}
+    \]
+
+    Under $H_0$: 
+    \[-2 \log \wedge \overset{d}{\longrightarrow}  \chi_d^2
+    \]
+    where 
+    \[d= \dim \Omega - \dim \Omega_0
+    \]
+\end{remark}
+
+\subsubsection{Composite vs composite}
+\begin{remark}
+    For composite vs composite tests, the GLRT test of level $\alpha$ rejects when 
+    \[
+    \left| \frac{ \sqrt{n} \left( \bar{X} - \mu_0 \right) }{S} \right| > t_{n - 1, \frac{\alpha}{2}}
+    \]
+\end{remark}
+
+\subsubsection{Asymptotic power of tests}
+
+\begin{definition}
+    (Consistent test) A level $\alpha$ test with power converging to 1 is known as a \textbf{consistent} test. 
+\end{definition}
+
+
+\begin{example}
+    $X_1, \hdots X_n \sim N( \theta, 1)$, test 
+    \[
+        H_0: \theta = 0 \text{ vs } H_1: \theta = \theta_1 > 0
+    \]
+
+    The $z$-test rejects $H_0$ when 
+    \[
+    \sqrt{n} \bar{X}  > z_{\alpha}
+    \]
+
+    Under $H_1$: 
+    \[
+        X_1, \hdots X_n \sim N( \theta_1, 1) \implies \sqrt{n} \bar{X}  \sim N \left( \sqrt{n} \theta_1, 1 \right) 
+    \]
+
+    The power of this test is 
+    \begin{align*}
+        Power( \theta_1) &= P_{H_1} \left( \sqrt{n} \bar{X} > z_{ \alpha}  \right)  \\
+        &= P \left( \sqrt{n}\bar{X}  - \sqrt{n} \theta_1 > z_{ \alpha} - \sqrt{n} \theta_1 \right)  \\
+        &= P \left( N(0, 1) > z_{\alpha} - \sqrt{n} \theta_1 \right) \\
+        &= 1 - \Phi \left( z_{\alpha} - \sqrt{n} \theta_1 \right)   \\
+        & \overset{n \to \infty}{\longrightarrow}  1
+    \end{align*}
+
+    If instead, we take $ \theta_1 = \frac{h}{\sqrt{n}}$ where $h$ fixed. 
+    \[
+    Power( h) = 1 - \Phi( z_{\alpha} - h)
+    \]
+
+    This is the \textbf{asymptotic local power}.
+    
+
+\end{example}
+
+\begin{example}
+GLRT for $X_i \sim \text{Uniform}(0,\theta)$
+
+Let $X_1, X_2, \dots, X_n \sim \text{Uniform}(0,\theta)$ i.i.d.  
+We want to test
+\[
+H_0: \theta = 1 \quad \text{versus} \quad H_1: \theta < 1.
+\]
+
+The likelihood under the uniform model is
+\[
+L(\theta \mid X_1, \dots, X_n) =
+\begin{cases}
+\theta^{-n}, & \text{if } X_{(n)} \le \theta, \\
+0, & \text{otherwise},
+\end{cases}
+\]
+where $X_{(n)} = \max\{X_1, \dots, X_n\}$.
+
+The MLE of $\theta$ is therefore
+\[
+\hat{\theta} = X_{(n)}.
+\]
+
+The generalized likelihood ratio is
+\[
+\Lambda = \frac{L(H_0)}{\max_{\theta} L(\theta)}
+= \frac{L(\theta = 1)}{L(\theta = \hat{\theta})}
+= \frac{1^{-n}\mathbf{1}_{\{X_{(n)} \le 1\}}}{\hat{\theta}^{-n}\mathbf{1}_{\{X_{(n)} \le \hat{\theta}\}}}
+= X_{(n)}^n.
+\]
+
+We reject $H_0$ for small values of $\Lambda$, that is,
+\[
+\Lambda < c_1
+\quad \Leftrightarrow \quad
+X_{(n)} < c_1^{1/n}.
+\]
+
+\textbf{Determining $c_1$ (level $\alpha$ test)}
+We choose $c_1$ so that the test has size $\alpha$:
+\[
+P_{\theta=1}(X_{(n)} < c) = \alpha.
+\]
+
+Under $H_0$, since $X_i \sim \text{Uniform}(0,1)$,
+\[
+P_{\theta=1}(X_{(n)} < c)
+= P(X_1 < c, \dots, X_n < c)
+= c^n.
+\]
+Hence,
+\[
+c = \alpha^{1/n}.
+\]
+
+Therefore, the GLRT of level $\alpha$ rejects $H_0$ when
+\[
+X_{(n)} < \alpha^{1/n}
+\]
+
+\textbf{Power function}
+For $\theta = \theta_0 < 1$,
+\[
+\text{Power}(\theta_0)
+= P_{\theta_0}(X_{(n)} < \alpha^{1/n})
+= P_{\theta_0}(X_1 < \alpha^{1/n}, \dots, X_n < \alpha^{1/n})
+= \left( \frac{\alpha^{1/n}}{\theta_0} \right)^n,
+\]
+if $\alpha^{1/n} < \theta_0$, and $1$ otherwise.
+
+That is,
+\[
+\text{Power}(\theta_0)
+=
+\begin{cases}
+\displaystyle \left( \frac{\alpha^{1/n}}{\theta_0} \right)^n, & \alpha^{1/n} < \theta_0, \\[1.0em]
+1, & \alpha^{1/n} \ge \theta_0.
+\end{cases}
+\]
+
+\textbf{Local power}
+For local alternatives $\theta_0 = 1 - \dfrac{h}{n}$, we have
+\[
+\text{Power}(h)
+=
+\begin{cases}
+\dfrac{\alpha}{(1 - \tfrac{h}{n})^n}, & \alpha^{1/n} < 1 - \tfrac{h}{n}, \\[1.0em]
+1, & \alpha^{1/n} \ge 1 - \tfrac{h}{n}.
+\end{cases}
+\]
+
+As $n \to \infty$,
+\[
+(1 - \tfrac{h}{n})^{-n} \to e^{h},
+\]
+so that
+\[
+\text{Power}(h)
+=
+\begin{cases}
+\alpha e^{h}, & \text{if } \alpha e^{h} < 1, \\[0.5em]
+1, & \text{if } \alpha e^{h} \ge 1.
+\end{cases}
+\]
+\end{example}
+
+
+
+
+
+
+
+
+
+

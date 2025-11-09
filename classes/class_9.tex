@@ -239,15 +239,15 @@ Let $ \{ f_{ \bm{ \theta}}(x): \bm{ \theta} \in \Omega \} $ be a family of distr
     \]
     Under the same conditions as the univariate normal, 
     \[
-        \sqrt{n} \left( \bm{ \hat{ \theta}}_n \right)   - \bm{ \theta} \overset{d}{\longrightarrow}  N_k ( \bm{0}, I ( \bm{ \theta})^{-1})
+        \sqrt{n} \left( \bm{ \hat{ \theta}}_n  - \bm{ \theta} \right) \overset{d}{\longrightarrow}  N_k ( \bm{0}, I ( \bm{ \theta})^{-1})
     \]
 \end{theorem}
 
-% \begin{remark}  As an heuristic, 
-%     \[
-%         \bm{ \hat{ \theta_n}} \approx N \left( \bm{ \theta}, \frac{1}{n} I() \right) 
-%     \]
-% \end{remark} 
+\begin{remark}  As an heuristic, 
+    \[
+        \bm{ \hat{ \theta_n}} \approx N \left( \bm{ \theta}, \frac{1}{n} I( \theta)^{-1} \right) 
+    \]
+\end{remark} 
 
 \begin{proof}
     We WTS that 
@@ -300,7 +300,67 @@ Let $ \{ f_{ \bm{ \theta}}(x): \bm{ \theta} \in \Omega \} $ be a family of distr
 \end{example}
 
 \begin{example}
-    (Gamma distribution)
+    (Gamma distribution) \\
+
+    Let $X_1, \hdots X_n $ iid $\Gamma(\alpha, \beta)$ with density 
+    \[
+        f_{\alpha, \beta} (x) = \frac{x^{\alpha - 1} e^{- \frac{x}{\beta}}}{ \beta^{\alpha} \Gamma(\alpha)}
+    \]
+
+    The likelihood function is 
+    \begin{align*}
+        L_n (\alpha, \beta) &= \prod_{i = 1}^n f_{\alpha, \beta}(X_i)  \\
+        &= 
+    \end{align*}
+
+
+The likelihood function is
+\[
+L_n(\alpha, \beta) = \prod_{i=1}^n f_{\alpha,\beta}(X_i)
+= \frac{1}{(\beta^\alpha \Gamma(\alpha))^n} \prod_{i=1}^n X_i^{\alpha - 1} e^{-\frac{1}{\beta} \sum_{i=1}^n X_i}.
+\]
+
+The log-likelihood function is
+\[
+\ell_n(\alpha, \beta) = \log L_n(\alpha, \beta)
+= -n\alpha \log \beta - n \log \Gamma(\alpha) + (\alpha - 1)\sum_{i=1}^n \log X_i - \frac{1}{\beta} \sum_{i=1}^n X_i.
+\]
+
+Taking derivatives with respect to $\alpha$ and $\beta$ and setting them to zero:
+\begin{align}
+\frac{\partial \ell_n(\alpha, \beta)}{\partial \alpha} 
+&= -n \log \beta - n \frac{\Gamma'(\alpha)}{\Gamma(\alpha)} + \sum_{i=1}^n \log X_i = 0, \tag{1} \\
+\frac{\partial \ell_n(\alpha, \beta)}{\partial \beta} 
+&= -\frac{n\alpha}{\beta} + \frac{1}{\beta^2}\sum_{i=1}^n X_i = 0. \tag{2}
+\end{align}
+
+From (2), the MLE satisfies
+\[
+\hat{\beta} = \frac{\bar{X}}{\hat{\alpha}}, \qquad \text{where } \bar{X} = \frac{1}{n}\sum_{i=1}^n X_i.
+\]
+
+Substituting $\hat{\beta}$ into (1) and dividing by $n$, we obtain
+\[
+\log \hat{\alpha} - \frac{\Gamma'(\hat{\alpha})}{\Gamma(\hat{\alpha})} - \log \bar{X} + \frac{1}{n}\sum_{i=1}^n \log X_i = 0.
+\]
+
+Consider the function
+\[
+f(\alpha) = \log \alpha - \frac{\Gamma'(\alpha)}{\Gamma(\alpha)}.
+\]
+The function $f(\alpha)$ decreases from $\infty$ to $0$ as $\alpha$ increases from $0$ to $\infty$.
+
+Moreover,
+\[
+\log \bar{X} - \frac{1}{n}\sum_{i=1}^n \log X_i > 0 \quad \text{(by Jensen's inequality)}.
+\]
+Hence,
+\[
+\log \hat{\alpha} - \frac{\Gamma'(\hat{\alpha})}{\Gamma(\hat{\alpha})}
+= \log \bar{X} - \frac{1}{n}\sum_{i=1}^n \log X_i
+\]
+has a unique solution $\hat{\alpha}$, which is the MLE of $\alpha$.
+    
 \end{example}
 
 

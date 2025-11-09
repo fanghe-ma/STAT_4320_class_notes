@@ -89,6 +89,76 @@
 \end{example}
 
 \begin{example} (Two sample t-test, equal variances)
+    Suppose $X_1, \hdots X_m \sim N(\mu_1, \sigma^2), Y_1, \hdots Y_n \sim N(\mu_2, \sigma^2)$, $\sigma^2$ unknown. 
+
+    Test 
+    \[
+        H_0: \mu_1 = \mu_2 \text{ vs } H_1: \mu_1 \neq \mu_2
+    \]
+
+    The likelihood function is 
+    \[
+        L(\mu_1, \mu_2, \sigma^2 | X_1, \hdots X_m, Y_1, \hdots Y_n) = 
+        \left( \frac{1}{\sqrt{2 \pi \sigma} } \right)^m \exp{
+            -\frac{1}{2 \sigma^2}
+            \sum\limits_{i = 1}^{m}  (X_i - \mu_1)^2
+        }
+        \left( \frac{1}{\sqrt{2 \pi \sigma} } \right)^n \exp{
+            -\frac{1}{2 \sigma^2}
+            \sum\limits_{i = 1}^{m}  (Y_i - \mu_2)^2
+        }
+    \]
+
+    The GLRT is based on 
+    \[
+        \wedge = \frac{
+            \max_{\mu, \sigma^2} L(\mu, \mu, \sigma^2 | \bm{X}, \bm{Y})
+        }{
+            \max_{\mu_1, \mu_2, \sigma^2} L(\mu_1, \mu_2, \sigma^2 | \bm{X}, \bm{Y})
+        }
+    \]
+
+    Rejecting $H_0$ for small values of $\wedge$ is equivalent to rejecting for large values of 
+    \[
+        \left| \frac{\bar{X} - \bar{Y} }{s_P \sqrt{ \frac{1}{m} + \frac{1}{n}}} \right| 
+    \]
+
+    Where $s_p^2$ is the pooled sample variance
+    \[
+        s_p^2 = \frac{1}{n + m - 2} \{ \sum\limits_{i = 1}^{m} (X_i - \bar{X} )^2 + \sum\limits_{j = 1}^{m} (X_j - \bar{Y} )^2 \} 
+    \]
+
+    Note that 
+    \[
+        \sum\limits_{i = 1}^{m} (X_i - \bar{X} )^2 \sim \sigma \chi_{m - 1}^2
+    \]
+    \[
+        \sum\limits_{j = 1}^{n} (Y_i - \bar{Y} )^2 \sim \sigma \chi_{n - 1}^2
+    \]
+
+    And the following are independent.
+    \[
+        \bar{X} , \bar{Y} , \sum\limits_{i =1}^{m} (X_i - \bar{X} )^2, \sum\limits_{j = 1}^{n} (Y_j - \bar{Y} )^2
+    \]
+
+    Under $H_0$, 
+    \[
+        \frac{\bar{X} - \bar{Y}  }{ \sqrt{ \frac{\sigma^2}{m} + \frac{\sigma^2}{n}}} \sim N(0, 1)
+    \]
+
+    and 
+    \[
+        \frac{s_p^2}{\sigma^2} \sim \frac{\chi_{m + n - 2}^2}{m + n - 2}
+    \]
+    Hence 
+    \[
+        T = \frac{\bar{X} - \bar{Y} }{s_p \sqrt{ \frac{1}{m} + \frac{1}{n}}} \sim t_{n + m - 2}
+    \]
+    The GLRT level $\alpha$ test rejects when 
+    \[
+        \left| T \right|  \geq t_{m+ n - 2, \alpha / 2}
+    \]
+    
 \end{example}
 
 \begin{example} (Two sample t-test, unequal variances)
