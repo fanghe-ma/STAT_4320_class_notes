@@ -1,0 +1,116 @@
+\section{Appendix}
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{
+|>{\raggedright\arraybackslash}p{1.7cm}|
+>{\raggedright\arraybackslash}p{2.8cm}|
+>{\raggedright\arraybackslash}p{2.8cm}|
+>{\raggedright\arraybackslash}p{2.8cm}|
+>{\raggedright\arraybackslash}p{2.8cm}|
+>{\raggedright\arraybackslash}p{2.8cm}|}
+\hline
+\textbf{Property} & \textbf{Bernoulli} & \textbf{Normal} & \textbf{Laplace} & \textbf{Poisson} & \textbf{Uniform $[a,b]$} \\
+\hline
+PDF / PMF &
+$f(x)=p^{x}(1-p)^{1-x},\; x\!\in\!\{0,1\}$ &
+$f(x)=\frac{1}{\sqrt{2\pi\sigma^{2}}} e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}$ &
+$f(x)=\frac{1}{2b} e^{-\frac{|x-\mu|}{b}}$ &
+$f(x)=\frac{\lambda^{x}e^{-\lambda}}{x!}$ &
+$f(x)=\frac{1}{b-a},\; x\!\in\![a,b]$ \\
+\hline
+Variance &
+$p(1-p)$ & $\sigma^{2}$ & $2b^{2}$ & $\lambda$ & $\frac{(b-a)^{2}}{12}$ \\
+\hline
+Mean &
+$p$ & $\mu$ & $\mu$ & $\lambda$ & $\frac{a+b}{2}$ \\
+\hline
+$\mathbb{E}[X^{2}]$ &
+$p$ & $\mu^{2}+\sigma^{2}$ & $\mu^{2}+2b^{2}$ & $\lambda+\lambda^{2}$ & $\frac{a^{2}+ab+b^{2}}{3}$ \\
+\hline
+$\mathbb{E}[X^{4}]$ &
+$p$ & $\mu^{4}+6\mu^{2}\sigma^{2}+3\sigma^{4}$ &
+$\mu^{4}+12b^{2}\mu^{2}+24b^{4}$ &
+$\lambda^{4}+6\lambda^{3}+7\lambda^{2}+\lambda$ &
+$\frac{a^{4}+a^{3}b+a^{2}b^{2}+ab^{3}+b^{4}}{5}$ \\
+\hline
+MLE estimates &
+$\hat p=\frac{1}{n}\sum x_{i}$ &
+$\hat\mu=\frac{1}{n}\sum x_{i},\;
+\hat\sigma^{2}=\frac{1}{n}\sum(x_{i}-\hat\mu)^{2}$ &
+$\hat\mu=\mathrm{median}(x_{i}),\;
+\hat b=\frac{1}{n}\sum |x_{i}-\hat\mu|$ &
+$\hat\lambda=\frac{1}{n}\sum x_{i}$ &
+$\hat a=\min x_{i},\;
+\hat b=\max x_{i}$ \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Common distributions: densities, moments, and MLEs.}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2.2cm}|p{2.8cm}|p{3.6cm}|p{3.6cm}|p{4.5cm}|}
+\hline
+\textbf{Test Type} & \textbf{Setting / Assumptions} & \textbf{Test Statistic} & \textbf{Rejection Region (Level $\alpha$)} & \textbf{Remarks / Examples} \\
+\hline
+\textbf{Most Powerful (MP)} &
+Simple vs. Simple \newline
+$H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$ &
+Likelihood Ratio: $\Lambda(x)=\dfrac{f_{\theta_0}(x)}{f_{\theta_1}(x)}$ &
+Reject $H_0$ when $\Lambda(x) < c_\alpha$ \newline ($c_\alpha$ chosen so $P_{H_0}(\Lambda<c_\alpha)=\alpha$) &
+Guaranteed most powerful by \textbf{Neyman–Pearson Lemma}. \newline Example: Normal mean test with known $\sigma^2$. \\
+\hline
+\textbf{Uniformly Most Powerful (UMP)} &
+Simple vs. One-Sided Composite \newline
+$H_0: \theta=\theta_0$ vs $H_1:\theta>\theta_0$ (or $<\theta_0$) \newline
+Family with \textbf{Monotone Likelihood Ratio (MLR)} &
+Statistic $T(X)$ s.t. $\dfrac{f_{\theta_1}(x)}{f_{\theta_0}(x)}$ increases in $T$ &
+Reject $H_0$ for large $T(X)$ \newline if $H_1:\theta>\theta_0$ (or small if $H_1:\theta<\theta_0$) &
+UMP test exists if MLR holds. \newline Example: $X_i\sim N(\mu,\sigma^2)$ known $\sigma^2$, reject for large $\bar X$. \newline Power increases with $\mu$. \\
+\hline
+\textbf{No UMP (Two-Sided)} &
+Simple vs. Two-Sided Composite \newline
+$H_0: \theta=\theta_0$ vs $H_1:\theta\neq\theta_0$ &
+Varies by test (see GLRT) &
+Reject when $|T(X)|>c_\alpha$ \newline where $T(X)$ symmetric about $0$ &
+No single test uniformly best. \newline Use GLRT or split-tail test. \newline Example: two-sided $z$ or $t$ test for mean. \\
+\hline
+\textbf{Generalized Likelihood Ratio Test (GLRT)} &
+Composite vs. Composite \newline
+$H_0:\theta\in\Omega_0$ vs $H_1:\theta\in\Omega\setminus\Omega_0$ &
+$\Lambda=\dfrac{\max_{\theta\in\Omega_0}L(\theta)}{\max_{\theta\in\Omega}L(\theta)}$ &
+Reject $H_0$ for small $\Lambda$ \newline or large $-2\log\Lambda$ &
+General-purpose test when MP/UMP doesn’t exist. \newline
+Asymptotic result: $-2\log\Lambda\stackrel{d}{\to}\chi^2_d$, $d=\dim(\Omega)-\dim(\Omega_0)$. \newline
+Example: testing $H_0:\mu=\mu_0$ in $N(\mu,\sigma^2)$ (unknown $\sigma^2$) $\Rightarrow$ $t$-test. \\
+\hline
+\textbf{Wald Test} &
+Large-Sample / Asymptotic \newline
+$H_0:\theta=\theta_0$ &
+$W=\dfrac{(\hat\theta-\theta_0)^2}{\widehat{\mathrm{Var}}(\hat\theta)}$ &
+Reject $H_0$ if $W>\chi^2_{1,\alpha}$ &
+Based on MLE asymptotic normality. \newline Equivalent to square of $z$-test. \newline Used in GLM / MLE frameworks. \\
+\hline
+\textbf{Score (Lagrange Multiplier) Test} &
+Large-Sample / Asymptotic \newline
+$H_0:\theta=\theta_0$ &
+$S=\dfrac{[s(\theta_0)]^2}{I(\theta_0)}$, \quad $s(\theta)=\partial_\theta \log L(\theta)$ &
+Reject $H_0$ if $S>\chi^2_{1,\alpha}$ &
+Uses only score at null hypothesis. \newline Convenient when fitting under $H_1$ is hard. \newline Asymptotically equivalent to Wald and LRT. \\
+\hline
+\textbf{Likelihood Ratio (Asymptotic form)} &
+General large-sample case &
+$-2\log\Lambda=2[\log L(\hat\theta)-\log L(\hat\theta_0)]$ &
+Reject if $-2\log\Lambda>\chi^2_{d,\alpha}$ &
+Asymptotically UMP invariant. \newline Equivalent to Wald/Score as $n\to\infty$. \\
+\hline
+\end{tabular}
+\caption{Unified summary of MP, UMP, GLRT, Wald, and Score tests under different assumptions.}
+\end{table}

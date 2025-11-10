@@ -70,3 +70,4 @@
 \contentsline {subsubsection}{\numberline {19.3.2}Simple vs composite}{52}{subsubsection.19.3.2}%
 \contentsline {subsubsection}{\numberline {19.3.3}Composite vs composite}{53}{subsubsection.19.3.3}%
 \contentsline {subsubsection}{\numberline {19.3.4}Asymptotic power of tests}{53}{subsubsection.19.3.4}%
+\contentsline {section}{\numberline {20}Appendix}{55}{section.20}%
