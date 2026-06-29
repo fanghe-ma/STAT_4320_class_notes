@@ -1,0 +1,225 @@
+\section{Lecture 24}
+
+\subsection{Best Subset Selection}
+
+Choose the \textquotedblleft best\textquotedblright{} model with at most $K \le p$ variables:
+\[
+    \hat{\beta}(K)
+    = \arg\min_{\beta}
+        \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+    \quad \text{such that } 
+    \sum_{j=1}^p 1_{\{\beta_j \neq 0\}} \le K.
+\]
+This is a \textbf{non-convex} optimization problem and is computationally difficult.
+
+\subsection{LASSO (Least Absolute Shrinkage and Selection Operator)}
+
+\[
+    \hat{\beta}(K)
+    = \arg\min_{\beta}
+        \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+    \quad \text{such that }
+        \sum_{j=1}^p |\beta_j| \le K.
+\]
+
+\subsubsection{Lagrangian Form}
+
+\[
+    \hat{\beta}(\lambda)
+    = \arg\min_{\beta}
+        \left\{
+        \frac{1}{2} \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+        + \lambda \sum_{j=1}^p |\beta_j|
+        \right\}.
+\]
+
+\paragraph{Remarks.}
+\begin{enumerate}
+    \item The $\ell_1$ penalty induces sparsity.
+    \item The solution is \textbf{nonlinear} in $Y$; no closed form exists.
+    \item The problem is convex, so very efficient numerical solvers exist.
+    \item If $K > \sum_j |\hat{\beta}^{LS}_j|$, then the constraint is inactive and  
+        \[
+            \hat{\beta}_{LASSO}(K) = \hat{\beta}_{LS}.
+        \]
+\end{enumerate}
+
+\subsection{Closed Form Shrinkage When $X = I$}
+
+Assume $X = I_{p \times p}$ so $p=n$ and the model is:
+\[
+    y_i = \beta_i + \varepsilon_i.
+\]
+
+\paragraph{Ridge Regression.}
+\[
+    \hat{\beta}_i(\lambda)
+    = \frac{y_i}{1 + \lambda}.
+\]
+
+\paragraph{LASSO.}
+Solve
+\[
+    \hat{\beta}_i(\lambda)
+    = \arg\min_{\beta_i}
+        \left\{
+            \frac{1}{2} (y_i - \beta_i)^2
+            + \lambda |\beta_i|
+        \right\}.
+\]
+
+By calculus:
+\[
+    \hat{\beta}_i(\lambda)
+    =
+    \begin{cases}
+        y_i - \lambda, & y_i > \lambda, \\
+        0, & |y_i| \le \lambda, \\
+        y_i + \lambda, & y_i < -\lambda.
+    \end{cases}
+\]
+This is the \textbf{soft-thresholding estimator}.
+
+\paragraph{Best Subset Selection.}
+\[
+    \hat{\beta}_i(K)
+    =
+    \begin{cases}
+        y_i, & |y_i| > \lambda, \\
+        0, & \text{otherwise}.
+    \end{cases}
+\]
+This is the \textbf{hard-thresholding estimator}.
+
+\subsection{Selecting $\lambda$ in LASSO: $K$-Fold Cross-Validation}
+
+Fix $\lambda > 0$.
+
+\begin{enumerate}
+    \item Split the data into $K$ roughly equal parts.
+    \item For fold $i$, fit the model on the remaining $K-1$ parts and compute prediction error on fold $i$.
+    \item Repeat for all $i = 1,\dots,K$ and sum the prediction errors.
+    \item Choose the value of $\lambda$ that minimizes the cross-validated error.  
+          Alternatively, choose the largest $\lambda$ within one standard error of the minimum.
+\end{enumerate}
+
+Formally, let $K(i)$ indicate the fold assignment of observation $i$. Then:
+\[
+    CV(\lambda)
+    = \frac{1}{n} \sum_{i=1}^n 
+        (Y_i - \hat{Y}_{-K(i)}(X_i))^2,
+\]
+where $\hat{Y}_{-K(i)}(X_i)$ is the prediction from a model trained \textbf{excluding} fold $K(i)$.
+
+\subsection{Elastic Net}
+
+If predictors are highly correlated, LASSO tends to select only one and ignore the rest.  
+Elastic Net uses a mixture of $\ell_1$ and $\ell_2$ penalties:
+\[
+    \hat{\beta}(\lambda_1,\lambda_2)
+    =
+    \arg\min_{\beta}
+        \left\{
+            \|Y - X\beta\|^2
+            + \lambda_1 \|\beta\|_1
+            + \lambda_2 \|\beta\|_2^2
+        \right\}.
+\]
+
+This combines ridge and LASSO to stabilize selection under correlation.
+
+\subsection{Logistic Regression}
+
+Assume $Y_i \sim \text{Bern}(p_i)$ independently, and model the log-odds:
+\[
+    \log\left( \frac{p_i}{1 - p_i} \right)
+    = x_i^{\top} \beta.
+\]
+
+Equivalently:
+\[
+    p_i = P(Y_i = 1 | x_i)
+    = \frac{e^{x_i^{\top} \beta}}{1 + e^{x_i^{\top} \beta}}.
+\]
+
+\subsection{Likelihood and Estimation}
+
+The likelihood is:
+\[
+    L(\beta)
+    = \prod_{i=1}^n p_i^{Y_i} (1 - p_i)^{1 - Y_i}.
+\]
+
+Log-likelihood:
+\[
+    \ell(\beta)
+    = \sum_{i=1}^n \left\{ 
+        Y_i x_i^{\top} \beta
+        - \log(1 + e^{x_i^{\top} \beta})
+    \right\}.
+\]
+
+Score equations:
+\[
+    0 = \frac{\partial \ell}{\partial \beta_j}
+    = \sum_{i=1}^n x_{ji}(Y_i - p_i),
+\]
+with $p_i = \frac{e^{x_i^\top \beta}}{1 + e^{x_i^\top\beta}}$.
+
+These are solved numerically (e.g., Newton–Raphson, IRLS).
+
+For a new data point $x_{\text{new}}$:
+\[
+    \hat{p}
+    = \frac{e^{x_{\text{new}}^{\top} \hat{\beta}}}
+           {1 + e^{x_{\text{new}}^{\top} \hat{\beta}}}.
+\]
+
+\subsection{GLRT for Testing a Coefficient}
+
+Test:
+\[
+    H_0: \beta_p = 0 \quad \text{vs} \quad H_1: \beta_p \neq 0.
+\]
+
+Let $\hat{\beta}$ be the MLE under the full model, and $\hat{\beta}_0$ the MLE under $H_0$.
+Reject when
+\[
+    -2 \log \Lambda
+    = 2\left[
+        \ell(\hat{\beta})
+        - \ell(\hat{\beta}_0)
+      \right]
+    > \chi^2_{1,\alpha}.
+\]
+
+\subsection{Confidence Interval for $\beta_j$}
+
+The Fisher information is:
+\[
+    I(\beta)
+    = X^{\top} W X,
+\]
+where
+\[
+    W = \operatorname{diag}\left(
+        \frac{e^{x_i^{\top} \beta}}
+             {(1 + e^{x_i^{\top}\beta})^2}
+    \right).
+\]
+
+Asymptotically:
+\[
+    \hat{\beta} \approx
+    N_{p+1}\left(\beta,\ (X^{\top}WX)^{-1}\right).
+\]
+
+Let $\hat{W} = W(\hat{\beta})$. Then an approximate  
+$100(1 - \alpha)\%$ confidence interval for $\beta_j$ is:
+\[
+    \hat{\beta}_j \pm
+    z_{\alpha/2}
+    \sqrt{(X^{\top} \hat{W} X)^{-1}_{jj}}.
+\]
+
+\newpage

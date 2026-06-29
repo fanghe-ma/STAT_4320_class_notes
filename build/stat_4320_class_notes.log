@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.29)  11 DEC 2025 20:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.29)  29 JUN 2026 12:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/fanghema/Desktop/aaSTAT_4320/STAT_4320_class_notes/stat_4320_class_notes.tex
-(/Users/fanghema/Desktop/aaSTAT_4320/STAT_4320_class_notes/stat_4320_class_notes.tex
+**/Users/fanghema/Documents/Fall'25/aaSTAT_4320/STAT_4320_class_notes/stat_4320_class_notes.tex
+(/Users/fanghema/Documents/Fall'25/aaSTAT_4320/STAT_4320_class_notes/stat_4320_class_notes.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/local/texlive/2023/texmf-dist/tex/latex/extsizes/extarticle.cls
 Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
@@ -1369,7 +1369,7 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 26.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (./stat_4320_class_notes.aux)
+) (build/stat_4320_class_notes.aux)
 \openout1 = `stat_4320_class_notes.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
@@ -1465,7 +1465,7 @@ Package biblatex Info: ... file 'stat_4320_class_notes.bbl' found.
 Package biblatex Info: Reference section=0 on input line 26.
 Package biblatex Info: Reference segment=0 on input line 26.
 Package hyperref Info: Link coloring OFF on input line 26.
- (./stat_4320_class_notes.out) (./stat_4320_class_notes.out)
+ (build/stat_4320_class_notes.out) (build/stat_4320_class_notes.out)
 \@outlinefile=\write5
 \openout5 = `stat_4320_class_notes.out'.
 
@@ -1514,7 +1514,7 @@ LaTeX Warning: No \author given.
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 53.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (./stat_4320_class_notes.toc
+) (build/stat_4320_class_notes.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -2067,7 +2067,7 @@ Overfull \hbox (12.32341pt too wide) in paragraph at lines 59--115
  [][] 
  []
 
-) [70] (./stat_4320_class_notes.aux)
+) [70] (build/stat_4320_class_notes.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.28pt have occurred.
@@ -2082,15 +2082,15 @@ Package logreq Info: Writing requests to 'stat_4320_class_notes.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 59434 strings out of 476025
- 1357829 string characters out of 5790017
+ 59435 strings out of 476025
+ 1357927 string characters out of 5790017
  2235510 words of memory out of 5000000
  78379 multiletter control sequences out of 15000+600000
  633618 words of font info for 135 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,20n,102p,2056b,2070s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,20n,102p,2066b,2070s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmib7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on stat_4320_class_notes.pdf (70 pages, 712869 bytes).
+Output written on build/stat_4320_class_notes.pdf (70 pages, 713710 bytes).
 PDF statistics:
  1292 PDF objects out of 1440 (max. 8388607)
  1123 compressed objects within 12 object streams

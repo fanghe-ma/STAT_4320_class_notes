@@ -162,4 +162,68 @@
 \end{example}
 
 \begin{example} (Two sample t-test, unequal variances)
+    Suppose $X_1, \hdots X_m$ iid $N(\mu_1, \sigma_1^2)$, and $Y_1, Y_2, \hdots Y_n$ iid $N(\mu_2, \sigma^2)$. \\
+
+    Consider the hypothesis 
+    \[
+        H_0: \mu_1 = \mu_2 \text{ vs } H_1 \mu_1 \neq \mu_2
+    \]
+
+    This is the \textbf{Behrens-Fisher problem}. \\
+
+    The \textbf{GLRT} does not have a simple closed form. \\
+
+    A natural statistic is 
+    \[
+        T_{\text{unequal}} = \frac{
+            \bar{X}  - \bar{Y} 
+        }{
+            \sqrt{
+                \frac{s_1^2}{m} + \frac{s_2^2}{n}
+            }
+        }
+    \]
+    Where 
+    \begin{align*}
+        s_1^2 &= \frac{1}{m} \sum\limits_{i = 1}^{m}  \left( X_i - \bar{X}  \right)^2 \\
+        s_2^2 &= \frac{1}{n} \sum\limits_{j = 1}^{n}  \left( Y_i - \bar{Y}  \right)^2
+    \end{align*}
+
+    The distribution of $T_{ \text{unequal}}$ is no longer exactly $t$-distribution, and instead depends on $ \sigma^2_1 / \sigma_2^2$. \\
+
+    \textbf{Welch t-test} \\
+
+    The distribution of $T_{\text{unequal}}$ is approximated by a $t$-distribution with $\gamma$ degrees of freedom, where 
+    \[
+        \min \{ m, n \}  \leq \gamma \leq n + m -2
+    \]
+
+    Hence, the test which rejects $H_0$ when 
+    \[
+        \left| \frac{
+            \bar{X}  - \bar{Y} 
+        }{
+            \sqrt{
+                \frac{s_1^2}{m} + \frac{s_2^2}{n}
+            }
+        } \right| > t_{\gamma, \frac{\alpha}{2}}
+    \]
+    is an approximately level $\alpha$ test. \\
+
+    \textbf{Proof}:
+    When sample sizes are large, i.e. 
+    \[
+        \min \{ m, n \}  \to \infty
+    \]
+    Then
+    \[
+        T_{\text{unequal}} \overset{d}{\longrightarrow}  N(0, 1)
+    \]
+    Hence the test which rejects $H_0$ when 
+    \[
+        \left| T_{\text{unequal}} \right|  > z_{\alpha / 2}
+    \]
+    is asymptotically level $\alpha$.
 \end{example}
+
+\newpage

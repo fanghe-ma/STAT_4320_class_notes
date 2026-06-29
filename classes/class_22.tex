@@ -1,0 +1,164 @@
+\section{Lecture 22}
+
+\subsection{Multicollinearity}
+
+\begin{definition}
+\textbf{Multicollinearity}: This occurs when one (or more) of the predictors is nearly a linear combination of some of the others.
+
+This leads to higher variance of the estimates of the regression coefficients. The coefficients may have large standard errors and become statistically insignificant, even when the overall F-statistic is significant.
+\end{definition}
+
+\subsection{Variance Inflation Factor (VIF)}
+
+\begin{definition}
+Consider the regression of the variable $X_j$ on the remaining predictors $\{X_k : k \neq j\}$.  
+Let $R_j^2$ denote the coefficient of determination in this regression.
+
+The \textbf{variance inflation factor} of $X_j$ is defined as
+\[
+    \mathrm{VIF}_j = \frac{1}{1 - R_j^2}.
+\]
+The VIF measures how much the variance of the LS estimate is inflated due to collinearity.
+\end{definition}
+
+\subsection{Interpretation of VIF}
+
+Consider the simple (univariate) regression of $Y$ on $X_j$:
+\[
+    Y_i = \alpha_0 + \alpha_j X_{ji} + \varepsilon_i.
+\]
+
+Then
+\[
+    \Var(\hat{\alpha}_j) = \frac{\sigma^2}{s_j^2},
+\]
+where
+\[
+    s_j^2 = \sum_{i=1}^n (X_{ji} - \bar{X}_j)^2.
+\]
+
+\begin{result}
+In the full regression model
+\[
+    Y = X \beta + \varepsilon,
+\]
+using the formula for the inverse of a partitioned matrix, one can show
+\[
+    \Var(\hat{\beta}_j) = \frac{\sigma^2}{1 - R_j^2} \cdot \frac{1}{s_j^2}.
+\]
+Thus the variance of $\hat{\beta}_j$ is inflated relative to the univariate case by the factor
+\[
+    \mathrm{VIF}_j = \frac{1}{1 - R_j^2}.
+\]
+\end{result}
+
+\subsection{Methods to Handle Multicollinearity}
+
+\begin{itemize}
+    \item Remove some variables (to reduce collinearity in the remaining ones).
+    \item Use shrinkage methods such as ridge regression.
+\end{itemize}
+
+\subsection{Ridge Regression}
+
+Consider the multiple linear regression model
+\[
+    Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_p X_{pi} + \varepsilon_i,
+\]
+for $1 \leq i \leq n$, where $p$ may be larger than $n$.
+
+Given a regularization parameter $\lambda > 0$, the ridge regression estimator is
+\[
+    \hat{\beta}(\lambda)
+    = \arg\min_{\beta}
+    \left\{
+        \sum_{i=1}^n \left( y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji} \right)^2
+        +
+        \lambda \sum_{j=1}^p \beta_j^2
+    \right\}.
+\]
+
+\paragraph{Remarks.}
+\begin{enumerate}
+    \item Larger $\lambda$ means more shrinkage toward zero.
+    \item If $\lambda = 0$, we recover the least squares estimator.
+    \item The intercept term is \textbf{not} penalized.
+\end{enumerate}
+
+\subsection{Centering and Scaling}
+
+Typically the predictors are scaled to mean $0$ and variance $1$:
+\[
+    \bar{X}_j = \frac{1}{n} \sum_{i=1}^n X_{ji},
+    \qquad
+    s_j^2 = \frac{1}{n-1} \sum_{i=1}^n (X_{ji} - \bar{X}_j)^2,
+\]
+and the standardized version is
+\[
+    \tilde{X}_{ji} = \frac{X_{ji} - \bar{X}_j}{s_j}.
+\]
+
+This removes the intercept and makes ridge coefficients equivariant under scaling transformations
+\[
+    X_{ji} \mapsto a + b X_{ji}.
+\]
+
+\subsection{Constrained Form of Ridge Regression}
+
+The equivalent constrained optimization problem is
+\[
+    \hat{\beta}(\lambda)
+    =
+    \arg\min_{\beta}
+    \sum_{i=1}^n
+        \left( y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji} \right)^2
+    \quad \text{subject to } \sum_{j=1}^p \beta_j^2 \le t.
+\]
+
+\subsection{Matrix Form}
+
+Assume $Y$ is centered and $X$ is scaled so that $X$ has $p$ columns. Then the ridge objective is
+\[
+    RSS(\lambda)
+    =
+    \| Y - X \beta \|^2 + \lambda \|\beta\|^2.
+\]
+
+Then
+\[
+    \hat{\beta}(\lambda)
+    = \arg\min_{\beta} RSS(\lambda).
+\]
+
+\begin{result}
+The ridge regression estimator is
+\[
+    \hat{\beta}(\lambda)
+    = (X^{\top} X + \lambda I_p)^{-1} X^{\top} Y,
+\]
+where $I_p$ is the $p \times p$ identity matrix.
+
+\begin{enumerate}
+    \item $\hat{\beta}(\lambda)$ is a linear function of $Y$.
+    \item $X^{\top} X + \lambda I_p$ is invertible even when $X^{\top} X$ is not.
+\end{enumerate}
+\end{result}
+
+\begin{proof}
+Taking the gradient of the objective:
+\[
+    \nabla_{\beta} RSS(\lambda)
+    = -2 X^{\top} Y + 2 X^{\top} X \beta + 2 \lambda \beta = 0.
+\]
+Thus
+\[
+    (X^{\top} X + \lambda I_p)\hat{\beta}(\lambda) = X^{\top} Y,
+\]
+and hence
+\[
+    \hat{\beta}(\lambda)
+    = (X^{\top} X + \lambda I_p)^{-1} X^{\top} Y.
+\]
+\end{proof}
+
+\newpage

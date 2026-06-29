@@ -1,0 +1,168 @@
+\section{Lecture 23}
+
+Recall that the ridge regression estimator is
+\[
+    \hat{\beta}(\lambda)
+    = (X^{\top} X + \lambda I_p)^{-1} X^{\top} Y.
+\]
+
+\subsection{Properties of the Ridge Regression Estimator}
+
+Assume $\varepsilon \sim N_n(0, \sigma^2 I)$.
+
+\begin{result}
+\[
+    \mathbb{E}[\hat{\beta}(\lambda)]
+    = (X^{\top} X + \lambda I)^{-1} X^{\top} \mathbb{E}[Y]
+    = (X^{\top} X + \lambda I)^{-1} X^{\top} X \beta
+    = \beta - \lambda (X^{\top} X + \lambda I)^{-1} \beta.
+\]
+Thus, $\hat{\beta}(\lambda)$ is \textbf{biased}.
+\end{result}
+
+\begin{result}
+\[
+    \Var(\hat{\beta}(\lambda))
+    = \sigma^2 (X^{\top} X + \lambda I)^{-1} X^{\top}
+        X (X^{\top} X + \lambda I)^{-1}.
+\]
+\end{result}
+
+\begin{result}
+It can be shown that
+\[
+    \Var(\hat{\beta}_{LS}) - \Var(\hat{\beta}(\lambda))
+\]
+is a nonnegative definite matrix.  
+Hence ridge regression has \textbf{smaller variance} than least squares.
+\end{result}
+
+\begin{result}
+$\hat{\beta}(\lambda)$ is multivariate normal with mean and variance as above.
+\end{result}
+
+\subsection{Mean-Square Error for a Multivariate Estimator}
+
+Suppose $\hat{\theta}$ estimates a $p$-dimensional parameter $\theta$.
+\[
+    \mathrm{MSE}(\hat{\theta})
+    = \mathbb{E}[(\hat{\theta} - \theta)^{\top}(\hat{\theta} - \theta)].
+\]
+
+Expanding,
+\[
+    \mathrm{MSE}(\hat{\theta})
+    = \sum_{i=1}^p \Var(\hat{\theta}_i)
+        + \|\mathrm{Bias}(\hat{\theta})\|^2
+    = \operatorname{tr}(\Var(\hat{\theta})) + \|\mathrm{Bias}(\hat{\theta})\|^2.
+\]
+
+\subsection{Degrees of Freedom in Ridge Regression}
+
+Define fitted values
+\[
+    \hat{Y}(\lambda)
+    = X \hat{\beta}(\lambda)
+    = X (X^{\top} X + \lambda I)^{-1} X^{\top} Y
+    = H_{\lambda} Y,
+\]
+where
+\[
+    H_{\lambda}
+    = X (X^{\top} X + \lambda I)^{-1} X^{\top}.
+\]
+
+For $\lambda = 0$, $H_0 = P_X$, the projection matrix onto $\operatorname{col}(X)$.
+
+\begin{definition}
+The \textbf{effective degrees of freedom} of ridge regression is
+\[
+    df(\lambda) = \operatorname{tr}(H_{\lambda}).
+\]
+\end{definition}
+
+\begin{result}
+If $d_1, \dots, d_p$ are the singular values of $X$, then
+\[
+    df(\lambda)
+    = \sum_{j=1}^p \frac{d_j^2}{d_j^2 + \lambda}.
+\]
+\end{result}
+
+\paragraph{Remarks.}
+\begin{enumerate}
+    \item If the eigenvalues of $X^{\top} X$ are $\kappa_1, \dots, \kappa_p$, then $d_j = \sqrt{\kappa_j}$.
+    \item $df(0) = p$, as in least squares.
+    \item $df(\lambda) \le df(0)$ for all $\lambda > 0$.
+\end{enumerate}
+
+\subsection{Selecting $\lambda$: Generalized Cross-Validation (GCV)}
+
+Define
+\[
+    \mathrm{GCV}(\lambda)
+    = \frac{1}{n} \sum_{i=1}^n
+        \left(
+            \frac{Y_i - \hat{Y}_i}{1 - \frac{df(\lambda)}{n}}
+        \right)^2.
+\]
+
+Interpretation: For each $i$, fit the model leaving out observation $i$
+and denote the predicted value by $\hat{Y}_{-i}(X_i)$.  
+A measure of predictive error is
+\[
+    \frac{1}{n} \sum_{i=1}^n (Y_i - \hat{Y}_{-i}(X_i))^2.
+\]
+
+It can be shown this equals approximately the expression above.
+
+\subsection{Alternate Constrained Form of Ridge Regression}
+
+\[
+    \hat{\beta}(\lambda)
+    = \arg\min_{\beta}
+        \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+    \quad \text{subject to }
+        \sum_{j=1}^p \beta_j^2 \le K.
+\]
+
+\subsection{Best Subset Selection}
+
+Choose the ``best'' model with at most $K \le p$ variables:
+\[
+    \hat{\beta}(K)
+    = \arg\min_{\beta}
+        \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+    \quad \text{such that }
+        \sum_{j=1}^p 1_{\{\beta_j \ne 0\}} \le K.
+\]
+This is a \textbf{nonconvex} optimization problem.
+
+\subsection{LASSO (Least Absolute Shrinkage and Selection Operator)}
+
+\[
+    \hat{\beta}(K)
+    = \arg\min_{\beta}
+        \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+    \quad \text{such that }
+        \sum_{j=1}^p |\beta_j| \le K.
+\]
+
+Equivalent Lagrangian form:
+\[
+    \hat{\beta}(\lambda)
+    = \arg\min_{\beta}
+        \frac{1}{2} \sum_{i=1}^n (Y_i - \beta_0 - \sum_{j=1}^p \beta_j X_{ji})^2
+        + \lambda \sum_{j=1}^p |\beta_j|.
+\]
+
+\paragraph{Remarks.}
+\begin{enumerate}
+    \item LASSO uses an $\ell_1$ penalty.  
+          The solution is nonlinear in $Y$—no closed form exists.
+    \item The problem is convex; efficient solvers exist.
+    \item If $K > \sum_j |\hat{\beta}_{LS,j}|$, then LASSO reduces to LS.
+    \item The $\ell_1$ penalty induces \textbf{sparsity} in $\hat{\beta}$.
+\end{enumerate}
+
+\newpage
